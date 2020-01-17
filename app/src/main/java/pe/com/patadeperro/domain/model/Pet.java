@@ -19,8 +19,18 @@ public class Pet implements Serializable {
     private String color;
     private String qrCode;
 
-    public Pet(String id, String docString1, String string1, String s, String docString, String string, String name) {
+    public Pet(
+            String id, String idCloud, String idUser,
+            String name, String race, String gender, String color) {
+
+        this.id = id;
+        this.idCloud = idCloud;
+        this.idUser = idUser;
         this.name = name;
+        this.race = race;
+        this.gender = gender;
+        this.color = color;
+
     }
 
     public String getId() {

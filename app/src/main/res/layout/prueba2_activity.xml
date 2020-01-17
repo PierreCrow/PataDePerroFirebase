@@ -10,22 +10,24 @@
 
 
     <EditText
-        android:id="@+id/etNameCreateUser"
+        android:id="@+id/etNameCreatePet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Pet name"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/etMailCreateUser"
+        android:id="@+id/etRaceCreatePet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Race"
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/btnCreateUser"
+        android:id="@+id/btnCreatePet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="New Pet" />
 </LinearLayout>

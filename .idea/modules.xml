@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AppMovilLima.iml" filepath="$PROJECT_DIR$/AppMovilLima.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PataDePerroFirebase.iml" filepath="$PROJECT_DIR$/PataDePerroFirebase.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pdp.iml" filepath="$PROJECT_DIR$/pdp.iml" />
     </modules>
   </component>
 </project>

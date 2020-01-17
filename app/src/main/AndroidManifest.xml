@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -21,12 +20,17 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba2Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="pe.com.patadeperro.presentation.utils.GlideConfiguration"
             android:value="GlideModule" />
-
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
@@ -36,16 +40,12 @@
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.MapActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.ListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.PruebaActivity"
             android:screenOrientation="portrait"

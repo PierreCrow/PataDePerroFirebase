@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.com.patadeperro.R;
-import com.google.firebase.FirebaseApp;
 
 import java.util.ArrayList;
 
@@ -34,14 +33,11 @@ public class PruebaActivity extends BaseActivity implements UsuarioView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.prueba_activity);
-        etNameCreareUser=(EditText)findViewById(R.id.etNameCreareUser);
+
+        etNameCreareUser=(EditText)findViewById(R.id.etNameCreateUser);
         etMailCreateUser=(EditText)findViewById(R.id.etMailCreateUser);
         btnCreateUser=(Button) findViewById(R.id.btnCreateUser);
-
-
-
 
         usuarioPresenter= new UsuarioPresenter();
         usuarioPresenter.addView(this);
