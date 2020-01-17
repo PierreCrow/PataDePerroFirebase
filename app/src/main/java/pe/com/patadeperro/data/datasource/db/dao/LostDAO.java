@@ -15,10 +15,13 @@ public interface LostDAO {
 
     @Insert
     void InsertOnlyOne(Lost lost);
+
     @Insert
     void InsertMultiple(ArrayList<Lost> losts);
+
     @Update
     void Update(Lost lost);
+
     @Delete
     void Delete(Lost lost);
 

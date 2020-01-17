@@ -27,6 +27,7 @@ public class Constants {
     public class FIREBASE_TABLES {
         public static final String USER = "users";
         public static final String LOST = "lost";
+        public static final String PET = "pet";
     }
 
     public class FIREBASE_TABLES_FIELDS {
@@ -41,6 +42,18 @@ public class Constants {
         public static final String USER_active = "active";
         public static final String USER_created_at = "created_at";
         public static final String USER_notifications = "notifications";
+
+        public static final String PET_id = "id";
+        public static final String PET_idCloud = "idCloud";
+        public static final String PET_idUser = "idUser";
+        public static final String PET_name = "name";
+        public static final String PET_race = "race";
+        public static final String PET_gender = "gender";
+        public static final String PET_age = "age";
+        public static final String PET_color = "color";
+        public static final String PET_qrCode = "qrCode";
+
+
     }
 
 

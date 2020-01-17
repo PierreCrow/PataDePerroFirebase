@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.facebook.stetho.Stetho;
+import com.google.firebase.FirebaseApp;
+
 import pe.com.patadeperro.presentation.utils.ExceptionHandler;
 
 
@@ -28,6 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
+        FirebaseApp.initializeApp(this);
        // hideKeyboard(this);
         // getUnhandledExceptions();
     }

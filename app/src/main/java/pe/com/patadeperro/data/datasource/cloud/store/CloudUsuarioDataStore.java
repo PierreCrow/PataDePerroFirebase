@@ -1,5 +1,7 @@
 package pe.com.patadeperro.data.datasource.cloud.store;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -10,6 +12,7 @@ import pe.com.patadeperro.presentation.utils.Constants;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,8 +32,10 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
 
     private FirebaseFirestore db;
 
-    public CloudUsuarioDataStore() {
-        db = FirebaseFirestore.getInstance();
+    public CloudUsuarioDataStore(FirebaseFirestore db) {
+        //FirebaseApp.initializeApp(context);
+       // db = FirebaseFirestore.getInstance();
+        this.db = db;
     }
 
 

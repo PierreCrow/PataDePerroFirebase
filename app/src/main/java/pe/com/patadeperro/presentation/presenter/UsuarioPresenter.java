@@ -24,6 +24,13 @@ public class UsuarioPresenter implements
     private UsuarioInteractor usuarioInteractor;
 
 
+    public void createUsuario(Usuario usuario)
+    {
+        usuarioInteractor.createUsuario(
+                usuario,this);
+    }
+
+
     @Override
     public void addView(UsuarioView view) {
         this.usuarioView = view;

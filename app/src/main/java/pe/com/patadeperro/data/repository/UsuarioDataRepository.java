@@ -1,5 +1,7 @@
 package pe.com.patadeperro.data.repository;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStore;
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStoreFactory;
 import pe.com.patadeperro.domain.model.Usuario;
@@ -20,7 +22,8 @@ public class UsuarioDataRepository implements UsuarioRepository {
 
     @Override
     public void createUsuario(Usuario usuario, UsuarioCreatedCallback usuarioCreatedCallback) {
-        final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(usuarioDataStoreFactory.CLOUD);
+        final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
+                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
         usuarioDataStore.createUsuario(usuario, new RepositoryCallback() {
             @Override
             public void onError(Object object) {

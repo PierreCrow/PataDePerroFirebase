@@ -2,6 +2,9 @@ package pe.com.patadeperro.data.datasource.datastore;
 
 import android.content.Context;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import pe.com.patadeperro.data.datasource.cloud.store.CloudUsuarioDataStore;
 import pe.com.patadeperro.data.datasource.db.store.DbUsuarioDataStore;
 
@@ -20,12 +23,12 @@ public class UsuarioDataStoreFactory {
     }
 
 
-    public UsuarioDataStore create(int dataSource) {
+    public UsuarioDataStore create(int dataSource, FirebaseFirestore db) {
         UsuarioDataStore usuarioDataStore = null;
 
         switch (dataSource) {
             case CLOUD:
-                usuarioDataStore = createCloudDataStore();
+                usuarioDataStore = createCloudDataStore(db);
                 break;
             case DB:
                 usuarioDataStore = new DbUsuarioDataStore(context);
@@ -34,8 +37,8 @@ public class UsuarioDataStoreFactory {
         return usuarioDataStore;
     }
 
-    private UsuarioDataStore createCloudDataStore() {
-        return new CloudUsuarioDataStore();
+    private UsuarioDataStore createCloudDataStore(FirebaseFirestore db) {
+        return new CloudUsuarioDataStore(db );
     }
 
 
