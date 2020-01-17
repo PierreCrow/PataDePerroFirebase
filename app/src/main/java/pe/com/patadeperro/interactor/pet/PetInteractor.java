@@ -12,7 +12,10 @@ public class PetInteractor {
         this.petRepository = petRepository;
     }
 
-    public void createPet(Pet pet, PetCreatedCallback petCreatedCallback) {
+    public void createPet(
+            Pet pet,
+            PetCreatedCallback petCreatedCallback
+    ) {
         petRepository.createPet(pet, petCreatedCallback);
     }
 

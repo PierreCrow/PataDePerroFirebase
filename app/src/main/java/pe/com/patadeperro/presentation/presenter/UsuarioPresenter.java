@@ -34,7 +34,10 @@ public class UsuarioPresenter implements
     @Override
     public void addView(UsuarioView view) {
         this.usuarioView = view;
-        UsuarioRepository requestRepository = new UsuarioDataRepository(new UsuarioDataStoreFactory(this.usuarioView.getContext()));
+        UsuarioRepository requestRepository =
+                new UsuarioDataRepository(
+                new UsuarioDataStoreFactory(this.usuarioView.getContext())
+                );
         usuarioInteractor = new UsuarioInteractor(requestRepository);
     }
 

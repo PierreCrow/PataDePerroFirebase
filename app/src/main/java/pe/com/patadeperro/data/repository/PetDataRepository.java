@@ -1,5 +1,7 @@
 package pe.com.patadeperro.data.repository;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
 import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
 import pe.com.patadeperro.domain.model.Pet;
@@ -20,7 +22,8 @@ public class PetDataRepository implements PetRepository {
 
     @Override
     public void createPet(Pet pet, PetCreatedCallback petCreatedCallback) {
-        final PetDataStore petDataStore = petDataStoreFactory.create(petDataStoreFactory.CLOUD);
+        final PetDataStore petDataStore = petDataStoreFactory.create(
+                petDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
         petDataStore.createPet(pet, new RepositoryCallback() {
             @Override
             public void onError(Object object) {

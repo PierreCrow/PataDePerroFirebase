@@ -2,6 +2,8 @@ package pe.com.patadeperro.data.datasource.datastore;
 
 import android.content.Context;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import pe.com.patadeperro.data.datasource.cloud.store.CloudPetDataStore;
 import pe.com.patadeperro.data.datasource.db.store.DbPetDataStore;
 
@@ -20,12 +22,13 @@ public class PetDataStoreFactory {
     }
 
 
-    public PetDataStore create(int dataSource) {
+    public PetDataStore create(
+            int dataSource, FirebaseFirestore db) {
         PetDataStore petDataStore = null;
 
         switch (dataSource) {
             case CLOUD:
-                petDataStore = createCloudDataStore();
+                petDataStore = createCloudDataStore(db);
                 break;
             case DB:
                 petDataStore = new DbPetDataStore(context);
@@ -34,8 +37,9 @@ public class PetDataStoreFactory {
         return petDataStore;
     }
 
-    private PetDataStore createCloudDataStore() {
-        return new CloudPetDataStore();
+    private PetDataStore createCloudDataStore(
+            FirebaseFirestore db) {
+        return new CloudPetDataStore(db);
     }
 
 

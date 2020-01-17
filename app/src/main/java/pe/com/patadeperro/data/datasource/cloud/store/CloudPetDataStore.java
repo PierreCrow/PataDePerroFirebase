@@ -29,8 +29,9 @@ public class CloudPetDataStore implements PetDataStore {
 
     private FirebaseFirestore db;
 
-    public CloudPetDataStore() {
-        db = FirebaseFirestore.getInstance();
+    public CloudPetDataStore(FirebaseFirestore db) {
+    //    this.db = FirebaseFirestore.getInstance();
+        this.db = db;
     }
 
 
@@ -39,6 +40,12 @@ public class CloudPetDataStore implements PetDataStore {
 
         Map<String, Object> petH = new HashMap<>();
         petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_name, pet.getName());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_race, pet.getRace());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_gender, pet.getGender());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_age, pet.getAge());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_color, pet.getColor());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode, pet.getQrCode());
+
 
         db.collection(Constants.FIREBASE_TABLES.PET)
                 .add(pet)

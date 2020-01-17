@@ -24,6 +24,13 @@ public class PetPresenter implements
     private PetInteractor petInteractor;
 
 
+    public void createPet(Pet pet)
+    {
+        petInteractor.createPet(
+                pet,this);
+    }
+
+
     @Override
     public void addView(PetView view) {
         this.petView = view;

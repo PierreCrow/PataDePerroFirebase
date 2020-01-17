@@ -23,7 +23,8 @@ public class UsuarioDataStoreFactory {
     }
 
 
-    public UsuarioDataStore create(int dataSource, FirebaseFirestore db) {
+    public UsuarioDataStore create(
+            int dataSource, FirebaseFirestore db) {
         UsuarioDataStore usuarioDataStore = null;
 
         switch (dataSource) {
@@ -37,7 +38,8 @@ public class UsuarioDataStoreFactory {
         return usuarioDataStore;
     }
 
-    private UsuarioDataStore createCloudDataStore(FirebaseFirestore db) {
+    private UsuarioDataStore createCloudDataStore(
+            FirebaseFirestore db) {
         return new CloudUsuarioDataStore(db );
     }
 
