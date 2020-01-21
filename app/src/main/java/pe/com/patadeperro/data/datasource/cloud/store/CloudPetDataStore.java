@@ -87,7 +87,7 @@ public class CloudPetDataStore implements PetDataStore {
     }
 
 
-/*
+    /*
     @Override
     public void verifyPetExist(String phone, RepositoryCallback repositoryCallback) {
 
@@ -95,7 +95,7 @@ public class CloudPetDataStore implements PetDataStore {
         // Lo dejamos vacío
 
     }
-*/
+    */
 
         @Override
     public void petsList(RepositoryCallback repositoryCallback) {
@@ -112,7 +112,10 @@ public class CloudPetDataStore implements PetDataStore {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                             // GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.PET_location);
-                            Pet pet = new Pet(doc.getId(),
+                            Pet pet = new Pet(
+                                    // (String) doc.get(Constants.FIREBASE_TABLES_FIELDS.PET_id),
+                                    doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud),
+                                    doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_idUser),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_name),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_race),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_gender),

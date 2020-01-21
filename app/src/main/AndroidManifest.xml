@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba3Activity">
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba0Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

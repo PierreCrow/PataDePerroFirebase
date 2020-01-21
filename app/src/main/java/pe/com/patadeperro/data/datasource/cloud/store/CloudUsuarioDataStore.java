@@ -50,6 +50,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         user.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
         user.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, usuario.isActive());
         user.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, usuario.getCreated_at());
+        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, usuario.isNotifications());
 
         db.collection(Constants.FIREBASE_TABLES.USER)
                 .add(user)
@@ -111,9 +112,20 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                             if (phone.equals(doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber))) {
-                                usuario = new Usuario(doc.getId(), "", doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name), doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_email), 0.0, 0.0,
-                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_logged), doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_active), doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_created_at), false);
+                                usuario = new Usuario(
+                                        // (Integer) doc.get(Constants.FIREBASE_TABLES_FIELDS.USER_id),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_idCloud),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_uid),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_email),
+                                        0.0,
+                                        0.0,
+                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_logged),
+                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_active),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_created_at),
+                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_notifications)
+                                        );
                                 usuario.setId(0);
                             }
                         }
@@ -138,7 +150,9 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                             GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.USER_location);
-                            Usuario usuario = new Usuario(doc.getId(),
+                            Usuario usuario = new Usuario(
+                                    // (Integer) doc.get(Constants.FIREBASE_TABLES_FIELDS.USER_id),
+                                    doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_idCloud),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_uid),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
@@ -148,7 +162,8 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                                     doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_logged),
                                     doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_active),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_created_at),
-                                    doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_notifications));
+                                    doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_notifications)
+                                      );
                             usuarios.add(usuario);
                         }
                         repositoryCallback.onSuccess(usuarios);

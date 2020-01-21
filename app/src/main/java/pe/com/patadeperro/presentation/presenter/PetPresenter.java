@@ -1,5 +1,6 @@
 package pe.com.patadeperro.presentation.presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
@@ -23,18 +24,23 @@ public class PetPresenter implements
     private PetView petView;
     private PetInteractor petInteractor;
 
-
-    public void createPet(Pet pet)
-    {
+    public void createPet(Pet pet) {
         petInteractor.createPet(
                 pet,this);
     }
 
+    public void loadPets() {
+        petInteractor.loadPets(
+                this);
+    }
 
     @Override
     public void addView(PetView view) {
         this.petView = view;
-        PetRepository requestRepository = new PetDataRepository(new PetDataStoreFactory(this.petView.getContext()));
+        PetRepository requestRepository =
+                new PetDataRepository(
+                        new PetDataStoreFactory(this.petView.getContext())
+                );
         petInteractor = new PetInteractor(requestRepository);
     }
 
@@ -65,6 +71,7 @@ public class PetPresenter implements
 
     @Override
     public void onPetSuccess(List<Pet> petList) {
+        petView.petsListLoaded((ArrayList<Pet>) petList);
 
     }
 

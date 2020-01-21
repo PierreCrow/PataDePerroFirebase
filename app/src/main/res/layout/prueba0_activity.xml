@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.activities.Prueba3Activity">
+    tools:context="pe.com.patadeperro.presentation.ui.activities.Prueba0Activity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_Prueba0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="PDP Prueba... elija"
+        android:text="PDP Prueba... elija una opción"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_usuarios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:onClick="onBtnUsuarioClicked"
         android:text="Usuarios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_Prueba0" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="onBtnPetClicked"
         android:text="Mascotas"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        tools:layout_editor_absoluteX="160dp" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_usuarios"
+        app:layout_constraintStart_toStartOf="@+id/btn_usuarios"
+        app:layout_constraintTop_toBottomOf="@+id/btn_usuarios" />
 </androidx.constraintlayout.widget.ConstraintLayout>

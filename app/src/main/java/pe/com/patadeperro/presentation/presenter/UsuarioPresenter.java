@@ -1,5 +1,8 @@
 package pe.com.patadeperro.presentation.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStoreFactory;
 import pe.com.patadeperro.data.repository.UsuarioDataRepository;
 import pe.com.patadeperro.domain.model.Usuario;
@@ -11,8 +14,6 @@ import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioUpdatedCallback;
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
-import java.util.List;
-
 public class UsuarioPresenter implements
         Presenter<UsuarioView>,
         UsuarioCreatedCallback,
@@ -23,20 +24,22 @@ public class UsuarioPresenter implements
     private UsuarioView usuarioView;
     private UsuarioInteractor usuarioInteractor;
 
-
-    public void createUsuario(Usuario usuario)
-    {
+    public void createUsuario(Usuario usuario) {
         usuarioInteractor.createUsuario(
-                usuario,this);
+                usuario, this);
     }
 
+    public void loadUsuarios() {
+        usuarioInteractor.loadUsuarios(
+                this);
+    }
 
     @Override
     public void addView(UsuarioView view) {
         this.usuarioView = view;
         UsuarioRepository requestRepository =
                 new UsuarioDataRepository(
-                new UsuarioDataStoreFactory(this.usuarioView.getContext())
+                        new UsuarioDataStoreFactory(this.usuarioView.getContext())
                 );
         usuarioInteractor = new UsuarioInteractor(requestRepository);
     }
@@ -52,22 +55,12 @@ public class UsuarioPresenter implements
     }
 
     @Override
-    public void onUserExistSuccess(Usuario user) {
-
-    }
-
-    @Override
     public void onUserCreatedError(String message) {
 
     }
 
     @Override
-    public void onUsersSuccess(List<Usuario> escortList) {
-
-    }
-
-    @Override
-    public void onUsersError(String message) {
+    public void onUserExistSuccess(Usuario user) {
 
     }
 
@@ -80,4 +73,17 @@ public class UsuarioPresenter implements
     public void onUserUpdatedError(String message) {
 
     }
+
+    @Override
+    public void onUsersSuccess(List<Usuario> usuarios) {
+        usuarioView.usersListLoaded((ArrayList<Usuario>) usuarios);
+        //    lista
+
+    }
+
+    @Override
+    public void onUsersError(String message) {
+
+    }
+
 }

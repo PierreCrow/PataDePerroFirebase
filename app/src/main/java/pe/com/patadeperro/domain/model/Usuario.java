@@ -2,6 +2,7 @@ package pe.com.patadeperro.domain.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -38,13 +39,21 @@ public class Usuario implements Serializable {
     @SerializedName("notifications")
     public boolean notifications;
 
-    public Usuario() {
-    }
+   public Usuario(
+            // Integer id,
+            String idCloud,
+            String uid,
+            String name,
+            String phoneNumber,
+            String email,
+            Double lat,
+            Double lng,
+            boolean logged,
+            boolean active,
+            String created_at,
+            boolean notifications) {
 
-
-    public Usuario(String idCloud, String uid, String name, String phoneNumber, String email,
-                   Double lat, Double lng, boolean logged,
-                   boolean active, String created_at, boolean notifications) {
+        // this.id = id;
         this.idCloud = idCloud;
         this.uid = uid;
         this.name = name;

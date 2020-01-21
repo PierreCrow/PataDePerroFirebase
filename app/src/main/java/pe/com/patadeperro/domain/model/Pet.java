@@ -1,14 +1,19 @@
 package pe.com.patadeperro.domain.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
-@Entity(tableName = "Place")
+@Entity(tableName = "Pet")
 public class Pet implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    @SerializedName("id")
     private String id;
     private String idCloud;
     private String idUser;
@@ -20,16 +25,25 @@ public class Pet implements Serializable {
     private String qrCode;
 
     public Pet(
-            String id, String idCloud, String idUser,
-            String name, String race, String gender, String color) {
+           // String id,
+            String idCloud,
+            String idUser,
+            String name,
+            String race,
+            String gender,
+            String age,
+            String color,
+            String qrCode) {
 
-        this.id = id;
+    //    this.id = id;
         this.idCloud = idCloud;
         this.idUser = idUser;
         this.name = name;
         this.race = race;
         this.gender = gender;
+        this.gender = age;
         this.color = color;
+        this.qrCode = qrCode;
 
     }
 
@@ -104,4 +118,5 @@ public class Pet implements Serializable {
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
     }
+
 }

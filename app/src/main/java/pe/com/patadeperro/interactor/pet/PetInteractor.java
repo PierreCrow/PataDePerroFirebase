@@ -2,7 +2,6 @@ package pe.com.patadeperro.interactor.pet;
 
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.PetRepository;
-import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
 
 public class PetInteractor {
 
@@ -19,4 +18,7 @@ public class PetInteractor {
         petRepository.createPet(pet, petCreatedCallback);
     }
 
+    public void loadPets(PetListCallback petListCallback) {
+        petRepository.loadPets(petListCallback);
+    }
 }

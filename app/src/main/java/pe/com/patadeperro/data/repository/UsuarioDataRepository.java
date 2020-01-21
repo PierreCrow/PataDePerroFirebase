@@ -2,6 +2,8 @@ package pe.com.patadeperro.data.repository;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStore;
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStoreFactory;
 import pe.com.patadeperro.domain.model.Usuario;
@@ -22,8 +24,10 @@ public class UsuarioDataRepository implements UsuarioRepository {
 
     @Override
     public void createUsuario(Usuario usuario, UsuarioCreatedCallback usuarioCreatedCallback) {
+
         final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
                 usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+
         usuarioDataStore.createUsuario(usuario, new RepositoryCallback() {
             @Override
             public void onError(Object object) {
@@ -55,6 +59,27 @@ public class UsuarioDataRepository implements UsuarioRepository {
 
     @Override
     public void loadUsuarios(UsuarioListCallback requestListCallback) {
+
+        final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
+                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+
+        usuarioDataStore.usuariosList(new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                requestListCallback.onUsersError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+
+                ArrayList<Usuario> UserList = (ArrayList<Usuario>) object;
+                requestListCallback.onUsersSuccess(UserList);
+            }
+        });
 
     }
 

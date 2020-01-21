@@ -11,10 +11,15 @@ public class UsuarioInteractor {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void createUsuario(Usuario usuario, UsuarioCreatedCallback usuarioCreatedCallback) {
+    public void createUsuario(
+            Usuario usuario,
+            UsuarioCreatedCallback usuarioCreatedCallback
+    ) {
         usuarioRepository.createUsuario(usuario, usuarioCreatedCallback);
     }
 
-
+    public void loadUsuarios(UsuarioListCallback usuarioListCallback) {
+        usuarioRepository.loadUsuarios(usuarioListCallback);
+    }
 
 }

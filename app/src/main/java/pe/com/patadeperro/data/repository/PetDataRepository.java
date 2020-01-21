@@ -2,6 +2,8 @@ package pe.com.patadeperro.data.repository;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
 import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
 import pe.com.patadeperro.domain.model.Pet;
@@ -50,6 +52,27 @@ public class PetDataRepository implements PetRepository {
 
     @Override
     public void loadPets(PetListCallback requestListCallback) {
+
+        final PetDataStore petDataStore = petDataStoreFactory.create(
+                petDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+
+        petDataStore.petsList(new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                requestListCallback.onPetError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+
+                ArrayList<Pet> PetList = (ArrayList<Pet>) object;
+                requestListCallback.onPetSuccess(PetList);
+            }
+        });
 
     }
 
