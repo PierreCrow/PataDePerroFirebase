@@ -15,6 +15,9 @@ import java.util.List;
 
 import pe.com.patadeperro.domain.model.Usuario;
 
+/** 
+ * Clase ** ListAdapterUsuario ***************************
+ */
 public class ListAdapterUsuario
         extends
         RecyclerView.Adapter<ListAdapterUsuario.UsuarioViewHolder> {
@@ -23,6 +26,9 @@ public class ListAdapterUsuario
     private Context mContext;
     private List<Usuario> items = new ArrayList<>();   // items, definición solamente
 
+    /**
+     * Constructor  
+    */
     public ListAdapterUsuario(
             OnItemClickListener listener,
             Context context,
@@ -35,13 +41,28 @@ public class ListAdapterUsuario
 
     }
 
+    /**
+     * Interface <-- ojo --
+     */
     public interface OnItemClickListener {
-        void onItemClicked(View v);
+        void onItemClicked(View v, Usuario user);
     }
+
+    /**
+     * método add
+     * @param item
+     */
     public void add(Usuario item) {
         items.add(item);
         notifyItemInserted(items.size() - 1);
     }
+
+    /**
+     * método onCreateViewHolder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public UsuarioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -52,34 +73,56 @@ public class ListAdapterUsuario
 
         return rvMainAdapterViewHolder;
     }
-    @Override
+
+    /**
+     * método onBindViewHolder
+     * @param holder
+     * @param position
+     */
+    @Override // <-- onBind... definir campos aquí
     public void onBindViewHolder(final UsuarioViewHolder holder, int position) {
 
-        Usuario Usuario = items.get(position);
+        Usuario usuario = items.get(position);
 
-        holder.name.setText(Usuario.getName());
-        holder.phone.setText(Usuario.getPhoneNumber());
-        holder.email.setText(Usuario.getEmail());
+        holder.position.setText(Integer.toString(position));     // guarda la posición
+        holder.name.setText(usuario.getName());
+        holder.phone.setText(usuario.getPhoneNumber());
+        holder.email.setText(usuario.getEmail());
 
     }
+
+    /**
+     * método getItemCount
+     * @return
+     */
     @Override
     public int getItemCount() {
 
         return items.size();
     }
 
+    // subclase... definir aquí también campos <-- tiene métodos *ViewHolder y onClick
+    /**
+     * subclase UsuarioViewHolder
+     */
     class UsuarioViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
+        TextView position;  // para guardar position
         TextView name;
         TextView phone;
         TextView email;
-        
 
+
+        /**
+         * método UsuarioViewHolder
+         * @param v
+         */
         public UsuarioViewHolder(View v) {
             super(v);
 
+            position=(TextView)v.findViewById(R.id.tv_position);
             name=(TextView)v.findViewById(R.id.tv_name);
             phone=(TextView)v.findViewById(R.id.tv_phone);
             email=(TextView)v.findViewById(R.id.tv_email);
@@ -88,21 +131,16 @@ public class ListAdapterUsuario
 
         }
 
-
+        /**
+         * método onClick
+         * @param v
+         */
         @Override
         public void onClick(View v) {
 
-      /*    SharedPreferences preferencias =
-                v.getContext().getSharedPreferences("TareaSeleccionada", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferencias.edit();
-            editor.putString("id_tarea", id_tarea.getText().toString());
-            editor.putString("detalleTarea", detalleTarea.getText().toString());
-            editor.putString("fechaTarea", fechaTarea.getText().toString());
-            editor.putString("nameTarea", nameTarea.getText().toString());
-            editor.putString("terminada", terminada.getText().toString());
-            editor.commit();
-*/
-            mlistener.onItemClicked(v );
+            int i = Integer.parseInt(position.getText().toString());
+            Usuario usuario = items.get(i);
+            mlistener.onItemClicked(v, usuario);
 
         }
     }

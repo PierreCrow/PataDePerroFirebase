@@ -1,10 +1,12 @@
 package pe.com.patadeperro.presentation.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,17 +21,19 @@ import pe.com.patadeperro.domain.model.Usuario;
 import pe.com.patadeperro.presentation.presenter.UsuarioPresenter;
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
-/* Clase PruebaActivity *****************************************************************
+import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
+
+/**
+ * Clase ** Prueba10Activity *****************************************************************
  */
-public class PruebaActivity
+public class Prueba10Activity
         extends BaseActivity
         implements UsuarioView,
         ListAdapterUsuario.OnItemClickListener {
 
-    /* --------- ---------- ------- --------
-    Variables, definición de objetos
+    /**
+    Variables, definición de objetos --------- ---------- ------- --------
          */
-
     EditText etNameCreateUser;
     EditText etMailCreateUser;
 
@@ -57,7 +61,8 @@ public class PruebaActivity
 
     // sin datos
 
-    /*  carga algunos valores de prueba */
+    /**
+     *  carga algunos valores de prueba */
     static Usuario usuario1 = new
             Usuario(
                     // 0,
@@ -113,21 +118,21 @@ public class PruebaActivity
     private ListAdapterUsuario.OnItemClickListener mlistenerUsuario;
     private View v;
 
-    /* -------------------------------------------------------------------------------------
-    método onPause
+    /**
+    método onPause ----------------------------------------------------------------------
     */
     @Override
     public void onPause() {
         super.onPause();
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método onCreate
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba_activity);
+        setContentView(R.layout.prueba10_activity);
 
         etNameCreateUser = (EditText) findViewById(R.id.etNameCreateUser);
         etMailCreateUser = (EditText) findViewById(R.id.etMailCreateUser);
@@ -200,24 +205,24 @@ public class PruebaActivity
 
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método userCreated
     */
     @Override
     public void userCreated(Usuario usuario) {
 
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método userUpdated
     */
     @Override
     public void userUpdated(Usuario usuario) {
 
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método usersListLoaded
     */
     @Override
     public void usersListLoaded(ArrayList<Usuario> usuarios) {
@@ -233,27 +238,57 @@ public class PruebaActivity
 
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método showErrorMessage
     */
     @Override
     public void showErrorMessage(String message) {
 
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método getContext
     */
     @Override
     public Context getContext() {
         return this;
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método onItemClicked
     */
     @Override
-    public void onItemClicked(View v) {
+    public void onItemClicked(View v, Usuario user) {
+
+        // this.v = v;
+        TextView tv_position = v.findViewById(R.id.tv_position);
+
+        // toast
+
+        Context context = getApplicationContext();
+        CharSequence text =
+                "Click pos.: " + tv_position.getText().toString();
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        // <-- toast    // <-- toast
+
+        // intent
+
+        //** Empaqueta objeto "user" ...
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("objetoUser", user);
+
+        //** Y envía el paquete a siguiente pantlla...
+        Intent intent = new Intent(this, Prueba12Activity.class);
+        intent.putExtra("objetoUser", bundle);
+
+        String message = tv_position.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+
+        startActivity(intent);      // <-- intent
+
 
     }
 

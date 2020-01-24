@@ -6,39 +6,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=
-        "pe.com.patadeperro.presentation.ui.activities.Prueba20Activity">
+        "pe.com.patadeperro.presentation.ui.activities.Prueba40Activity">
 
     <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="140dp"
+        android:id="@+id/tv_position"
+        android:layout_width="16dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="x"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <TextView
-        android:id="@+id/tv_race"
-        android:layout_width="90dp"
+        android:id="@+id/tv_petName"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_name"
+        app:layout_constraintStart_toEndOf="@+id/tv_position"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tv_contactPhone"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_petName"
         app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView
-        android:id="@+id/tv_gender"
-        android:layout_width="70dp"
+        android:id="@+id/tv_contactName"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:ems="10"
-        app:layout_constraintStart_toEndOf="@+id/tv_race"
+        app:layout_constraintStart_toEndOf="@+id/tv_contactPhone"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

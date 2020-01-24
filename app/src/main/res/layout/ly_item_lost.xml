@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=
+        "pe.com.patadeperro.presentation.ui.activities.Prueba30Activity">
+
+    <TextView android:id="@+id/tv_position"
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:text="x"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView android:id="@+id/tv_name"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_position"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView android:id="@+id/tv_itmRace"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <TextView android:id="@+id/tv_address"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        app:layout_constraintStart_toEndOf="@+id/tv_race"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView android:id="@+id/tv_id" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_idCloud" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_petName" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_race" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_gender" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_color" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_age" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_contactPhoneNumber" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_contactName" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_description" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_reward" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_rewardAmount" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_country" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_state" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_city" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_urlImage" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_lat" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_lng" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_lostAddress" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+    <TextView android:id="@+id/tv_found" android:visibility="gone" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toBottomOf="parent" app:layout_constraintStart_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

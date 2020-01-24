@@ -19,9 +19,9 @@ import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.presentation.presenter.PetPresenter;
 import pe.com.patadeperro.presentation.view.PetView;
 
-/* Clase PruebaActivity *****************************************************************
+/* Clase Prueba10Activity *****************************************************************
  */
-public class Prueba2Activity
+public class Prueba20Activity
         extends BaseActivity
         implements PetView,
         ListAdapterPet.OnItemClickListener {
@@ -83,7 +83,7 @@ public class Prueba2Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba2_activity);
+        setContentView(R.layout.prueba20_activity);
 
         etNameCreatePet =(EditText)findViewById(R.id.etNameCreatePet);
         etRaceCreatePet=(EditText)findViewById(R.id.etRaceCreatePet);

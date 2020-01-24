@@ -2,6 +2,7 @@ package pe.com.patadeperro.domain.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -17,6 +18,8 @@ public class Lost implements Serializable {
     @ColumnInfo(name = "id")
     @SerializedName("id")
     private Integer id;
+
+    // 2020-01-21 ECV: Campos revisados según tabla Excel de Pierre -- OK.
 
 //    private String id;
     private String idCloud;
@@ -39,10 +42,57 @@ public class Lost implements Serializable {
     private String lostAddress;
     private String found;
 
+    @Ignore
     public Lost(String petName, String contactPhoneNumber, String contactName) {
         this.petName = petName;
         this.contactPhoneNumber = contactPhoneNumber;
         this.contactName = contactName;
+    }
+
+    // 2020-01-21 ECV: Constructor sin id, por ahora
+
+    public Lost(
+            // Integer id,
+            String idCloud,
+            String petName,
+            String race,
+            String gender,
+            String color,
+            String age,
+            String contactPhoneNumber,
+            String contactName,
+            String description,
+            String reward,
+            String rewardAmount,
+            String country,
+            String state,
+            String city,
+            String urlImage,
+            String lat,
+            String lng,
+            String lostAddress,
+            String found)
+    {
+        // this.id = id;
+        this.idCloud = idCloud;
+        this.petName = petName;
+        this.race = race;
+        this.gender = gender;
+        this.color = color;
+        this.age = age;
+        this.contactPhoneNumber = contactPhoneNumber;
+        this.contactName = contactName;
+        this.description = description;
+        this.reward = reward;
+        this.rewardAmount = rewardAmount;
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.urlImage = urlImage;
+        this.lat = lat;
+        this.lng = lng;
+        this.lostAddress = lostAddress;
+        this.found = found;
     }
 
     public Integer getId() {

@@ -21,7 +21,6 @@ public class PetDataStoreFactory {
         this.context = context.getApplicationContext();
     }
 
-
     public PetDataStore create(
             int dataSource, FirebaseFirestore db) {
         PetDataStore petDataStore = null;
@@ -41,6 +40,5 @@ public class PetDataStoreFactory {
             FirebaseFirestore db) {
         return new CloudPetDataStore(db);
     }
-
 
 }

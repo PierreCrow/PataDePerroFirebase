@@ -20,20 +20,23 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba0Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+        <activity
+            android:name="pe.com.patadeperro.presentation.ui.activities.Prueba00Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba10Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba12Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba20Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba30Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba32Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba40Activity"></activity>
 
         <meta-data
             android:name="pe.com.patadeperro.presentation.utils.GlideConfiguration"
@@ -53,16 +56,6 @@
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="pe.com.patadeperro.presentation.ui.activities.PruebaActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

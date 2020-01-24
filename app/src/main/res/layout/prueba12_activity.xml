@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView android:id="@+id/tv32position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="000"
+        />
+
+
+    <EditText android:id="@+id/et32name" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32phoneNumber" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32email" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32lat" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32lng" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32logged" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32active" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32created_at" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+    <EditText android:id="@+id/et32notifications" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnLostPet"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="UpdateAndFinish"
+        android:text="Update" />
+
+</LinearLayout>
+
+</ScrollView>

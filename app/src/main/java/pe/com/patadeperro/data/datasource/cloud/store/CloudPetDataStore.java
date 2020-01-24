@@ -34,7 +34,6 @@ public class CloudPetDataStore implements PetDataStore {
         this.db = db;
     }
 
-
     @Override
     public void createPet(Pet pet, RepositoryCallback repositoryCallback) {
 
@@ -86,7 +85,6 @@ public class CloudPetDataStore implements PetDataStore {
         });
     }
 
-
     /*
     @Override
     public void verifyPetExist(String phone, RepositoryCallback repositoryCallback) {
@@ -97,7 +95,7 @@ public class CloudPetDataStore implements PetDataStore {
     }
     */
 
-        @Override
+    @Override
     public void petsList(RepositoryCallback repositoryCallback) {
 
         db.collection(Constants.FIREBASE_TABLES.PET)
