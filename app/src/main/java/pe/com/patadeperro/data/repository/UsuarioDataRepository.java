@@ -15,6 +15,8 @@ import pe.com.patadeperro.interactor.usuario.UsuarioDeletedCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioExistCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
 
+import static pe.com.patadeperro.presentation.utils.Constants.CLOUD;
+
 public class UsuarioDataRepository implements UsuarioRepository {
 
     private final UsuarioDataStoreFactory usuarioDataStoreFactory;
@@ -75,10 +77,16 @@ public class UsuarioDataRepository implements UsuarioRepository {
     }
 
     @Override
-    public void deleteUsuario(Usuario usuario, UsuarioDeletedCallback usuarioDeletedCallback) {
+    public void deleteUsuario(
+            Usuario usuario,
+            int usuarioDataLocation,
+            UsuarioDeletedCallback usuarioDeletedCallback) {
 
-        final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
-                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+        final UsuarioDataStore usuarioDataStore;
+
+        usuarioDataStore = usuarioDataStoreFactory.create(
+                usuarioDataLocation,
+                FirebaseFirestore.getInstance());
 
         usuarioDataStore.deleteUsuario(usuario, new RepositoryCallback() {
             @Override

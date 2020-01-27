@@ -2,6 +2,11 @@ package pe.com.patadeperro.presentation.utils;
 
 public class Constants {
 
+
+    public static final int DB = 1;     //2020-01-27 ecv
+    public static final int CLOUD = 0;  //2020-01-27 ecv
+
+
     public class PREFERENCES {
         public static final String PREFERENCE_CURRENT_USER = "PREFERENCE_CURRENT_USER";
     }
@@ -82,8 +87,8 @@ public class Constants {
         public static final String ABUSE_contactPhoneNumber = "contactPhoneNumber";
         public static final String ABUSE_contactName = "contactName";
         public static final String ABUSE_description = "description";
-//        public static final String ABUSE_reward = "reward";
-//        public static final String ABUSE_rewardAmount = "rewardAmount";
+        public static final String ABUSE_reward = "reward";
+        public static final String ABUSE_rewardAmount = "rewardAmount";
         public static final String ABUSE_country = "country";
         public static final String ABUSE_state = "state";
         public static final String ABUSE_city = "city";

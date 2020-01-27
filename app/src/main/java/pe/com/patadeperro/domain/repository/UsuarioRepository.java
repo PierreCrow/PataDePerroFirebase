@@ -14,7 +14,10 @@ public interface UsuarioRepository {
 
     void updateUsuario(Usuario usuario, UsuarioUpdatedCallback usuarioUpdatedCallback);
 
-    void deleteUsuario(Usuario usuario, UsuarioDeletedCallback usuarioDeletedCallback);
+    void deleteUsuario(
+            Usuario usuario,
+            int usuarioDataLocation,
+            UsuarioDeletedCallback usuarioDeletedCallback);
 
     void verifyUserExist(String phone, UsuarioExistCallback usuarioExistCallback);
 

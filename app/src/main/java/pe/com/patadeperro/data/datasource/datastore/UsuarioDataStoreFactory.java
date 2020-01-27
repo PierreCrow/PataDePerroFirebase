@@ -12,6 +12,7 @@ public class UsuarioDataStoreFactory {
 
     public static final int DB = 1;
     public static final int CLOUD = 0;
+//    public int usuarioDataLocation;
 
     private final Context context;
 

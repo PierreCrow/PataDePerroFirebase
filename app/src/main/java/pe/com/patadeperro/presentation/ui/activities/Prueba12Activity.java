@@ -2,6 +2,8 @@ package pe.com.patadeperro.presentation.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,8 +13,10 @@ import com.com.patadeperro.R;
 
 import java.util.ArrayList;
 
+import pe.com.patadeperro.data.datasource.cloud.store.CloudUsuarioDataStore;
 import pe.com.patadeperro.domain.model.Usuario;
 import pe.com.patadeperro.presentation.presenter.UsuarioPresenter;
+import pe.com.patadeperro.presentation.utils.Constants;
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
 import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
@@ -203,18 +207,38 @@ public class Prueba12Activity
 
         String message = tv32position.getText().toString();;
 
+
+        // Revisa si tenemos conexión a Internet
+
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        CharSequence text;
+
+        if (isConnected) {
+            text = "RED, Delete12 pos.: " + tv32position.getText().toString();
+
+            usuarioPresenter.deleteUsuario(user12, Constants.CLOUD);  // <-- ejecuta DELETE
+
+        } else  {
+            text = "RED, no hay... No actualizará.";
+        }
+
+
         // toast
 
         Context context = getApplicationContext();
-        CharSequence text =
-                "Delete12 pos.: " + tv32position.getText().toString()
-                ;
+//        CharSequence text = <-- cargado arriba
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();       // toast
 
 
-        usuarioPresenter.deleteUsuario(user12);  // <-- test
+//        usuarioPresenter.deleteUsuario(user12, Constants.CLOUD);  // <-- test
 
 
         // new intent
