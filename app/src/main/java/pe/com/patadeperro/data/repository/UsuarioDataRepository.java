@@ -10,9 +10,10 @@ import pe.com.patadeperro.domain.model.Usuario;
 import pe.com.patadeperro.domain.repository.RepositoryCallback;
 import pe.com.patadeperro.domain.repository.UsuarioRepository;
 import pe.com.patadeperro.interactor.usuario.UsuarioCreatedCallback;
+import pe.com.patadeperro.interactor.usuario.UsuarioUpdatedCallback;
+import pe.com.patadeperro.interactor.usuario.UsuarioDeletedCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioExistCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
-import pe.com.patadeperro.interactor.usuario.UsuarioUpdatedCallback;
 
 public class UsuarioDataRepository implements UsuarioRepository {
 
@@ -48,12 +49,59 @@ public class UsuarioDataRepository implements UsuarioRepository {
     }
 
     @Override
-    public void verifyUserExist(String phone, UsuarioExistCallback usuarioExistCallback) {
+    public void updateUsuario(Usuario usuario, UsuarioUpdatedCallback usuarioUpdatedCallback) {
+
+        final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
+                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+
+        usuarioDataStore.updateUsuario(usuario, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                usuarioUpdatedCallback.onUserUpdatedError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+
+                Usuario updUser = (Usuario) object;
+                usuarioUpdatedCallback.onUserUpdatedSuccess(updUser);
+            }
+        });
 
     }
 
     @Override
-    public void updateUsuario(Usuario usuario, UsuarioUpdatedCallback usuarioUpdatedCallback) {
+    public void deleteUsuario(Usuario usuario, UsuarioDeletedCallback usuarioDeletedCallback) {
+
+        final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
+                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+
+        usuarioDataStore.deleteUsuario(usuario, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                usuarioDeletedCallback.onUserDeletedError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+
+                Usuario updUser = (Usuario) object;
+                usuarioDeletedCallback.onUserDeletedSuccess(updUser);
+            }
+        });
+
+    }
+
+    @Override
+    public void verifyUserExist(String phone, UsuarioExistCallback usuarioExistCallback) {
 
     }
 

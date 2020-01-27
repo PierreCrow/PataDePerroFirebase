@@ -15,6 +15,9 @@ import java.util.List;
 
 import pe.com.patadeperro.domain.model.Abuse;
 
+/**
+ * Clase ** ListAdapterAbuse ***************************
+ */
 public class ListAdapterAbuse
         extends 
         RecyclerView.Adapter<ListAdapterAbuse.AbuseViewHolder> {
@@ -35,8 +38,11 @@ public class ListAdapterAbuse
 
     }
 
+    /**
+     * Interface <-- ojo --
+     */
     public interface OnItemClickListener {
-        void onItemClicked(View v);
+        void onItemClicked(View v, Abuse abuse);
     }
     public void add(Abuse item) {
         items.add(item);
@@ -57,6 +63,12 @@ public class ListAdapterAbuse
 
         return rvMainAdapterViewHolder;
     }
+
+    /**
+     * método onBindViewHolder
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(
             final ListAdapterAbuse.AbuseViewHolder holder,
@@ -64,8 +76,7 @@ public class ListAdapterAbuse
 
         Abuse Abuse = items.get(position);
 
-        holder.position.setText(Integer.toString(position));     // guarda la posición
-
+        holder.position.setText(String.valueOf(position));     // guarda la posición
         holder.petName.setText(Abuse.getPetName());
         holder.contactPhone.setText(Abuse.getContactPhoneNumber());
         holder.contactName.setText(Abuse.getContactName());
@@ -82,16 +93,18 @@ public class ListAdapterAbuse
             implements View.OnClickListener {
 
         TextView position;   // para guardar la pos.
-
         TextView petName;
         TextView contactPhone;
         TextView contactName;
 
+        /**
+         * método PetViewHolder
+         * @param v
+         */
         public AbuseViewHolder(View v) {
             super(v);
 
-            position=(TextView)v.<View>findViewById(R.id.tv_position);
-
+            position=(TextView)v.findViewById(R.id.tv_position);
             petName=(TextView)v.findViewById(R.id.tv_petName);
             contactPhone=(TextView)v.findViewById(R.id.tv_contactPhone);
             contactName=(TextView)v.findViewById(R.id.tv_contactName);
@@ -101,20 +114,16 @@ public class ListAdapterAbuse
         }
 
 
+        /**
+         * método onClick
+         * @param v
+         */
         @Override
         public void onClick(View v) {
 
-      /*    SharedPreferences preferencias =
-                v.getContext().getSharedPreferences("TareaSeleccionada", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferencias.edit();
-            editor.putString("id_tarea", id_tarea.getText().toString());
-            editor.putString("detalleTarea", detalleTarea.getText().toString());
-            editor.putString("fechaTarea", fechaTarea.getText().toString());
-            editor.putString("nameTarea", nameTarea.getText().toString());
-            editor.putString("terminada", terminada.getText().toString());
-            editor.commit();
-*/
-            mlistener.onItemClicked(v );
+            int i = Integer.parseInt(position.getText().toString());
+            Abuse abuse = items.get(i);
+            mlistener.onItemClicked(v, abuse );
 
         }
     }

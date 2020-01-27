@@ -34,9 +34,11 @@
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba10Activity"></activity>
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba12Activity"></activity>
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba20Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba22Activity"></activity>
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba30Activity"></activity>
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba32Activity"></activity>
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba40Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba42Activity"></activity>
 
         <meta-data
             android:name="pe.com.patadeperro.presentation.utils.GlideConfiguration"

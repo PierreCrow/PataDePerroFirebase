@@ -9,6 +9,8 @@ public interface UsuarioDataStore {
 
     void updateUsuario(Usuario usuario, RepositoryCallback repositoryCallback);
 
+    void deleteUsuario(Usuario usuario, RepositoryCallback repositoryCallback);
+
     void verifyUsuarioExist(String phone, RepositoryCallback repositoryCallback);
 
     void usuariosList(RepositoryCallback repositoryCallback);

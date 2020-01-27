@@ -8,6 +8,19 @@
     tools:context=
         "pe.com.patadeperro.presentation.ui.activities.Prueba20Activity">
 
+    <TextView android:id="@+id/tv_position"
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:text="x"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="140dp"
@@ -16,7 +29,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_position"
         app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView

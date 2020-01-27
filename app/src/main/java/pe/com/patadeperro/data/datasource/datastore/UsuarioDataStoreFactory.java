@@ -22,9 +22,9 @@ public class UsuarioDataStoreFactory {
         this.context = context.getApplicationContext();
     }
 
-
     public UsuarioDataStore create(
             int dataSource, FirebaseFirestore db) {
+
         UsuarioDataStore usuarioDataStore = null;
 
         switch (dataSource) {
@@ -42,6 +42,5 @@ public class UsuarioDataStoreFactory {
             FirebaseFirestore db) {
         return new CloudUsuarioDataStore(db );
     }
-
 
 }

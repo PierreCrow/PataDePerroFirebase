@@ -1,12 +1,9 @@
 package pe.com.patadeperro.presentation.ui.activities;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.com.patadeperro.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import pe.com.patadeperro.domain.model.Pet;
-import pe.com.patadeperro.domain.model.Pet;
 
+/**
+ * Clase ** ListAdapterPet ***************************
+ */
 public class ListAdapterPet
         extends 
         RecyclerView.Adapter<ListAdapterPet.PetViewHolder> {
@@ -40,8 +38,11 @@ public class ListAdapterPet
 
     }
 
+    /**
+     * Interface <-- ojo --
+     */
     public interface OnItemClickListener {
-        void onItemClicked(View v);
+        void onItemClicked(View v, Pet pet);
     }
     public void add(Pet item) {
         items.add(item);
@@ -57,11 +58,21 @@ public class ListAdapterPet
 
         return rvMainAdapterViewHolder;
     }
+
+    /**
+     * método onBindViewHolder
+     * @param holder
+     * @param position
+     */
     @Override
-    public void onBindViewHolder(final ListAdapterPet.PetViewHolder holder, int position) {
+    public void onBindViewHolder(
+            final ListAdapterPet.PetViewHolder holder,
+            int position) {
 
         Pet Pet = items.get(position);
 
+        String s_position = String.valueOf(position);
+        holder.position.setText(s_position);     // guarda la posición
         holder.name.setText(Pet.getName());
         holder.race.setText(Pet.getRace());
         holder.gender.setText(Pet.getGender());
@@ -77,14 +88,20 @@ public class ListAdapterPet
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
+        TextView position;  // para guardar position
         TextView name;
         TextView race;
         TextView gender;
 
 
+        /**
+         * método PetViewHolder
+         * @param v
+         */
         public PetViewHolder(View v) {
             super(v);
 
+            position=(TextView)v.findViewById(R.id.tv_position);
             name=(TextView)v.findViewById(R.id.tv_name);
             race=(TextView)v.findViewById(R.id.tv_race);
             gender=(TextView)v.findViewById(R.id.tv_gender);
@@ -94,20 +111,16 @@ public class ListAdapterPet
         }
 
 
+        /**
+         * método onClick
+         * @param v
+         */
         @Override
         public void onClick(View v) {
 
-      /*    SharedPreferences preferencias =
-                v.getContext().getSharedPreferences("TareaSeleccionada", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferencias.edit();
-            editor.putString("id_tarea", id_tarea.getText().toString());
-            editor.putString("detalleTarea", detalleTarea.getText().toString());
-            editor.putString("fechaTarea", fechaTarea.getText().toString());
-            editor.putString("nameTarea", nameTarea.getText().toString());
-            editor.putString("terminada", terminada.getText().toString());
-            editor.commit();
-*/
-            mlistener.onItemClicked(v );
+            int i = Integer.parseInt(position.getText().toString());
+            Pet pet = items.get(i);
+            mlistener.onItemClicked(v, pet );
 
         }
     }

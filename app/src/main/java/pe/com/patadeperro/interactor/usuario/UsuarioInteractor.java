@@ -18,6 +18,21 @@ public class UsuarioInteractor {
         usuarioRepository.createUsuario(usuario, usuarioCreatedCallback);
     }
 
+    public void updateUsuario(
+            Usuario usuario,
+            UsuarioUpdatedCallback usuarioUpdatedCallback
+    ) {
+        usuarioRepository.updateUsuario(usuario, usuarioUpdatedCallback);
+    }
+
+    public void deleteUsuario(
+            Usuario usuario,
+            UsuarioDeletedCallback usuarioDeletedCallback
+    ) {
+        usuarioRepository.deleteUsuario(usuario, usuarioDeletedCallback);
+    }
+
+
     public void loadUsuarios(UsuarioListCallback usuarioListCallback) {
         usuarioRepository.loadUsuarios(usuarioListCallback);
     }

@@ -155,7 +155,7 @@ public class Prueba10Activity
         );
 
         usuarioPresenter.loadUsuarios();        // cuando se ejecuta, carga adapterUsuario new
-        /*
+        /**
         adapterUsuario = new ListAdapterUsuario(
                 mlistenerUsuario,
                 getApplicationContext(),
@@ -218,6 +218,11 @@ public class Prueba10Activity
     */
     @Override
     public void userUpdated(Usuario usuario) {
+
+    }
+
+    @Override
+    public void userDeleted(Usuario usuario) {
 
     }
 

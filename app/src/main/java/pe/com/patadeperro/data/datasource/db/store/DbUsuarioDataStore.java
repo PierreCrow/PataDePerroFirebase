@@ -24,6 +24,11 @@ public class DbUsuarioDataStore implements UsuarioDataStore {
     }
 
     @Override
+    public void deleteUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
+
+    }
+
+    @Override
     public void verifyUsuarioExist(String phone, RepositoryCallback repositoryCallback) {
 
     }

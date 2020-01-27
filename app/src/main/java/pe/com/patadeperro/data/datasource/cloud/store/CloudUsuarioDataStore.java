@@ -29,7 +29,6 @@ import java.util.Map;
 
 public class CloudUsuarioDataStore implements UsuarioDataStore {
     private static final String TAG = "CloudUsuarioDataStore";
-
     private FirebaseFirestore db;
 
     public CloudUsuarioDataStore(FirebaseFirestore db) {
@@ -37,7 +36,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
        // db = FirebaseFirestore.getInstance();
         this.db = db;
     }
-
 
     @Override
     public void createUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
@@ -74,9 +72,18 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     public void updateUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
 
         Map<String, Object> data = new HashMap<>();
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
+
         data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, usuario.getPhoneNumber());
         data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(usuario.getLat(), usuario.getLng()));
         data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, usuario.isActive());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, usuario.getCreated_at());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, usuario.isNotifications());
 
         db.collection(Constants.FIREBASE_TABLES.USER).document(usuario.getIdCloud())
                 .set(data, SetOptions.merge())
@@ -91,6 +98,39 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 repositoryCallback.onError(e);
             }
         });
+    }
+
+    @Override
+    public void deleteUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, usuario.getPhoneNumber());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(usuario.getLat(), usuario.getLng()));
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, usuario.isActive());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, usuario.getCreated_at());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, usuario.isNotifications());
+
+        db.collection(Constants.FIREBASE_TABLES.USER).document(usuario.getIdCloud())
+                .delete()
+                .addOnSuccessListener
+                        (new OnSuccessListener<Void>()
+                        {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                repositoryCallback.onSuccess(usuario);
+                            }
+                        })
+                .addOnFailureListener
+                        (new OnFailureListener()
+                        {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                repositoryCallback.onError(e);
+                            }
+                        });
     }
 
     @Override
@@ -150,9 +190,10 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                             GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.USER_location);
+                            String ddd=doc.getId();
                             Usuario usuario = new Usuario(
                                     // (Integer) doc.get(Constants.FIREBASE_TABLES_FIELDS.USER_id),
-                                    doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_idCloud),
+                                    doc.getId(),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_uid),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
@@ -166,7 +207,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                                       );
                             usuarios.add(usuario);
                         }
-                        repositoryCallback.onSuccess(usuarios);
+                            repositoryCallback.onSuccess(usuarios);
                     }
                 });
     }

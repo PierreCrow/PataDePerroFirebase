@@ -8,17 +8,20 @@ import pe.com.patadeperro.data.repository.UsuarioDataRepository;
 import pe.com.patadeperro.domain.model.Usuario;
 import pe.com.patadeperro.domain.repository.UsuarioRepository;
 import pe.com.patadeperro.interactor.usuario.UsuarioCreatedCallback;
+import pe.com.patadeperro.interactor.usuario.UsuarioUpdatedCallback;
+import pe.com.patadeperro.interactor.usuario.UsuarioDeletedCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioExistCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioInteractor;
 import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
-import pe.com.patadeperro.interactor.usuario.UsuarioUpdatedCallback;
+
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
 public class UsuarioPresenter implements
         Presenter<UsuarioView>,
         UsuarioCreatedCallback,
-        UsuarioExistCallback,
         UsuarioUpdatedCallback,
+        UsuarioDeletedCallback,
+        UsuarioExistCallback,
         UsuarioListCallback {
 
     private UsuarioView usuarioView;
@@ -27,6 +30,16 @@ public class UsuarioPresenter implements
     public void createUsuario(Usuario usuario) {
         usuarioInteractor.createUsuario(
                 usuario, this);
+    }
+
+    public void updateUsuario(Usuario usuario) {
+        usuarioInteractor.updateUsuario(
+                usuario, this);
+    }
+
+    public void deleteUsuario(Usuario usuario) {
+        usuarioInteractor.deleteUsuario(
+                usuario, (UsuarioDeletedCallback) this);
     }
 
     public void loadUsuarios() {
@@ -66,7 +79,7 @@ public class UsuarioPresenter implements
 
     @Override
     public void onUserUpdatedSuccess(Usuario usuario) {
-
+        usuarioView.userUpdated(usuario);
     }
 
     @Override
@@ -86,4 +99,13 @@ public class UsuarioPresenter implements
 
     }
 
+    @Override
+    public void onUserDeletedSuccess(Usuario usuario) {
+        usuarioView.userDeleted(usuario);
+    }
+
+    @Override
+    public void onUserDeletedError(String message) {
+
+    }
 }

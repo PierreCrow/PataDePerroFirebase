@@ -32,10 +32,11 @@
         android:hint="abuse contact name"
         android:inputType="textPersonName" />
 
-    <Button android:id="@+id/btnLostPet"
+    <Button
+        android:id="@+id/btnLostPet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Lost" />
+        android:text="New Abuse" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListadoAbuse"

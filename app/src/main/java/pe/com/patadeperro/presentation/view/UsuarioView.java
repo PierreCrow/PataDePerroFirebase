@@ -8,6 +8,7 @@ public interface UsuarioView extends BaseView {
 
     void userCreated(Usuario usuario);
     void userUpdated(Usuario usuario);
+    void userDeleted(Usuario usuario);
     void usersListLoaded(ArrayList<Usuario> usuarios);
     void showErrorMessage(String message);
 }

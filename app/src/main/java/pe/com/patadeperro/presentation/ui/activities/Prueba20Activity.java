@@ -1,10 +1,12 @@
 package pe.com.patadeperro.presentation.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +20,8 @@ import java.util.Arrays;
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.presentation.presenter.PetPresenter;
 import pe.com.patadeperro.presentation.view.PetView;
+
+import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
 
 /* Clase Prueba10Activity *****************************************************************
  */
@@ -194,11 +198,40 @@ public class Prueba20Activity
         return this;
     }
 
-    /* -------------------------------------------------------------------------------------
-    método
+    /** -------------------------------------------------------------------------------------
+    método onItemClicked
     */
     @Override
-    public void onItemClicked(View v) {
+    public void onItemClicked(View v, Pet pet) {
+
+        // this.v = v;
+        TextView tv_position = v.findViewById(R.id.tv_position);
+
+        // toast
+
+        Context context = getApplicationContext();
+        CharSequence text =
+                "Click pos.: " + tv_position.getText().toString();
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        /**
+         * intent
+         */
+
+        //** Empaqueta objeto "user" ...
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("objetoPet", pet);
+
+        //** Y envía el paquete a siguiente pantlla...
+        Intent intent = new Intent(this, Prueba22Activity.class);
+        intent.putExtra("objetoPet", bundle);
+
+        String message = tv_position.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+
+        startActivity(intent);      // <-- intent
 
     }
 

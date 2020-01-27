@@ -23,17 +23,17 @@ import pe.com.patadeperro.presentation.view.AbuseView;
 
 import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
 
-/* Clase Prueba10Activity *****************************************************************
+/**
+ * Clase ** Prueba40Activity *****************************************************************
  */
 public class Prueba40Activity
         extends BaseActivity
         implements AbuseView,
         ListAdapterAbuse.OnItemClickListener {
 
-    /* --------- ---------- ------- --------
+    /** --------- ---------- ------- --------
     Variables, definición de objetos
          */
-
     EditText etNameAbusePet;
     EditText etAbuseContactPhone;
     EditText etAbuseContactName;
@@ -52,14 +52,16 @@ public class Prueba40Activity
              ""    );
     // sin datos
 
-    /* ... solamente 1 por ahora
+    /**
+     * solamente 1 por ahora
          */
     static Abuse abuse1 = new
             Abuse( "",
             "",
             "");
 
-    /*
+    /**
+     * omitiendo 2, 3, ...
     static Abuse abuse2 = new
             Abuse( "" , "",
             "Milo", "labrador",
@@ -70,7 +72,7 @@ public class Prueba40Activity
             "Jack", "terrier",
             "male", "", "b&w", "");
     */
-    
+
     public static ArrayList listaAbuse = new ArrayList<>(
             //... (Arrays.asList(abuse1, abuse2, abuse3)); <-- sin datos ahora
             Arrays.asList(abuse1)    // bueno, 1 necesitamos ¿?
@@ -80,7 +82,7 @@ public class Prueba40Activity
     private ListAdapterAbuse.OnItemClickListener mlistenerAbuse;
     private View v;
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método onPause
     */
     @Override
@@ -88,7 +90,7 @@ public class Prueba40Activity
         super.onPause();
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método onCreate
      */
     @Override
@@ -161,7 +163,7 @@ public class Prueba40Activity
 
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método
     */
     @Override
@@ -169,7 +171,7 @@ public class Prueba40Activity
 
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método
     */
     @Override
@@ -179,7 +181,7 @@ public class Prueba40Activity
 
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método
     */
     @Override
@@ -196,7 +198,7 @@ public class Prueba40Activity
 
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
         método
         */
     @Override
@@ -204,7 +206,7 @@ public class Prueba40Activity
 
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método
     */
     @Override
@@ -212,30 +214,16 @@ public class Prueba40Activity
         return this;
     }
 
-    /* -------------------------------------------------------------------------------------
+    /** -------------------------------------------------------------------------------------
     método
     */
     @Override
-    public void onItemClicked(View v) {
+    public void onItemClicked(View v, Abuse abuse) {
 
-        this.v = v;
-        // v.findViewById(R.id.tv_nombre)
-        /*
-        TextView tv_petName = v.findViewById(R.id.tv_nombre);
-        TextView et_petName = findViewById(R.id.et_nombre);
-        et_petName.setText(
-                tv_petName.getText().toString()
-                );
-
-        TextView tv_dni_trabajador = v.findViewById(R.id.tv_dni);
-        TextView et_dni_trabajador = findViewById(R.id.et_dni);
-        et_dni_trabajador.setText(
-                tv_dni_trabajador.getText().toString()
-        */
+        // this.v = v;
+        TextView tv_position = v.findViewById(R.id.tv_position);
 
         // toast
-
-        TextView tv_position = v.findViewById(R.id.tv_position);
 
         Context context = getApplicationContext();
         CharSequence text =
@@ -245,45 +233,23 @@ public class Prueba40Activity
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        // intent
-/* ** stop por ahora //2020-01-23 ecv
+        /**
+         * intent
+         */
 
-        Intent intent = new Intent(this, Prueba32Activity.class);
-            String message = tv_position.getText().toString();
-            intent.putExtra(EXTRA_MESSAGE, message);
+        //** Empaqueta objeto "user" ...
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("objetoAbuse", abuse);
 
-         // startActivity(intent);
-        startActivityForResult(intent, 1);
-*/
+        //** Y envía el paquete a siguiente pantlla...
+        Intent intent = new Intent(this, Prueba42Activity.class);
+        intent.putExtra("objetoAbuse", bundle);
+
+        String message = tv_position.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+
+        startActivity(intent);      // <-- intent
+
     }
-
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                //String result=data.getStringExtra("result");
-
-                abusePresenter.updateAbuse(abuse);
-
-                // toast
-                Context context = getApplicationContext();
-                CharSequence text =
-                        "Actualizando "
-                        ;
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
-                adapterAbuse.notifyDataSetChanged();
-
-            }
-            if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
-
- */
 
 }

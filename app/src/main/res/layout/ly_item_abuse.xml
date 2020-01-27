@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/tv_contactPhone"
-        android:layout_width="35dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

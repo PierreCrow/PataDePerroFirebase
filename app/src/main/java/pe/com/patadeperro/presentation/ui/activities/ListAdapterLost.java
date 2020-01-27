@@ -74,6 +74,7 @@ public class ListAdapterLost
         holder.race.setText(lost.getRace());
         holder.address.setText(lost.getLostAddress());
 
+/*
         // campos invisibles (gone)...
         //holder.g_id.setText(lost.getId());
         holder.g_idCloud.setText(lost.getIdCloud());
@@ -95,6 +96,7 @@ public class ListAdapterLost
         holder.g_lng.setText(lost.getLng());
         holder.g_lostAddress.setText(lost.getLostAddress());
         holder.g_found.setText(lost.getFound());
+*/
 
     }
 
@@ -149,7 +151,7 @@ public class ListAdapterLost
             race=(TextView)v.findViewById(R.id.tv_itmRace);
             address=(TextView)v.findViewById(R.id.tv_address);
 
-            // invisibles
+        /*    // invisibles
             // g_id=(TextView)v.findViewById(R.id.tv_id);
             g_idCloud=(TextView)v.findViewById(R.id.tv_idCloud);
             g_petName=(TextView)v.findViewById(R.id.tv_petName);
@@ -170,7 +172,7 @@ public class ListAdapterLost
             g_lng=(TextView)v.findViewById(R.id.tv_lng);
             g_lostAddress=(TextView)v.findViewById(R.id.tv_lostAddress);
             g_found=(TextView)v.findViewById(R.id.tv_found);
-
+*/
             v.setOnClickListener(this);
 
         }
