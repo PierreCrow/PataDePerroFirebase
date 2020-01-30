@@ -24,7 +24,7 @@ import pe.com.patadeperro.presentation.view.UsuarioView;
 import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba10Activity *****************************************************************
+ * Clase ** Prueba10Activity ** Usuario *********************************************************
  */
 public class Prueba10Activity
         extends BaseActivity

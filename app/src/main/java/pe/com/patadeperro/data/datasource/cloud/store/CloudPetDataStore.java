@@ -47,7 +47,7 @@ public class CloudPetDataStore implements PetDataStore {
 
 
         db.collection(Constants.FIREBASE_TABLES.PET)
-                .add(pet)
+                .add(petH)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -68,7 +68,15 @@ public class CloudPetDataStore implements PetDataStore {
     public void updatePet(Pet pet, RepositoryCallback repositoryCallback) {
 
         Map<String, Object> data = new HashMap<>();
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_id, pet.getId());
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud, pet.getIdCloud());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_idUser, pet.getIdUser());
         data.put(Constants.FIREBASE_TABLES_FIELDS.PET_name, pet.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_race, pet.getRace());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_gender, pet.getGender());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_age, pet.getAge());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_color, pet.getColor());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode, pet.getQrCode());
 
         db.collection(Constants.FIREBASE_TABLES.PET).document(pet.getIdCloud())
                 .set(data, SetOptions.merge())
@@ -112,7 +120,8 @@ public class CloudPetDataStore implements PetDataStore {
                             // GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.PET_location);
                             Pet pet = new Pet(
                                     // (String) doc.get(Constants.FIREBASE_TABLES_FIELDS.PET_id),
-                                    doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud),
+                                    // doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud),
+                                    doc.getId(),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_idUser),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_name),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_race),

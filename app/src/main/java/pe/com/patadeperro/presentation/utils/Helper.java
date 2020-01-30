@@ -33,7 +33,6 @@ public class Helper {
         return userPreference;
     }
 
-
     public static void hideKeyboard(Activity activity) {//activity.class
         activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }

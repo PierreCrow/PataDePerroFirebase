@@ -9,9 +9,6 @@ public interface PetDataStore {
 
     void updatePet(Pet pet, RepositoryCallback repositoryCallback);
 
-//    void verifyPetExist(String phone, RepositoryCallback repositoryCallback);
-    // ojo: "pet" no tiene "phone"
-
     void petsList(RepositoryCallback repositoryCallback);
 
 }

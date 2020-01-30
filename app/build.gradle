@@ -108,6 +108,12 @@ dependencies {
     // implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
     // annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
 
+
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+
+
     //    Retrofit - Networking
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
@@ -182,6 +188,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'support-v13'
     }
+    implementation 'com.jakewharton:butterknife:10.2.1'
 
 }
 apply plugin: 'com.google.gms.google-services'

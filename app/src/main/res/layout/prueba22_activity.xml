@@ -21,8 +21,23 @@
         />
 
 
-    <EditText android:id="@+id/et22id" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet id" android:inputType="textPersonName" />
-    <EditText android:id="@+id/et22idCloud" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet idCloud" android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/et22id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Pet id"
+        android:inputType="textPersonName"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et22idCloud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Pet idCloud"
+        android:inputType="textPersonName"
+        android:visibility="gone" />
     <EditText android:id="@+id/et22idUser" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet idUser" android:inputType="textPersonName" />
     <EditText android:id="@+id/et22name" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet name" android:inputType="textPersonName" />
     <EditText android:id="@+id/et22race" android:layout_width="match_parent" android:layout_height="wrap_content"  android:ems="10" android:hint="Pet race" android:inputType="textPersonName" />

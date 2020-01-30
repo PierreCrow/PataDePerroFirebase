@@ -47,7 +47,25 @@ public class PetDataRepository implements PetRepository {
 
     @Override
     public void updatePet(Pet pet, PetUpdatedCallback petUpdatedCallback) {
+        final PetDataStore petDataStore = petDataStoreFactory.create(
+                petDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+        petDataStore.updatePet(pet, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                petUpdatedCallback.onPetUpdatedError(message);
+            }
 
+            @Override
+            public void onSuccess(Object object) {
+
+                Pet newPet = (Pet) object;
+                petUpdatedCallback.onPetUpdatedSuccess(newPet);
+            }
+        });
     }
 
     @Override

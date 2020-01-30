@@ -23,7 +23,8 @@ import pe.com.patadeperro.presentation.view.PetView;
 
 import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
 
-/* Clase Prueba10Activity *****************************************************************
+/**
+ * Clase ** Prueba20Activity ** Pet **************************************************************
  */
 public class Prueba20Activity
         extends BaseActivity

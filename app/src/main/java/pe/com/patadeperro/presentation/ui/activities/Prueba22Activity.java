@@ -18,7 +18,7 @@ import pe.com.patadeperro.presentation.view.PetView;
 import static pe.com.patadeperro.presentation.ui.activities.Prueba00Activity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba12Activity ****************************
+ * Clase ** Prueba12Activity ** Pet, detalles **************************
  */
 public class Prueba22Activity
         extends BaseActivity
@@ -28,9 +28,20 @@ public class Prueba22Activity
     /*****************************************
     Variables, definición de objetos
          */
-    PetPresenter PetPresenter;
+    PetPresenter petPresenter;
     Pet pet22;
     // int position12;
+
+    void initUI()
+    {
+        petPresenter= new PetPresenter();
+        petPresenter.addView(this);
+
+//        et32name = findViewById(R.id.et32name);
+
+    }
+
+
 
     /*********************************************************************************** 
     método onPause
@@ -47,6 +58,8 @@ public class Prueba22Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prueba22_activity);
+
+        initUI();
 
         /**
          * // Get the Intent that started this activity and extract the string
@@ -143,14 +156,14 @@ public class Prueba22Activity
         toast.show();       // toast
 
 
-        // lostPresenter.updatePet(pet12);  // <-- todavía no probar
+         petPresenter.updatePet(pet22);  // <-- probar
 
 
 /**
- * prueba Intent con return... no funcinó finishActivity ¿?
+ * prueba Intent con return... no funcionó finishActivity ¿?
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",lost);
+        returnIntent.putExtra("result",pet22);
         setResult(RESULT_OK,returnIntent);
 
         // setResult(RESULT_CANCELED, returnIntent);    <-- si falla
@@ -169,10 +182,10 @@ public class Prueba22Activity
     } // clic en botón
 
     /*************************************************************************************-
-    método lostCreated
+    método pet22Created
     */
     @Override
-    public void petCreated(Pet lost) {
+    public void petCreated(Pet pet22) {
 
     }
 
@@ -180,7 +193,7 @@ public class Prueba22Activity
     método petUpdated
     */
     @Override
-    public void petUpdated(Pet lost) {
+    public void petUpdated(Pet pet22) {
 
 
 
@@ -190,7 +203,7 @@ public class Prueba22Activity
     método petListLoaded
     */
     @Override
-    public void petsListLoaded(ArrayList<Pet> losts) {
+    public void petsListLoaded(ArrayList<Pet> pet22s) {
 
     }
 

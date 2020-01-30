@@ -29,6 +29,11 @@ public class PetPresenter implements
                 pet,this);
     }
 
+    public void updatePet(Pet pet) {
+        petInteractor.updatePet(
+                pet,this);
+    }
+
     public void loadPets() {
         petInteractor.loadPets(
                 this);

@@ -18,6 +18,13 @@ public class PetInteractor {
         petRepository.createPet(pet, petCreatedCallback);
     }
 
+    public void updatePet(
+            Pet pet,
+            PetUpdatedCallback petUpdatedCallback
+    ) {
+        petRepository.updatePet(pet, petUpdatedCallback);
+    }
+
     public void loadPets(PetListCallback petListCallback) {
         petRepository.loadPets(petListCallback);
     }
