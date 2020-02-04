@@ -42,7 +42,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         UsuarioDataMapper usuarioDataMapper= new UsuarioDataMapper();
         CloudUsuario cloudUsuario=usuarioDataMapper.transformToCloud(usuario);
 
-
         Map<String, Object> data = new HashMap<>();
         // no olvidar el idCloud
         data.put(Constants.FIREBASE_TABLES_FIELDS.USER_id, cloudUsuario.getId());
@@ -57,7 +56,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, cloudUsuario.isNotifications());
 
         // dentro de este bloque va idCloud
-        usuario.cloudIntCount += 1;
         db.collection(Constants.FIREBASE_TABLES.USER)
                 .add(data)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -65,8 +63,11 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                     public void onSuccess(DocumentReference documentReference) {
 
                         // aquí está idCloud
-                        cloudUsuario.setIdCloud(documentReference.getId());
-                        repositoryCallback.onSuccess(usuario);
+                        usuario.setIdCloud(documentReference.getId());
+                        usuario.cloudIntCount += 1;
+                        repositoryCallback.onSuccess(
+                                usuario
+                        );
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -27,6 +27,27 @@ public class UsuarioDataMapper {
                 );
         return cloudUsuario;
     }
+
+    public Usuario transformFromCloud(CloudUsuario cloudUsuario)
+    {
+        Usuario usuario= new Usuario(
+                cloudUsuario.getId(),
+                cloudUsuario.getIdCloud(),
+                cloudUsuario.getUid(),
+                cloudUsuario.getName(),
+                cloudUsuario.getPhoneNumber(),
+                cloudUsuario.getEmail(),
+                cloudUsuario.getLat(),
+                cloudUsuario.getLng(),
+                cloudUsuario.isLogged(),
+                cloudUsuario.isActive(),
+                cloudUsuario.getCreated_at(),
+                cloudUsuario.isNotifications()
+        );
+        return usuario;
+    }
+
+
     public DbUsuario transformToDb(Usuario usuario)
     {
         DbUsuario dbUsuario= new DbUsuario(
@@ -45,4 +66,25 @@ public class UsuarioDataMapper {
         );
         return dbUsuario;
     }
+
+    public Usuario transformFromDb(DbUsuario dbUsuario)
+    {
+        Usuario usuario= new Usuario(
+                dbUsuario.getId(),
+                dbUsuario.getIdCloud(),
+                dbUsuario.getUid(),
+                dbUsuario.getName(),
+                dbUsuario.getPhoneNumber(),
+                dbUsuario.getEmail(),
+                dbUsuario.getLat(),
+                dbUsuario.getLng(),
+                dbUsuario.isLogged(),
+                dbUsuario.isActive(),
+                dbUsuario.getCreated_at(),
+                dbUsuario.isNotifications()
+        );
+        return usuario;
+    }
+
+
 }

@@ -38,8 +38,7 @@ public class Prueba12UserUpdDelActivity
     UsuarioPresenter usuarioPresenter;
     Usuario user12;
 
-
-
+    //<editor-fold desc="@BindView de Butter Knife">
     // @BindView(R.id.tv32id) EditText tv_id;
 
     @BindView(R.id.et32name) EditText et_name;
@@ -51,8 +50,7 @@ public class Prueba12UserUpdDelActivity
     @BindView(R.id.et32active) EditText et_active;
     @BindView(R.id.et32created_at) EditText et_created_at;
     @BindView(R.id.et32notifications) EditText et_notifications;
-
-
+    //</editor-fold>
 
     void initUI()
     {
@@ -184,9 +182,6 @@ public class Prueba12UserUpdDelActivity
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();       // toast
 
-        if (user12.getId() == 0) {
-            usuarioPresenter.createUsuario(user12, Constants.DB);  // <-- test
-        }
         usuarioPresenter.updateUsuario(user12, Constants.CLOUD);  // <-- test
 
 
@@ -285,6 +280,7 @@ public class Prueba12UserUpdDelActivity
     @Override
     public void userCreated(Usuario user) {
         user12 = user;
+        usuarioPresenter.updateUsuario(user12, Constants.CLOUD);
     }
 
     /*************************************************************************************-
@@ -293,7 +289,9 @@ public class Prueba12UserUpdDelActivity
     @Override
     public void userUpdated(Usuario user12) {
 
-        if (user12.getCloudIntCount() > user12.getDbIntCount()) {
+        if (user12.getId() == 0) {
+            usuarioPresenter.createUsuario(user12, Constants.DB);
+        } else if (user12.getCloudIntCount() > user12.getDbIntCount()) {
             usuarioPresenter.updateUsuario(user12, Constants.DB);
         } else if (user12.getCloudIntCount() < user12.getDbIntCount()) {
             usuarioPresenter.updateUsuario(user12, Constants.CLOUD);

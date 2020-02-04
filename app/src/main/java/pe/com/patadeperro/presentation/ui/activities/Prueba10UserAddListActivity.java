@@ -25,7 +25,7 @@ import pe.com.patadeperro.presentation.view.UsuarioView;
 import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba10UserAddListActivity ** Usuario *********************************************************
+ * Clase ** Prueba10UserAddListActivity ** Usuario *****************************************
  */
 public class Prueba10UserAddListActivity
         extends BaseActivity
@@ -40,6 +40,9 @@ public class Prueba10UserAddListActivity
 
     Button btnCreateUser;
     String nombre, email;
+
+    Boolean ctrlDb = false;
+    Boolean ctrlCloud = false;
 
     UsuarioPresenter usuarioPresenter;
     RecyclerView rvlistadoUsuario;
@@ -127,8 +130,8 @@ public class Prueba10UserAddListActivity
         super.onPause();
     }
 
-    /** -------------------------------------------------------------------------------------
-    método onCreate
+    /**
+    método onCreate -------------------------------------------------
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,16 +158,23 @@ public class Prueba10UserAddListActivity
                 )
         );
 
-        usuarioPresenter.loadUsuarios();        // cuando se ejecuta, carga adapterUsuario new
+        usuarioPresenter.loadUsuarios();
+
         /**
-        adapterUsuario = new ListAdapterUsuario(
-                mlistenerUsuario,
-                getApplicationContext(),
-                listaUsuario);
-        */
+         * En el retorno de *.loadUsuarios() creamos el adaptador y
+         * lo lanzamos a la pantalla, con la lista de usuarios
+         * actualizada.
+         *
+//        adapterUsuario = new ListAdapterUsuario(
+//                mlistenerUsuario,
+//                getApplicationContext(),
+//                listaUsuario); */
 
-        rvlistadoUsuario.setAdapter(adapterUsuario);
+//        rvlistadoUsuario.setAdapter(adapterUsuario);
 
+        /**
+         * Botón para crear usuario
+         */
         btnCreateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,6 +182,7 @@ public class Prueba10UserAddListActivity
                 nombre = etNameCreateUser.getText().toString();
                 email = etMailCreateUser.getText().toString();
 
+                //<editor-fold desc="region Usuario usuario = new... con nombre, email, ...">
                 Usuario usuario = new
                         Usuario (
                          0,
@@ -187,7 +198,11 @@ public class Prueba10UserAddListActivity
                         "2020/01/21",
                         true
                 );
+                //</editor-fold>
+                // <- Usuario usuario = new... con nombre, email, ...
 
+                ctrlCloud=false; ctrlDb=false;
+//                usuarioPresenter.createUsuario(usuario, Constants.DB);
                 usuarioPresenter.createUsuario(usuario, Constants.CLOUD);
 
                 // toast
@@ -199,7 +214,7 @@ public class Prueba10UserAddListActivity
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
 
-                adapterUsuario.notifyDataSetChanged();
+//                adapterUsuario.notifyDataSetChanged();
 
             }
         });
@@ -214,8 +229,14 @@ public class Prueba10UserAddListActivity
 
         if (usuario.getCloudIntCount() > usuario.getDbIntCount()) {
             usuarioPresenter.createUsuario(usuario, Constants.DB);
+            ctrlDb = true;
         } else if (usuario.getCloudIntCount() < usuario.getDbIntCount()) {
             usuarioPresenter.createUsuario(usuario, Constants.CLOUD);
+            ctrlCloud = true;
+        } else if (!ctrlCloud) {
+            usuarioPresenter.updateUsuario(usuario, Constants.CLOUD);
+        } else if (!ctrlDb) {
+            usuarioPresenter.updateUsuario(usuario, Constants.DB);
         }
 
     }
@@ -240,12 +261,18 @@ public class Prueba10UserAddListActivity
     public void usersListLoaded(ArrayList<Usuario> usuarios) {
 
         listaUsuario = usuarios;
-        // adapterUsuario.notifyDataSetChanged();
+
+//        adapterUsuario.notifyDataSetChanged();
+// <-- No existe aquí
+
+        // Aquí ya tenemos la lista de usuarios actualizada.
+        // Nuevo adaptador y salida a pantalla.
 
         adapterUsuario = new ListAdapterUsuario(
                 mlistenerUsuario,
                 getApplicationContext(),
                 listaUsuario);
+
         rvlistadoUsuario.setAdapter(adapterUsuario);
 
     }
