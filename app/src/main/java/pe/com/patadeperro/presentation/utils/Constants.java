@@ -29,7 +29,7 @@ public class Constants {
     public class FIREBASE_TABLES {
         public static final String USER = "users";
         public static final String LOST = "lost";
-        public static final String PET = "pet";
+        public static final String PET = "dbPet";
         public static final String ABUSE = "abuse"; //2020-01-23 ecv
     }
 

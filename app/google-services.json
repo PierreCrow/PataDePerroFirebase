@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "682921628514-83tm55l8e813ih2phosp1ga27o3jnqi7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pe.com.patadeperro",
+            "certificate_hash": "6006dd224094fbd6d28ff3404d2e34f875eb1bb7"
+          }
+        },
+        {
           "client_id": "682921628514-90ek1ee31sj61m8bev3atmg7ltj8qv1v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

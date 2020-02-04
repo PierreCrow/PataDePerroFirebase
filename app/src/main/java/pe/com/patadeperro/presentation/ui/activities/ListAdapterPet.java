@@ -120,7 +120,7 @@ public class ListAdapterPet
 
             int i = Integer.parseInt(position.getText().toString());
             Pet pet = items.get(i);
-            mlistener.onItemClicked(v, pet );
+            mlistener.onItemClicked(v, pet);
 
         }
     }

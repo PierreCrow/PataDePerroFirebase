@@ -13,16 +13,23 @@ public class UsuarioInteractor {
 
     public void createUsuario(
             Usuario usuario,
+            int usuarioDataLocation,
             UsuarioCreatedCallback usuarioCreatedCallback
     ) {
-        usuarioRepository.createUsuario(usuario, usuarioCreatedCallback);
+        usuarioRepository.createUsuario(usuario,
+                usuarioDataLocation,
+                usuarioCreatedCallback);
     }
 
     public void updateUsuario(
             Usuario usuario,
+            int usuarioDataLocation,
             UsuarioUpdatedCallback usuarioUpdatedCallback
     ) {
-        usuarioRepository.updateUsuario(usuario, usuarioUpdatedCallback);
+        usuarioRepository.updateUsuario(
+                usuario,
+                usuarioDataLocation,
+                usuarioUpdatedCallback);
     }
 
     public void deleteUsuario(

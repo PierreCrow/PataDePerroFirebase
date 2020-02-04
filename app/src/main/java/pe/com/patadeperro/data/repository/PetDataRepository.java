@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
 import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
+import pe.com.patadeperro.data.datasource.db.model.DbPet;
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.RepositoryCallback;
 import pe.com.patadeperro.domain.repository.PetRepository;
 import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
-// import pe.com.patadeperro.interactor.pet.PetExistCallback;
+// import pe.com.patadeperro.interactor.dbPet.PetExistCallback;
 import pe.com.patadeperro.interactor.pet.PetListCallback;
 import pe.com.patadeperro.interactor.pet.PetUpdatedCallback;
 
@@ -87,8 +88,8 @@ public class PetDataRepository implements PetRepository {
             @Override
             public void onSuccess(Object object) {
 
-                ArrayList<Pet> PetList = (ArrayList<Pet>) object;
-                requestListCallback.onPetSuccess(PetList);
+                ArrayList<Pet> petList = (ArrayList<Pet>) object;
+                requestListCallback.onPetSuccess(petList);
             }
         });
 

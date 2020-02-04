@@ -8,14 +8,27 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import pe.com.patadeperro.data.datasource.db.dao.AbuseDAO;
+import pe.com.patadeperro.data.datasource.db.dao.LostDAO;
+import pe.com.patadeperro.data.datasource.db.dao.PetDAO;
+import pe.com.patadeperro.data.datasource.db.dao.UsuarioDAO;
+import pe.com.patadeperro.data.datasource.db.model.DbUsuario;
+import pe.com.patadeperro.domain.model.Abuse;
+import pe.com.patadeperro.data.datasource.db.model.DbPet;
+import pe.com.patadeperro.domain.model.Lost;
+import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.model.Usuario;
 
 @Database(entities = {
-        Usuario.class},
+        DbUsuario.class,
+        DbPet.class,
+        Usuario.class,
+        Pet.class,
+        Lost.class,
+        Abuse.class},
         version =2 , exportSchema = false)
 
 public abstract class PdpDb extends RoomDatabase {
-
 
     private static PdpDb INSTANCE;
     private static final String DB_NAME = "pdp.db";
@@ -43,4 +56,10 @@ public abstract class PdpDb extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public abstract LostDAO lostDAO();
+    public abstract AbuseDAO abuseDAO();
+    public abstract PetDAO petDAO();
+    public abstract UsuarioDAO usuarioDAO();
+
 }

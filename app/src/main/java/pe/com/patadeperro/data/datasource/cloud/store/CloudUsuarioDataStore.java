@@ -1,18 +1,17 @@
 package pe.com.patadeperro.data.datasource.cloud.store;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import pe.com.patadeperro.data.datasource.cloud.model.CloudUsuario;
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStore;
+import pe.com.patadeperro.data.mapper.UsuarioDataMapper;
 import pe.com.patadeperro.domain.model.Usuario;
 import pe.com.patadeperro.domain.repository.RepositoryCallback;
 import pe.com.patadeperro.presentation.utils.Constants;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,23 +39,33 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void createUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
 
-        Map<String, Object> user = new HashMap<>();
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, usuario.getPhoneNumber());
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(usuario.getLat(), usuario.getLng()));
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, usuario.isActive());
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, usuario.getCreated_at());
-        user.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, usuario.isNotifications());
+        UsuarioDataMapper usuarioDataMapper= new UsuarioDataMapper();
+        CloudUsuario cloudUsuario=usuarioDataMapper.transformToCloud(usuario);
 
+
+        Map<String, Object> data = new HashMap<>();
+        // no olvidar el idCloud
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_id, cloudUsuario.getId());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_uid, cloudUsuario.getUid());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, cloudUsuario.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, cloudUsuario.getPhoneNumber());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, cloudUsuario.getEmail());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(cloudUsuario.getLat(), cloudUsuario.getLng()));
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, cloudUsuario.isLogged());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, cloudUsuario.isActive());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, cloudUsuario.getCreated_at());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, cloudUsuario.isNotifications());
+
+        // dentro de este bloque va idCloud
+        usuario.cloudIntCount += 1;
         db.collection(Constants.FIREBASE_TABLES.USER)
-                .add(user)
+                .add(data)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
 
-                        usuario.setIdCloud(documentReference.getId());
+                        // aquí está idCloud
+                        cloudUsuario.setIdCloud(documentReference.getId());
                         repositoryCallback.onSuccess(usuario);
                     }
                 })
@@ -71,21 +80,26 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void updateUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
 
+        UsuarioDataMapper usuarioDataMapper = new UsuarioDataMapper();
+        CloudUsuario cloudUsuario = usuarioDataMapper.transformToCloud(usuario);
+
         Map<String, Object> data = new HashMap<>();
-//        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
-//        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
-//        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
 
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, usuario.getPhoneNumber());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(usuario.getLat(), usuario.getLng()));
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, usuario.isActive());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, usuario.getCreated_at());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, usuario.isNotifications());
+        // no olvidar el idCloud
+        usuario.cloudIntCount += 1;
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_id, cloudUsuario.getId());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_uid, cloudUsuario.getUid());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, cloudUsuario.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, cloudUsuario.getPhoneNumber());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, cloudUsuario.getEmail());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(cloudUsuario.getLat(), cloudUsuario.getLng()));
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, cloudUsuario.isLogged());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, cloudUsuario.isActive());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, cloudUsuario.getCreated_at());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, cloudUsuario.isNotifications());
 
-        db.collection(Constants.FIREBASE_TABLES.USER).document(usuario.getIdCloud())
+        // aquí está el idCloud
+        db.collection(Constants.FIREBASE_TABLES.USER).document(cloudUsuario.getIdCloud())
                 .set(data, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -103,17 +117,26 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void deleteUsuario(Usuario usuario, RepositoryCallback repositoryCallback) {
 
-        Map<String, Object> data = new HashMap<>();
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, usuario.getName());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, usuario.getPhoneNumber());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, usuario.getEmail());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(usuario.getLat(), usuario.getLng()));
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, usuario.isLogged());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, usuario.isActive());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, usuario.getCreated_at());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, usuario.isNotifications());
+        UsuarioDataMapper usuarioDataMapper= new UsuarioDataMapper();
+        CloudUsuario cloudUsuario=usuarioDataMapper.transformToCloud(usuario);
 
-        db.collection(Constants.FIREBASE_TABLES.USER).document(usuario.getIdCloud())
+
+        Map<String, Object> data = new HashMap<>();
+        // no olvidar el idCloud
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_id, cloudUsuario.getId());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_uid, cloudUsuario.getUid());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_name, cloudUsuario.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, cloudUsuario.getPhoneNumber());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_email, cloudUsuario.getEmail());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_location, new GeoPoint(cloudUsuario.getLat(), cloudUsuario.getLng()));
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_logged, cloudUsuario.isLogged());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_active, cloudUsuario.isActive());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_created_at, cloudUsuario.getCreated_at());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.USER_notifications, cloudUsuario.isNotifications());
+
+        // aquí está idCloud
+        usuario.cloudIntCount += 1;
+        db.collection(Constants.FIREBASE_TABLES.USER).document(cloudUsuario.getIdCloud())
                 .delete()
                 .addOnSuccessListener
                         (new OnSuccessListener<Void>()
@@ -134,48 +157,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     }
 
     @Override
-    public void verifyUsuarioExist(String phone, RepositoryCallback repositoryCallback) {
-
-        db.collection(Constants.FIREBASE_TABLES.USER)
-                .whereEqualTo(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, phone)
-                //.orderBy("sent", Query.Direction.DESCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            repositoryCallback.onError(e);
-                            return;
-                        }
-
-                        Usuario usuario = null;
-
-                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-
-                            if (phone.equals(doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber))) {
-                                usuario = new Usuario(
-                                        // (Integer) doc.get(Constants.FIREBASE_TABLES_FIELDS.USER_id),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_idCloud),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_uid),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_email),
-                                        0.0,
-                                        0.0,
-                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_logged),
-                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_active),
-                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_created_at),
-                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_notifications)
-                                        );
-                                usuario.setId(0);
-                            }
-                        }
-
-                        repositoryCallback.onSuccess(usuario);
-                    }
-                });
-    }
-
-    @Override
     public void usuariosList(RepositoryCallback repositoryCallback) {
 
         db.collection(Constants.FIREBASE_TABLES.USER)
@@ -190,10 +171,18 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                             GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.USER_location);
-                            String ddd=doc.getId();
+                            String idDbKeyStr = doc.get(Constants.FIREBASE_TABLES_FIELDS.USER_id).toString();
+                                // int idDbKey = Integer.parseInt(idDbKeyStr);
+                                int idDbKey;
+                                if (idDbKeyStr==null) {
+                                    idDbKey = 0;
+                                } else {
+                                    idDbKey = Integer.parseInt(idDbKeyStr);
+                                }
+
                             Usuario usuario = new Usuario(
-                                    // (Integer) doc.get(Constants.FIREBASE_TABLES_FIELDS.USER_id),
-                                    doc.getId(),
+                                    idDbKey,        // Int id
+                                    doc.getId(),    // String idCloud
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_uid),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
@@ -211,4 +200,51 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                     }
                 });
     }
+
+    @Override
+    public void verifyUsuarioExist(String phone, RepositoryCallback repositoryCallback) {
+
+        db.collection(Constants.FIREBASE_TABLES.USER)
+                .whereEqualTo(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber, phone)
+                //.orderBy("sent", Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            repositoryCallback.onError(e);
+                            return;
+                        }
+
+                        Usuario usuario = null;
+
+                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+
+                            GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.USER_location);
+                            int idDbKey = Integer.parseInt(doc.getLong(Constants.FIREBASE_TABLES_FIELDS.USER_id).toString());
+
+                            if (phone.equals(doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber))) {
+                                usuario = new Usuario(
+                                        idDbKey,        // Int id
+                                        doc.getId(),    // String idCloud
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_uid),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_name),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_phoneNumber),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_email),
+                                        location.getLatitude(),
+                                        location.getLongitude(),
+                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_logged),
+                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_active),
+                                        doc.getString(Constants.FIREBASE_TABLES_FIELDS.USER_created_at),
+                                        doc.getBoolean(Constants.FIREBASE_TABLES_FIELDS.USER_notifications)
+
+                                );
+                                // usuario.setId("");
+                            }
+                        }
+
+                        repositoryCallback.onSuccess(usuario);
+                    }
+                });
+    }
+
 }

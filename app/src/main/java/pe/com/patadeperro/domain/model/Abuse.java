@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Abuse implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private String id;
+    private Integer id;
     private String idCloud;
     private String petName;
     private String race;
@@ -34,11 +34,11 @@ public class Abuse implements Serializable {
         this.contactName = contactName;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

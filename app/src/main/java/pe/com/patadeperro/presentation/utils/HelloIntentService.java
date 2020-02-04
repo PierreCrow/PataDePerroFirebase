@@ -1,11 +1,13 @@
 package pe.com.patadeperro.presentation.utils;
 
+//region Cómo usar
 // Llamar así:
 // Intent intent = new Intent(this, HelloService.class);
 // startService(intent);
 //
 // Detener:
-// stopService(new Intent(this, MyService.class));
+// stopService(new Intent(this, HelloService.class));
+//endregion
 
 import android.app.AlertDialog;
 import android.app.IntentService;
@@ -144,7 +146,6 @@ public class HelloIntentService extends IntentService {
         mHandler.post(new DisplayToast(context, message));
 
     }
-
 
 }
 

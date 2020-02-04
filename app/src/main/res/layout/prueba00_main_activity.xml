@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity">
+
+    <TextView android:id="@+id/tv_Prueba0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="PDP Prueba... elija una opción"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_usuarios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onBtnUsuarioClicked"
+        android:text="1. Usuarios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Prueba0" />
+
+    <Button
+        android:id="@+id/btn_pet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onBtnPetClicked"
+        android:text="2. Mascotas"
+        app:layout_constraintStart_toStartOf="@+id/btn_usuarios"
+        app:layout_constraintTop_toBottomOf="@+id/btn_usuarios" />
+
+    <Button
+        android:id="@+id/btn_lost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onBtnLostClicked"
+        android:text="3. Perdidos"
+        app:layout_constraintStart_toStartOf="@+id/btn_pet"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pet" />
+
+    <Button
+        android:id="@+id/btn_abuse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onBtnAbuseClicked"
+        android:text="4. Abuso"
+        app:layout_constraintStart_toStartOf="@+id/btn_lost"
+        app:layout_constraintTop_toBottomOf="@+id/btn_lost" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

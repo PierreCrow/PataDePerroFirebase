@@ -6,15 +6,14 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 
 @Entity(tableName = "Pet")
-public class Pet implements Serializable {
+public class Pet {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @SerializedName("id")
-    private String id;
+    private Integer id;
     private String idCloud;
     private String idUser;
     private String name;
@@ -47,11 +46,11 @@ public class Pet implements Serializable {
 
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

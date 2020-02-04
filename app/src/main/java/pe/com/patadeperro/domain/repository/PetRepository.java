@@ -1,5 +1,6 @@
 package pe.com.patadeperro.domain.repository;
 
+import pe.com.patadeperro.data.datasource.db.model.DbPet;
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
 import pe.com.patadeperro.interactor.pet.PetListCallback;

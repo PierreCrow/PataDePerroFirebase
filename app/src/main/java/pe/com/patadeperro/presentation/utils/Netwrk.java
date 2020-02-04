@@ -22,8 +22,12 @@ public class Netwrk {
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        boolean isConnected =
+                activeNetwork != null &&
+                activeNetwork.isConnected();
+
+//                activeNetwork.isConnectedOrConnecting(); <-- deprecated
+
 
         return isConnected;
     }

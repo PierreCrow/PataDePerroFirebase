@@ -2,7 +2,6 @@ package pe.com.patadeperro.domain.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -39,8 +38,11 @@ public class Usuario implements Serializable {
     @SerializedName("notifications")
     public boolean notifications;
 
+    public int cloudIntCount;
+    public int dbIntCount;
+
    public Usuario(
-            // Integer id,
+            Integer id,
             String idCloud,
             String uid,
             String name,
@@ -53,7 +55,7 @@ public class Usuario implements Serializable {
             String created_at,
             boolean notifications) {
 
-        // this.id = id;
+        this.id = id;
         this.idCloud = idCloud;
         this.uid = uid;
         this.name = name;
@@ -65,6 +67,10 @@ public class Usuario implements Serializable {
         this.active = active;
         this.created_at = created_at;
         this.notifications = notifications;
+
+        this.dbIntCount = 0;
+        this.cloudIntCount = 0;
+
     }
 
     public Integer getId() {
@@ -161,5 +167,21 @@ public class Usuario implements Serializable {
 
     public void setNotifications(boolean notifications) {
         this.notifications = notifications;
+    }
+
+    public int getCloudIntCount() {
+        return cloudIntCount;
+    }
+
+    public void setCloudIntCount(int cloudIntCount) {
+        this.cloudIntCount = cloudIntCount;
+    }
+
+    public int getDbIntCount() {
+        return dbIntCount;
+    }
+
+    public void setDbIntCount(int dbIntCount) {
+        this.dbIntCount = dbIntCount;
     }
 }

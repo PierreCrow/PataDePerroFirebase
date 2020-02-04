@@ -10,9 +10,15 @@ import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
 
 public interface UsuarioRepository {
 
-    void createUsuario(Usuario usuario, UsuarioCreatedCallback usuarioCreatedCallback);
+    void createUsuario(
+            Usuario usuario,
+            int usuarioDataLocation,
+            UsuarioCreatedCallback usuarioCreatedCallback);
 
-    void updateUsuario(Usuario usuario, UsuarioUpdatedCallback usuarioUpdatedCallback);
+    void updateUsuario(
+            Usuario usuario,
+            int usuarioDataLocation,
+            UsuarioUpdatedCallback usuarioUpdatedCallback);
 
     void deleteUsuario(
             Usuario usuario,

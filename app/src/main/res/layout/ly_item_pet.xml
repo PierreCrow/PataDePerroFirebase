@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=
-        "pe.com.patadeperro.presentation.ui.activities.Prueba20Activity">
+        "pe.com.patadeperro.presentation.ui.activities.Prueba20PetAddListActivity">
 
     <TextView android:id="@+id/tv_position"
         android:layout_width="16dp"

@@ -9,7 +9,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -20,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
+import pe.com.patadeperro.data.datasource.db.model.DbPet;
+import pe.com.patadeperro.data.mapper.PetDataMapper;
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.RepositoryCallback;
 import pe.com.patadeperro.presentation.utils.Constants;
@@ -37,13 +38,16 @@ public class CloudPetDataStore implements PetDataStore {
     @Override
     public void createPet(Pet pet, RepositoryCallback repositoryCallback) {
 
+        PetDataMapper petDataMapper= new PetDataMapper();
+        DbPet dbPet=petDataMapper.transformToDb(pet);
+        
         Map<String, Object> petH = new HashMap<>();
-        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_name, pet.getName());
-        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_race, pet.getRace());
-        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_gender, pet.getGender());
-        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_age, pet.getAge());
-        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_color, pet.getColor());
-        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode, pet.getQrCode());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_name, dbPet.getName());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_race, dbPet.getRace());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_gender, dbPet.getGender());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_age, dbPet.getAge());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_color, dbPet.getColor());
+        petH.put(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode, dbPet.getQrCode());
 
 
         db.collection(Constants.FIREBASE_TABLES.PET)
@@ -52,7 +56,7 @@ public class CloudPetDataStore implements PetDataStore {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
 
-                        pet.setIdCloud(documentReference.getId());
+                        dbPet.setIdCloud(documentReference.getId());
                         repositoryCallback.onSuccess(pet);
                     }
                 })
@@ -67,18 +71,21 @@ public class CloudPetDataStore implements PetDataStore {
     @Override
     public void updatePet(Pet pet, RepositoryCallback repositoryCallback) {
 
-        Map<String, Object> data = new HashMap<>();
-//        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_id, pet.getId());
-//        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud, pet.getIdCloud());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_idUser, pet.getIdUser());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_name, pet.getName());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_race, pet.getRace());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_gender, pet.getGender());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_age, pet.getAge());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_color, pet.getColor());
-        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode, pet.getQrCode());
+        PetDataMapper petDataMapper= new PetDataMapper();
+        DbPet dbPet=petDataMapper.transformToDb(pet);
 
-        db.collection(Constants.FIREBASE_TABLES.PET).document(pet.getIdCloud())
+        Map<String, Object> data = new HashMap<>();
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_id, dbPet.getId());
+//        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud, dbPet.getIdCloud());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_idUser, dbPet.getIdUser());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_name, dbPet.getName());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_race, dbPet.getRace());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_gender, dbPet.getGender());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_age, dbPet.getAge());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_color, dbPet.getColor());
+        data.put(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode, dbPet.getQrCode());
+
+        db.collection(Constants.FIREBASE_TABLES.PET).document(dbPet.getIdCloud())
                 .set(data, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -93,7 +100,9 @@ public class CloudPetDataStore implements PetDataStore {
         });
     }
 
-    /*
+    /**
+     * verifyPetExist ... no por ahora
+     * 
     @Override
     public void verifyPetExist(String phone, RepositoryCallback repositoryCallback) {
 
@@ -114,11 +123,11 @@ public class CloudPetDataStore implements PetDataStore {
                             repositoryCallback.onError(e);
                             return;
                         }
-                        List<Pet> pets = new ArrayList<>();
+                        List<DbPet> dbPets = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                             // GeoPoint location = doc.getGeoPoint(Constants.FIREBASE_TABLES_FIELDS.PET_location);
-                            Pet pet = new Pet(
+                            DbPet dbPet = new DbPet(
                                     // (String) doc.get(Constants.FIREBASE_TABLES_FIELDS.PET_id),
                                     // doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_idCloud),
                                     doc.getId(),
@@ -130,9 +139,9 @@ public class CloudPetDataStore implements PetDataStore {
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_color),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.PET_qrCode)
                                     );
-                            pets.add(pet);
+                            dbPets.add(dbPet);
                         }
-                        repositoryCallback.onSuccess(pets);
+                        repositoryCallback.onSuccess(dbPets);
                     }
                 });
     }

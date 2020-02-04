@@ -31,14 +31,18 @@ public class UsuarioPresenter implements
     private UsuarioInteractor usuarioInteractor;
 //    private int dataLocation = CLOUD;       //2020-01/27 ECV
 
-    public void createUsuario(Usuario usuario) {
+    public void createUsuario(Usuario usuario, int usuarioDataLocation) {
         usuarioInteractor.createUsuario(
-                usuario, this);
+                usuario,
+                usuarioDataLocation,
+                this);
     }
 
-    public void updateUsuario(Usuario usuario) {
+    public void updateUsuario(Usuario usuario, int usuarioDataLocation) {
         usuarioInteractor.updateUsuario(
-                usuario, this);
+                usuario,
+                usuarioDataLocation,
+                this);
     }
 
     public void deleteUsuario(Usuario usuario, int usuarioDataLocation) {

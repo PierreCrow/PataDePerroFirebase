@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="pe.com.patadeperro.presentation.ui.activities.Prueba00Activity"
+            android:name="pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         <intent-filter>
@@ -31,14 +31,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba10Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba12Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba20Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba22Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba30Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba32Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba40Activity"></activity>
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba42Activity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba10UserAddListActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba12UserUpdDelActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba20PetAddListActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba22PetUpdDelActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba30LostAddListActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba32LostUpdDelActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba40AbuseAddListActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.Prueba42AbuseUpdDelActivity"></activity>
 
         <service android:name="pe.com.patadeperro.presentation.utils.HelloIntentService" />
 

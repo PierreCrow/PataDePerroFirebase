@@ -21,15 +21,21 @@ public class UsuarioDataRepository implements UsuarioRepository {
 
     private final UsuarioDataStoreFactory usuarioDataStoreFactory;
 
-    public UsuarioDataRepository(UsuarioDataStoreFactory usuarioDataStoreFactory) {
+    public UsuarioDataRepository(
+            UsuarioDataStoreFactory usuarioDataStoreFactory) {
         this.usuarioDataStoreFactory = usuarioDataStoreFactory;
     }
 
     @Override
-    public void createUsuario(Usuario usuario, UsuarioCreatedCallback usuarioCreatedCallback) {
+    public void createUsuario(
+            Usuario usuario,
+            int usuarioDataLocation,
+            UsuarioCreatedCallback usuarioCreatedCallback) {
 
         final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
-                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+//                usuarioDataStoreFactory.CLOUD,
+                usuarioDataLocation,
+                FirebaseFirestore.getInstance());
 
         usuarioDataStore.createUsuario(usuario, new RepositoryCallback() {
             @Override
@@ -51,10 +57,15 @@ public class UsuarioDataRepository implements UsuarioRepository {
     }
 
     @Override
-    public void updateUsuario(Usuario usuario, UsuarioUpdatedCallback usuarioUpdatedCallback) {
+    public void updateUsuario(
+            Usuario usuario,
+            int usuarioDataLocation,
+            UsuarioUpdatedCallback usuarioUpdatedCallback) {
 
         final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
-                usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
+//                usuarioDataStoreFactory.CLOUD,
+                usuarioDataLocation,
+                FirebaseFirestore.getInstance());
 
         usuarioDataStore.updateUsuario(usuario, new RepositoryCallback() {
             @Override
@@ -109,12 +120,15 @@ public class UsuarioDataRepository implements UsuarioRepository {
     }
 
     @Override
-    public void verifyUserExist(String phone, UsuarioExistCallback usuarioExistCallback) {
+    public void verifyUserExist(
+            String phone,
+            UsuarioExistCallback usuarioExistCallback) {
 
     }
 
     @Override
-    public void loadUsuarios(UsuarioListCallback requestListCallback) {
+    public void loadUsuarios(
+            UsuarioListCallback requestListCallback) {
 
         final UsuarioDataStore usuarioDataStore = usuarioDataStoreFactory.create(
                 usuarioDataStoreFactory.CLOUD, FirebaseFirestore.getInstance());
