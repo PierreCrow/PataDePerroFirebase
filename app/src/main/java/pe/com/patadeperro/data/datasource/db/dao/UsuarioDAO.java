@@ -7,7 +7,9 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import pe.com.patadeperro.data.datasource.db.model.DbUsuario;
 import pe.com.patadeperro.data.datasource.db.model.DbUsuario;
 import pe.com.patadeperro.domain.model.Usuario;
 
@@ -22,7 +24,7 @@ public interface UsuarioDAO {
     @Update
     void Update(DbUsuario usuario);
 
-    // Method 2:
+    // Method 2: Update by Id
     @Query(
             "UPDATE DbUsuario " +
             "SET " +
@@ -39,6 +41,7 @@ public interface UsuarioDAO {
                 "and id = :id"
     )
     void updateById(
+            //<editor-fold desc="fields">
             String id,
             String idCloud,
             String name,
@@ -50,7 +53,8 @@ public interface UsuarioDAO {
             String active,
             String created_at,
             String notifications
-            );
+            //</editor-fold>
+    );
 
     @Delete
     void Delete(DbUsuario usuario);
@@ -58,14 +62,18 @@ public interface UsuarioDAO {
     // Method 2 for DELETE by query
     @Query(
             "DELETE from DbUsuario " +
-                    "WHERE idCloud = :idCloud "
+            "WHERE idCloud = :idCloud "
     )
     void deleteById(
             String idCloud
     );
 
-
     @Insert
     void InsertMultiple(ArrayList<Usuario> usuarios);
+
+    // Method 2: List *all
+    //    public List<User> getAllUser(); <-- https://www.vogella.com/tutorials/AndroidSQLite/article.html
+    @Query("SELECT * FROM DbUsuario WHERE :sWhere")
+    List<DbUsuario> listAllQ(String sWhere);
 
 }

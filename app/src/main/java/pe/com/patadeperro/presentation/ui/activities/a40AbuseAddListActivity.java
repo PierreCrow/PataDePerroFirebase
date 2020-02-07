@@ -21,12 +21,12 @@ import pe.com.patadeperro.domain.model.Abuse;
 import pe.com.patadeperro.presentation.presenter.AbusePresenter;
 import pe.com.patadeperro.presentation.view.AbuseView;
 
-import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
+import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba40AbuseAddListActivity *****************************************************************
+ * Clase ** a40AbuseAddListActivity *****************************************************************
  */
-public class Prueba40AbuseAddListActivity
+public class a40AbuseAddListActivity
         extends BaseActivity
         implements AbuseView,
         ListAdapterAbuse.OnItemClickListener {
@@ -96,7 +96,7 @@ public class Prueba40AbuseAddListActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba40_abuse_add_list_activity);
+        setContentView(R.layout.a40_abuse_add_list_activity);
 
         etNameAbusePet =(EditText)findViewById(R.id.etNameAbusePet);
         etAbuseContactPhone=(EditText)findViewById(R.id.etAbuseContactPhone);
@@ -242,7 +242,7 @@ public class Prueba40AbuseAddListActivity
         bundle.putSerializable("objetoAbuse", abuse);
 
         //** Y envía el paquete a siguiente pantlla...
-        Intent intent = new Intent(this, Prueba42AbuseUpdDelActivity.class);
+        Intent intent = new Intent(this, a42AbuseUpdDelActivity.class);
         intent.putExtra("objetoAbuse", bundle);
 
         String message = tv_position.getText().toString();

@@ -65,9 +65,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                         // aquí está idCloud
                         usuario.setIdCloud(documentReference.getId());
                         usuario.cloudIntCount += 1;
-                        repositoryCallback.onSuccess(
-                                usuario
-                        );
+                        repositoryCallback.onSuccess(usuario);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -163,7 +161,8 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         db.collection(Constants.FIREBASE_TABLES.USER)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                                        @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
                             repositoryCallback.onError(e);
                             return;

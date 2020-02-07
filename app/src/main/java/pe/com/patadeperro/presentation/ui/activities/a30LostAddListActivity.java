@@ -21,12 +21,12 @@ import pe.com.patadeperro.domain.model.Lost;
 import pe.com.patadeperro.presentation.presenter.LostPresenter;
 import pe.com.patadeperro.presentation.view.LostView;
 
-import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
+import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
 
 /**
- * Clase Prueba10UserAddListActivity *****************************************************************
+ * Clase a10UserAddListActivity *****************************************************************
  */
-public class Prueba30LostAddListActivity
+public class a30LostAddListActivity
         extends BaseActivity
         implements LostView,
         ListAdapterLost.OnItemClickListener {
@@ -127,7 +127,7 @@ public class Prueba30LostAddListActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba30_lost_add_list_activity);
+        setContentView(R.layout.a30_lost_add_list_activity);
 
         etNameLostPet = (EditText) findViewById(R.id.etNameLostPet);
         etAddressLostPet = (EditText) findViewById(R.id.etAddressLostPet);
@@ -285,7 +285,7 @@ public class Prueba30LostAddListActivity
         bundle.putSerializable("objetoLost", lost);
 
         // Y envía el paquete a siguiente pantlla...
-        Intent intent = new Intent(this, Prueba32LostUpdDelActivity.class);
+        Intent intent = new Intent(this, a32LostUpdDelActivity.class);
         intent.putExtra("objetoLost", bundle);
 
         String message = tv_position.getText().toString();

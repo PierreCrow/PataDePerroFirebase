@@ -26,7 +26,7 @@ import pe.com.patadeperro.domain.model.Usuario;
         Pet.class,
         Lost.class,
         Abuse.class},
-        version =2 , exportSchema = false)
+        version = 3 , exportSchema = false) // <-- ** version **
 
 public abstract class PdpDb extends RoomDatabase {
 

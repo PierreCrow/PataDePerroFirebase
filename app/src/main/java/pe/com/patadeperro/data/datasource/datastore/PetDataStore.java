@@ -10,6 +10,8 @@ public interface PetDataStore {
 
     void updatePet(Pet pet, RepositoryCallback repositoryCallback);
 
+    void deletePet(Pet pet, RepositoryCallback repositoryCallback);
+
     void petsList(RepositoryCallback repositoryCallback);
 
 }

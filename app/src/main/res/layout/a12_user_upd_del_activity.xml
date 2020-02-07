@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    tools:context="pe.com.patadeperro.presentation.ui.activities.Prueba12UserUpdDelActivity"
+    tools:context="pe.com.patadeperro.presentation.ui.activities.a12UserUpdDelActivity"
 
     android:layout_height="match_parent"
     android:layout_width="match_parent">
@@ -103,7 +103,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/btnUpdLostPet"
+        android:id="@+id/btnUpdate"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
         android:text="Update" />
 
     <Button
-        android:id="@+id/btnDelLostPet"
+        android:id="@+id/btnDelete"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

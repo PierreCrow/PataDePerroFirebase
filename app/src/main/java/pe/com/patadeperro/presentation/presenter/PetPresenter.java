@@ -9,7 +9,7 @@ import pe.com.patadeperro.data.repository.PetDataRepository;
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.PetRepository;
 import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
-
+import pe.com.patadeperro.interactor.pet.PetDeletedCallback;
 import pe.com.patadeperro.interactor.pet.PetInteractor;
 import pe.com.patadeperro.interactor.pet.PetListCallback;
 import pe.com.patadeperro.interactor.pet.PetUpdatedCallback;
@@ -18,25 +18,38 @@ import pe.com.patadeperro.presentation.view.PetView;
 public class PetPresenter implements
         Presenter<PetView>,
         PetCreatedCallback,
-
         PetUpdatedCallback,
+        PetDeletedCallback,
         PetListCallback {
 
     private PetView petView;
     private PetInteractor petInteractor;
 
-    public void createPet(Pet pet) {
+    public void createPet(Pet pet, int petDataLocation) {
         petInteractor.createPet(
-                pet,this);
+                pet,
+                petDataLocation,
+                this);
     }
 
-    public void updatePet(Pet pet) {
+    public void updatePet(Pet pet, int petDataLocation) {
         petInteractor.updatePet(
-                pet,this);
+                pet,
+                petDataLocation,
+                this);
     }
 
-    public void loadPets() {
+    public void deletePet(Pet pet, int petDataLocation) {
+
+        petInteractor.deletePet(
+                pet,
+                petDataLocation,
+                this);
+    }
+
+    public void loadPets(int petDataLocation) {
         petInteractor.loadPets(
+                petDataLocation,
                 this);
     }
 
@@ -67,7 +80,7 @@ public class PetPresenter implements
 
     @Override
     public void onPetUpdatedSuccess(Pet pet) {
-
+        petView.petUpdated(pet);
     }
 
     @Override
@@ -78,11 +91,20 @@ public class PetPresenter implements
     @Override
     public void onPetSuccess(List<Pet> petList) {
         petView.petsListLoaded((ArrayList<Pet>) petList);
-
     }
 
     @Override
     public void onPetError(String message) {
+
+    }
+
+    @Override
+    public void onPetDeletedSuccess(Pet pet) {
+        petView.petDeleted(pet);
+    }
+
+    @Override
+    public void onPetDeletedError(String message) {
 
     }
 }

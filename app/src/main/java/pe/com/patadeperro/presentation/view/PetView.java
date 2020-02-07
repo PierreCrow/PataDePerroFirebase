@@ -8,6 +8,7 @@ public interface PetView extends BaseView {
 
     void petCreated(Pet pet);
     void petUpdated(Pet pet);
+    void petDeleted(Pet pet);
     void petsListLoaded(ArrayList<Pet> pets);
     void showErrorMessage(String message);
 }

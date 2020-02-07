@@ -10,24 +10,22 @@ import android.widget.Toast;
 
 import com.com.patadeperro.R;
 
-public class Prueba00MainActivity extends AppCompatActivity {
+public class a00MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE =
-            "pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity" ;
+            "pe.com.patadeperro.presentation.ui.activities.a00MainActivity" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba00_main_activity);
-
-
+        setContentView(R.layout.a00_main_activity);
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        setContentView(R.layout.prueba00_main_activity);
+        setContentView(R.layout.a00_main_activity);
     }
 
     public void onBtnUsuarioClicked(View v) {
@@ -41,7 +39,7 @@ public class Prueba00MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        Intent intent = new Intent(this, Prueba10UserAddListActivity.class);
+        Intent intent = new Intent(this, a10UserAddListActivity.class);
         String message = "algún dato de usuario";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
@@ -58,7 +56,7 @@ public class Prueba00MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        Intent intent = new Intent(this, Prueba20PetAddListActivity.class);
+        Intent intent = new Intent(this, a28PetSplashActivity.class);
         String message = "algún dato de mascota";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
@@ -75,7 +73,7 @@ public class Prueba00MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        Intent intent = new Intent(this, Prueba30LostAddListActivity.class);
+        Intent intent = new Intent(this, a30LostAddListActivity.class);
         String message = "algún dato de la mascota perdida";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
@@ -92,7 +90,7 @@ public class Prueba00MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        Intent intent = new Intent(this, Prueba40AbuseAddListActivity.class);
+        Intent intent = new Intent(this, a40AbuseAddListActivity.class);
         String message = "algún dato de la mascota abusada";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

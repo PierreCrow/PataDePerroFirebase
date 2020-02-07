@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-
 @Entity(tableName = "CloudPet")
 public class CloudPet {
 
@@ -24,7 +23,7 @@ public class CloudPet {
     private String qrCode;
 
     public CloudPet(
-           // String id,
+            String id,
             String idCloud,
             String idUser,
             String name,
@@ -34,13 +33,13 @@ public class CloudPet {
             String color,
             String qrCode) {
 
-    //    this.id = id;
+        this.id = id;
         this.idCloud = idCloud;
         this.idUser = idUser;
         this.name = name;
         this.race = race;
         this.gender = gender;
-        this.gender = age;
+        this.age = age;
         this.color = color;
         this.qrCode = qrCode;
 

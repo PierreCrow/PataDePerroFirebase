@@ -14,19 +14,42 @@ public class PetInteractor {
 
     public void createPet(
             Pet pet,
+            int petDataLocation,
             PetCreatedCallback petCreatedCallback
     ) {
-        petRepository.createPet(pet, petCreatedCallback);
+        petRepository.createPet(
+                pet,
+                petDataLocation,
+                petCreatedCallback);
     }
 
     public void updatePet(
             Pet pet,
+            int petDataLocation,
             PetUpdatedCallback petUpdatedCallback
     ) {
-        petRepository.updatePet(pet, petUpdatedCallback);
+        petRepository.updatePet(
+                pet,
+                petDataLocation,
+                petUpdatedCallback);
     }
 
-    public void loadPets(PetListCallback petListCallback) {
-        petRepository.loadPets(petListCallback);
+    public void deletePet(
+            Pet pet,
+            int petDataLocation,
+            PetDeletedCallback petDeletedCallback) {
+
+        petRepository.deletePet(
+                pet,
+                petDataLocation,
+                petDeletedCallback);
+    }
+
+    public void loadPets(
+            int petDataLocation,
+            PetListCallback petListCallback) {
+        petRepository.loadPets(
+                petDataLocation,
+                petListCallback);
     }
 }

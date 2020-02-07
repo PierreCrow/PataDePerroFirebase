@@ -2,6 +2,9 @@ package pe.com.patadeperro.data.datasource.db.store;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStore;
 import pe.com.patadeperro.data.datasource.db.PdpDb;
 import pe.com.patadeperro.data.datasource.db.dao.UsuarioDAO;
@@ -89,6 +92,28 @@ public class DbUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void usuariosList(RepositoryCallback repositoryCallback) {
 
+        UsuarioDataMapper usuarioDataMapper= new UsuarioDataMapper();
+//        DbUsuario dbUsuario = usuarioDataMapper.transformToDb(usuario);
+
+        List<Usuario> usuarios = new ArrayList<>();
+        Usuario usuario;
+        DbUsuario dbUsuario;
+
+        try {
+            List<DbUsuario> dbUsuarios = usuarioDAO.listAllQ("true");
+
+            for (int i = 0; i < dbUsuarios.size(); i++) {
+//                System.out.println(crunchifyList.get(i));
+                dbUsuario = dbUsuarios.get(i);
+                usuario = usuarioDataMapper.transformFromDb(dbUsuario);
+                usuarios.add(usuario);
+            }
+            repositoryCallback.onSuccess(usuarios);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            repositoryCallback.onError(e);
+        }
     }
 
 

@@ -15,13 +15,13 @@ import pe.com.patadeperro.domain.model.Lost;
 import pe.com.patadeperro.presentation.presenter.LostPresenter;
 import pe.com.patadeperro.presentation.view.LostView;
 
-import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
-import static pe.com.patadeperro.presentation.ui.activities.Prueba30LostAddListActivity.lost;
+import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
+import static pe.com.patadeperro.presentation.ui.activities.a30LostAddListActivity.lost;
 
 /**
- * Clase ** Prueba10UserAddListActivity ****************************
+ * Clase ** a10UserAddListActivity ****************************
  */
-public class Prueba32LostUpdDelActivity
+public class a32LostUpdDelActivity
         extends BaseActivity
         implements LostView
 {
@@ -45,7 +45,7 @@ public class Prueba32LostUpdDelActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba32_los_upd_del_activity);
+        setContentView(R.layout.a32_los_upd_del_activity);
 
         // Get the Intent that started this activity and extract the string
         // ... antes obtenía así: lost = (Lost) listaLost.get(position);
@@ -188,7 +188,7 @@ public class Prueba32LostUpdDelActivity
 */
 
         // new intent
-        Intent intent = new Intent(this, Prueba30LostAddListActivity.class);
+        Intent intent = new Intent(this, a30LostAddListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(
                 EXTRA_MESSAGE,

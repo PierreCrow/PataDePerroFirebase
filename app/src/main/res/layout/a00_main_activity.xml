@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity">
+    tools:context="pe.com.patadeperro.presentation.ui.activities.a00MainActivity">
 
     <TextView android:id="@+id/tv_Prueba0"
         android:layout_width="wrap_content"

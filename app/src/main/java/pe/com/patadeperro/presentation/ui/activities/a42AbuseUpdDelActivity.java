@@ -15,12 +15,12 @@ import pe.com.patadeperro.domain.model.Abuse;
 import pe.com.patadeperro.presentation.presenter.AbusePresenter;
 import pe.com.patadeperro.presentation.view.AbuseView;
 
-import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
+import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba42AbuseUpdDelActivity ****************************
+ * Clase ** a42AbuseUpdDelActivity ****************************
  */
-public class Prueba42AbuseUpdDelActivity
+public class a42AbuseUpdDelActivity
         extends BaseActivity
         implements AbuseView
 {
@@ -46,7 +46,7 @@ public class Prueba42AbuseUpdDelActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba42_abuse_upd_del_activity);
+        setContentView(R.layout.a42_abuse_upd_del_activity);
 
         /**
          * // Get the Intent that started this activity and extract the string
@@ -185,7 +185,7 @@ public class Prueba42AbuseUpdDelActivity
 */
 
         // new intent
-        Intent intent = new Intent(this, Prueba40AbuseAddListActivity.class);
+        Intent intent = new Intent(this, a40AbuseAddListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(
                 EXTRA_MESSAGE,

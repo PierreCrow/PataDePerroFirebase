@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-
 @Entity(tableName = "DbPet")
 public class DbPet {
 
@@ -40,7 +39,7 @@ public class DbPet {
         this.name = name;
         this.race = race;
         this.gender = gender;
-        this.gender = age;
+        this.age = age;
         this.color = color;
         this.qrCode = qrCode;
 

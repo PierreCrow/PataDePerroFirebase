@@ -21,13 +21,12 @@ import pe.com.patadeperro.presentation.utils.HelloIntentService;
 import pe.com.patadeperro.presentation.utils.Netwrk;
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
-import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
-
+import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba12UserUpdDelActivity ** Usuario, detalles **************************
+ * Clase ** a12UserUpdDelActivity ** Usuario, detalles **
  */
-public class Prueba12UserUpdDelActivity
+public class a12UserUpdDelActivity
         extends BaseActivity
         implements UsuarioView
 {
@@ -80,7 +79,7 @@ public class Prueba12UserUpdDelActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba12_user_upd_del_activity);
+        setContentView(R.layout.a12_user_upd_del_activity);
 
         ButterKnife.bind(this);
         initUI();
@@ -198,7 +197,7 @@ public class Prueba12UserUpdDelActivity
 */
 
         // new intent
-        Intent intent = new Intent(this, Prueba10UserAddListActivity.class);
+        Intent intent = new Intent(this, a10UserAddListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(
                 EXTRA_MESSAGE,
@@ -265,7 +264,7 @@ public class Prueba12UserUpdDelActivity
 
 
         // new intent
-        Intent intent = new Intent(this, Prueba10UserAddListActivity.class);
+        Intent intent = new Intent(this, a10UserAddListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(
                 EXTRA_MESSAGE,

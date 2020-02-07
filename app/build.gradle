@@ -113,7 +113,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
 
-
     //    Retrofit - Networking
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"

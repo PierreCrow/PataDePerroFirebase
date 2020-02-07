@@ -2,6 +2,9 @@ package pe.com.patadeperro.data.datasource.db.store;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
 import pe.com.patadeperro.data.datasource.db.PdpDb;
 import pe.com.patadeperro.data.datasource.db.dao.PetDAO;
@@ -26,8 +29,13 @@ public class DbPetDataStore implements PetDataStore {
         PetDataMapper petDataMapper= new PetDataMapper();
         DbPet dbPet=petDataMapper.transformToDb(pet);
 
+//        dbPet.setId( 0 ); // o null?
+
         try {
-            petDAO.InsertOnlyOne(dbPet);
+            pet.setId(
+                    petDAO.InsertOnlyOne(dbPet).intValue()     // tipos... ver domain/model/pet
+            );
+            pet.dbIntCount += 1;
             repositoryCallback.onSuccess(pet);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,8 +50,21 @@ public class DbPetDataStore implements PetDataStore {
         PetDataMapper petDataMapper= new PetDataMapper();
         DbPet dbPet=petDataMapper.transformToDb(pet);
 
+        dbPet.setId( pet.getId() );
+
         try {
-            petDAO.Update(dbPet);
+            petDAO.updateById(
+                    dbPet.getId().toString(),
+                    dbPet.getIdCloud(),
+                    dbPet.getIdUser(),
+                    dbPet.getName(),
+                    dbPet.getRace(),
+                    dbPet.getGender(),
+                    dbPet.getAge(),
+                    dbPet.getColor(),
+                    dbPet.getQrCode()
+                    );
+            pet.dbIntCount += 1;
             repositoryCallback.onSuccess(pet);
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,8 +74,46 @@ public class DbPetDataStore implements PetDataStore {
     }
 
     @Override
+    public void deletePet(Pet pet, RepositoryCallback repositoryCallback) {
+
+        PetDataMapper petDataMapper= new PetDataMapper();
+        DbPet dbPet = petDataMapper.transformToDb(pet);
+
+        try {
+            petDAO.deleteById(dbPet.getIdCloud());
+            pet.dbIntCount += 1;
+            repositoryCallback.onSuccess(pet);
+        } catch (Exception e) {
+            e.printStackTrace();
+            repositoryCallback.onError(e);
+        }
+    }
+
+    @Override
     public void petsList(RepositoryCallback repositoryCallback) {
 
+        PetDataMapper petDataMapper= new PetDataMapper();
+//        DbPet dbPet = petDataMapper.transformToDb(pet);
+
+        List<Pet> pets = new ArrayList<>();
+        Pet pet;
+        DbPet dbPet;
+
+        try {
+            List<DbPet> dbPets = petDAO.listAllQ("true");
+
+            for (int i = 0; i < dbPets.size(); i++) {
+//                System.out.println(crunchifyList.get(i));
+                dbPet = dbPets.get(i);
+                pet = petDataMapper.transformFromDb(dbPet);
+                pets.add(pet);
+            }
+            repositoryCallback.onSuccess(pets);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            repositoryCallback.onError(e);
+        }
     }
 
 

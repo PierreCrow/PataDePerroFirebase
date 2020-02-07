@@ -16,7 +16,8 @@ public class UsuarioInteractor {
             int usuarioDataLocation,
             UsuarioCreatedCallback usuarioCreatedCallback
     ) {
-        usuarioRepository.createUsuario(usuario,
+        usuarioRepository.createUsuario(
+                usuario,
                 usuarioDataLocation,
                 usuarioCreatedCallback);
     }
@@ -35,17 +36,21 @@ public class UsuarioInteractor {
     public void deleteUsuario(
             Usuario usuario,
             int usuarioDataLocation,
-            UsuarioDeletedCallback usuarioDeletedCallback
-    ) {
+            UsuarioDeletedCallback usuarioDeletedCallback) {
+
         usuarioRepository.deleteUsuario(
                 usuario,
                 usuarioDataLocation,
                 usuarioDeletedCallback);
     }
 
+    public void loadUsuarios(
+            int usuarioDataLocation,
+            UsuarioListCallback usuarioListCallback) {
 
-    public void loadUsuarios(UsuarioListCallback usuarioListCallback) {
-        usuarioRepository.loadUsuarios(usuarioListCallback);
+        usuarioRepository.loadUsuarios(
+                usuarioDataLocation,
+                usuarioListCallback);
     }
 
 }

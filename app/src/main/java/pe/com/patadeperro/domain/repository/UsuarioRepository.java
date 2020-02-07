@@ -7,7 +7,6 @@ import pe.com.patadeperro.interactor.usuario.UsuarioDeletedCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioExistCallback;
 import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
 
-
 public interface UsuarioRepository {
 
     void createUsuario(
@@ -27,6 +26,8 @@ public interface UsuarioRepository {
 
     void verifyUserExist(String phone, UsuarioExistCallback usuarioExistCallback);
 
-    void loadUsuarios(final UsuarioListCallback requestListCallback);
+    void loadUsuarios(
+            int usuarioDataLocation,
+            final UsuarioListCallback requestListCallback);
 
 }

@@ -22,18 +22,18 @@ import pe.com.patadeperro.presentation.presenter.UsuarioPresenter;
 import pe.com.patadeperro.presentation.utils.Constants;
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
-import static pe.com.patadeperro.presentation.ui.activities.Prueba00MainActivity.EXTRA_MESSAGE;
+import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
 
 /**
- * Clase ** Prueba10UserAddListActivity ** Usuario *****************************************
+ * Clase ** a10UserAddListActivity ** Usuario **
  */
-public class Prueba10UserAddListActivity
+public class a10UserAddListActivity
         extends BaseActivity
         implements UsuarioView,
         ListAdapterUsuario.OnItemClickListener {
 
     /**
-    Variables, definición de objetos --------- ---------- ------- --------
+    * Variables, definición de objetos
          */
     EditText etNameCreateUser;
     EditText etMailCreateUser;
@@ -122,21 +122,15 @@ public class Prueba10UserAddListActivity
     private ListAdapterUsuario.OnItemClickListener mlistenerUsuario;
     private View v;
 
-    /**
-    método onPause --------------------------------------------------
-    */
     @Override
     public void onPause() {
         super.onPause();
     }
 
-    /**
-    método onCreate -------------------------------------------------
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba10_user_add_list_activity);
+        setContentView(R.layout.a10_user_add_list_activity);
 
         etNameCreateUser = (EditText) findViewById(R.id.etNameCreateUser);
         etMailCreateUser = (EditText) findViewById(R.id.etMailCreateUser);
@@ -158,19 +152,25 @@ public class Prueba10UserAddListActivity
                 )
         );
 
-        usuarioPresenter.loadUsuarios();
+        usuarioPresenter.loadUsuarios(Constants.CLOUD);
 
         /**
          * En el retorno de *.loadUsuarios() creamos el adaptador y
          * lo lanzamos a la pantalla, con la lista de usuarios
          * actualizada.
-         *
-//        adapterUsuario = new ListAdapterUsuario(
-//                mlistenerUsuario,
-//                getApplicationContext(),
-//                listaUsuario); */
 
-//        rvlistadoUsuario.setAdapter(adapterUsuario);
+         * 2020-02-05 probemos aquí, seguido de notifyDataSetChanged
+         * <- No funciona. Aquí toma la listaUsuario sin cambios.
+
+        adapterUsuario = new ListAdapterUsuario(
+                mlistenerUsuario,
+                getApplicationContext(),
+                listaUsuario);
+
+        rvlistadoUsuario.setAdapter(adapterUsuario);
+
+        adapterUsuario.notifyDataSetChanged();  // 2020-02-05 probando <- No por ahora.
+        */
 
         /**
          * Botón para crear usuario
@@ -182,7 +182,7 @@ public class Prueba10UserAddListActivity
                 nombre = etNameCreateUser.getText().toString();
                 email = etMailCreateUser.getText().toString();
 
-                //<editor-fold desc="region Usuario usuario = new... con nombre, email, ...">
+                //<editor-fold desc="Usuario usuario = new... con nombre, email, ...">
                 Usuario usuario = new
                         Usuario (
                          0,
@@ -199,13 +199,11 @@ public class Prueba10UserAddListActivity
                         true
                 );
                 //</editor-fold>
-                // <- Usuario usuario = new... con nombre, email, ...
 
                 ctrlCloud=false; ctrlDb=false;
-//                usuarioPresenter.createUsuario(usuario, Constants.DB);
                 usuarioPresenter.createUsuario(usuario, Constants.CLOUD);
 
-                // toast
+                //<editor-fold desc="Toast show">
                 Context context = getApplicationContext();
                 CharSequence text =
                         "Click Botón crear usuario"
@@ -213,26 +211,22 @@ public class Prueba10UserAddListActivity
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-
-//                adapterUsuario.notifyDataSetChanged();
+                //</editor-fold>
 
             }
         });
 
     }
 
-    /** -------------------------------------------------------------------------------------
-    método userCreated
-    */
     @Override
     public void userCreated(Usuario usuario) {
 
         if (usuario.getCloudIntCount() > usuario.getDbIntCount()) {
-            usuarioPresenter.createUsuario(usuario, Constants.DB);
             ctrlDb = true;
+            usuarioPresenter.createUsuario(usuario, Constants.DB);
         } else if (usuario.getCloudIntCount() < usuario.getDbIntCount()) {
-            usuarioPresenter.createUsuario(usuario, Constants.CLOUD);
             ctrlCloud = true;
+            usuarioPresenter.createUsuario(usuario, Constants.CLOUD);
         } else if (!ctrlCloud) {
             usuarioPresenter.updateUsuario(usuario, Constants.CLOUD);
         } else if (!ctrlDb) {
@@ -241,9 +235,6 @@ public class Prueba10UserAddListActivity
 
     }
 
-    /** -------------------------------------------------------------------------------------
-    método userUpdated
-    */
     @Override
     public void userUpdated(Usuario usuario) {
 
@@ -254,55 +245,47 @@ public class Prueba10UserAddListActivity
 
     }
 
-    /** -------------------------------------------------------------------------------------
-    método usersListLoaded
-    */
     @Override
     public void usersListLoaded(ArrayList<Usuario> usuarios) {
 
         listaUsuario = usuarios;
 
-//        adapterUsuario.notifyDataSetChanged();
+        //<editor-fold desc="Sobre el adapter">
+        //        adapterUsuario.notifyDataSetChanged();
 // <-- No existe aquí
 
         // Aquí ya tenemos la lista de usuarios actualizada.
         // Nuevo adaptador y salida a pantalla.
+        //</editor-fold>
 
-        adapterUsuario = new ListAdapterUsuario(
-                mlistenerUsuario,
-                getApplicationContext(),
-                listaUsuario);
+        if (adapterUsuario==null) {     // 2020-02-05 Crear si no existe solamente
+            adapterUsuario = new ListAdapterUsuario(
+                    mlistenerUsuario,
+                    getApplicationContext(),
+                    listaUsuario);
 
-        rvlistadoUsuario.setAdapter(adapterUsuario);
+            rvlistadoUsuario.setAdapter(adapterUsuario);
+        }
 
     }
 
-    /** -------------------------------------------------------------------------------------
-    método showErrorMessage
-    */
     @Override
     public void showErrorMessage(String message) {
 
     }
 
-    /** -------------------------------------------------------------------------------------
-    método getContext
-    */
     @Override
     public Context getContext() {
         return this;
     }
 
-    /** -------------------------------------------------------------------------------------
-    método onItemClicked
-    */
     @Override
     public void onItemClicked(View v, Usuario user) {
 
         // this.v = v;
         TextView tv_position = v.findViewById(R.id.tv_position);
 
-        // toast
+        //<editor-fold desc="Toast show">
 
         Context context = getApplicationContext();
         CharSequence text =
@@ -310,24 +293,42 @@ public class Prueba10UserAddListActivity
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+        //</editor-fold>
 
-        // <-- toast    // <-- toast
-
-        // intent
-
+        //<editor-fold desc="Intent to item details">
         //** Empaqueta objeto "user" ...
         Bundle bundle = new Bundle();
         bundle.putSerializable("objetoUser", user);
 
         //** Y envía el paquete a siguiente pantlla...
-        Intent intent = new Intent(this, Prueba12UserUpdDelActivity.class);
+        Intent intent = new Intent(this, a12UserUpdDelActivity.class);
         intent.putExtra("objetoUser", bundle);
 
         String message = tv_position.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
 
         startActivity(intent);      // <-- intent
+        //</editor-fold>
 
+    }
+
+    public void smallSync () {
+        // get Cloud list
+        // get Db list
+
+//        usuarioPresenter.loadUsuarios(Constants.CLOUD);
+
+
+        // rules: idCloud rules, secondary is idDb
+        // rules: non idCloud is invalid, so delete that item
+
+        // Validate Db list for idCloud, correct (delete)
+        // Validate Cloud for idDb, correct (update idDb)
+
+        // Copy from Cloud to Db not-existing Db items
+        // Copy from Db to Cloud not-existing Cloud items
+
+        // End
 
     }
 

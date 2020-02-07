@@ -23,9 +23,6 @@ import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +37,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-
 
     protected void hideKeyboard(Activity activity) {
         //   act.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -60,16 +56,13 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     protected void getUnhandledExceptions() {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this, BaseActivity.class));
     }
 
-
     protected void injectView() {
         ButterKnife.bind(this);
     }
-
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -94,8 +87,5 @@ public class BaseActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(ctx, PERMISSIONS, PERMISSION_ALL);
         }
     }
-
-
-
 
 }

@@ -3,7 +3,6 @@ package pe.com.patadeperro.presentation.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import pe.com.patadeperro.data.datasource.cloud.store.CloudUsuarioDataStore;
 import pe.com.patadeperro.data.datasource.datastore.UsuarioDataStoreFactory;
 import pe.com.patadeperro.data.repository.UsuarioDataRepository;
 import pe.com.patadeperro.domain.model.Usuario;
@@ -17,8 +16,6 @@ import pe.com.patadeperro.interactor.usuario.UsuarioListCallback;
 
 import pe.com.patadeperro.presentation.view.UsuarioView;
 
-import static pe.com.patadeperro.presentation.utils.Constants.CLOUD;
-
 public class UsuarioPresenter implements
         Presenter<UsuarioView>,
         UsuarioCreatedCallback,
@@ -29,7 +26,6 @@ public class UsuarioPresenter implements
 
     private UsuarioView usuarioView;
     private UsuarioInteractor usuarioInteractor;
-//    private int dataLocation = CLOUD;       //2020-01/27 ECV
 
     public void createUsuario(Usuario usuario, int usuarioDataLocation) {
         usuarioInteractor.createUsuario(
@@ -53,8 +49,9 @@ public class UsuarioPresenter implements
                 this);
     }
 
-    public void loadUsuarios() {
+    public void loadUsuarios(int usuarioDataLocation) {
         usuarioInteractor.loadUsuarios(
+                usuarioDataLocation,
                 this);
     }
 

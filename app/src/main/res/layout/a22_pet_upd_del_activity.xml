@@ -48,12 +48,21 @@
 
 
     <Button
-        android:id="@+id/btnOkPet"
+        android:id="@+id/btnUpdate"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="UpdateAndFinish"
         android:text="Update" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="DeleteAndFinish"
+        android:text="Delete" />
+
 
 </LinearLayout>
 

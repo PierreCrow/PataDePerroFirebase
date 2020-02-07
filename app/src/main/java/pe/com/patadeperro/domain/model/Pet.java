@@ -6,25 +6,38 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 
 @Entity(tableName = "Pet")
-public class Pet {
+public class Pet implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @SerializedName("id")
     private Integer id;
+    @SerializedName("idCloud")
     private String idCloud;
+    @SerializedName("idUser")
     private String idUser;
+    @SerializedName("name")
     private String name;
+    @SerializedName("race")
     private String race;
+    @SerializedName("gender")
     private String gender;
+    @SerializedName("age")
     private String age;
+    @SerializedName("color")
     private String color;
+    @SerializedName("qrCode")
     private String qrCode;
 
+    public int cloudIntCount;
+    public int dbIntCount;
+
     public Pet(
-           // String id,
+            Integer id,
             String idCloud,
             String idUser,
             String name,
@@ -34,15 +47,20 @@ public class Pet {
             String color,
             String qrCode) {
 
-    //    this.id = id;
+        this.id = id;
         this.idCloud = idCloud;
         this.idUser = idUser;
         this.name = name;
         this.race = race;
         this.gender = gender;
-        this.gender = age;
+        this.age = age;
         this.color = color;
         this.qrCode = qrCode;
+
+        this.dbIntCount = 0;
+        this.cloudIntCount = 0;
+
+//        this.id = 0;    // 2020-02-05 probemos
 
     }
 
@@ -118,4 +136,19 @@ public class Pet {
         this.qrCode = qrCode;
     }
 
+    public int getCloudIntCount() {
+        return cloudIntCount;
+    }
+
+    public void setCloudIntCount(int cloudIntCount) {
+        this.cloudIntCount = cloudIntCount;
+    }
+
+    public int getDbIntCount() {
+        return dbIntCount;
+    }
+
+    public void setDbIntCount(int dbIntCount) {
+        this.dbIntCount = dbIntCount;
+    }
 }
