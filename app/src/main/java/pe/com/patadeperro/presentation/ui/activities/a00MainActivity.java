@@ -49,9 +49,7 @@ public class a00MainActivity extends AppCompatActivity {
     public void onBtnPetClicked(View v) {
         // toast
         Context context = getApplicationContext();
-        CharSequence text =
-                "Click Botón Mascota"
-                ;
+        CharSequence text = "Click Botón Mascota";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();

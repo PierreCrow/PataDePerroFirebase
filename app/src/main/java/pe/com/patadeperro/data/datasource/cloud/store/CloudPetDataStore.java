@@ -23,6 +23,7 @@ import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
 import pe.com.patadeperro.data.mapper.PetDataMapper;
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.RepositoryCallback;
+import pe.com.patadeperro.presentation.ui.activities.a28PetSplashActivity;
 import pe.com.patadeperro.presentation.utils.Constants;
 
 public class CloudPetDataStore implements PetDataStore {
@@ -71,6 +72,11 @@ public class CloudPetDataStore implements PetDataStore {
                         repositoryCallback.onError(e);
                     }
                 });
+    }
+
+    @Override
+    public void createPetList(List<Pet> petList, RepositoryCallback repositoryCallback) {
+
     }
 
     @Override
@@ -163,6 +169,10 @@ public class CloudPetDataStore implements PetDataStore {
                             repositoryCallback.onError(e);
                             return;
                         }
+                        if (a28PetSplashActivity.flagPetsListLoaded){
+                            return;
+                        }
+
                         List<Pet> pets = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 

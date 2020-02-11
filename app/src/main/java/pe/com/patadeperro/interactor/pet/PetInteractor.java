@@ -1,6 +1,7 @@
 package pe.com.patadeperro.interactor.pet;
 
-import pe.com.patadeperro.data.datasource.db.model.DbPet;
+import java.util.List;
+
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.PetRepository;
 
@@ -21,6 +22,17 @@ public class PetInteractor {
                 pet,
                 petDataLocation,
                 petCreatedCallback);
+    }
+
+    public void createPetList(
+            List<Pet> petList,
+            int petDataLocation,
+            PetListCreatedCallback petListCreatedCallback
+    ) {
+        petRepository.createPetList(
+                petList,
+                petDataLocation,
+                petListCreatedCallback);
     }
 
     public void updatePet(

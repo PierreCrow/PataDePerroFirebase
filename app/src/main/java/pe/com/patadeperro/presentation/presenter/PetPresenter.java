@@ -12,12 +12,14 @@ import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
 import pe.com.patadeperro.interactor.pet.PetDeletedCallback;
 import pe.com.patadeperro.interactor.pet.PetInteractor;
 import pe.com.patadeperro.interactor.pet.PetListCallback;
+import pe.com.patadeperro.interactor.pet.PetListCreatedCallback;
 import pe.com.patadeperro.interactor.pet.PetUpdatedCallback;
 import pe.com.patadeperro.presentation.view.PetView;
 
 public class PetPresenter implements
         Presenter<PetView>,
         PetCreatedCallback,
+        PetListCreatedCallback,
         PetUpdatedCallback,
         PetDeletedCallback,
         PetListCallback {
@@ -28,6 +30,13 @@ public class PetPresenter implements
     public void createPet(Pet pet, int petDataLocation) {
         petInteractor.createPet(
                 pet,
+                petDataLocation,
+                this);
+    }
+
+    public void createPetList(List<Pet> petList, int petDataLocation) {
+        petInteractor.createPetList(
+                petList,
                 petDataLocation,
                 this);
     }
@@ -105,6 +114,16 @@ public class PetPresenter implements
 
     @Override
     public void onPetDeletedError(String message) {
+
+    }
+
+    @Override
+    public void onPetListCreateSuccess(List<Pet> petList) {
+        petView.petCreatedList(petList);
+    }
+
+    @Override
+    public void onPetListCreateError(String message) {
 
     }
 }

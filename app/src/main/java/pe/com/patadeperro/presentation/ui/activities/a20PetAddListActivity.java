@@ -17,10 +17,12 @@ import com.com.patadeperro.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.presentation.presenter.PetPresenter;
 import pe.com.patadeperro.presentation.utils.Constants;
+import pe.com.patadeperro.presentation.utils.HelloIntentService;
 import pe.com.patadeperro.presentation.view.PetView;
 
 import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
@@ -33,9 +35,19 @@ public class a20PetAddListActivity
         implements PetView,
         ListAdapterPet.OnItemClickListener {
 
-    /** --------- ---------- ------- --------
-    * Variables, definición de objetos
-         */
+    /**
+     * PETS - lista, y opción nuevo reg.
+     *
+     * ECV = Enrique Contreras V.
+     *
+     * 2020-01-07 ecv: Desarrollado bajo la dirección de Pierre
+     * 2020-02-10 ecv: Probando trabajar con base local - Db.
+     *
+     */
+    /**
+     * --------- ---------- ------- --------
+     * Variables, definición de objetos
+     */
     EditText etNameCreatePet;
     EditText etRaceCreatePet;
 
@@ -49,24 +61,24 @@ public class a20PetAddListActivity
     RecyclerView rvlistadoPet;
 
     public static Pet pet = new
-            Pet( 0 , "",
-                     "Juan", "Rambo",
-                     "bulldog", "", "7", "", "");
+            Pet(0, "",
+            "Juan", "Rambo",
+            "bulldog", "", "7", "", "");
     // sin datos
 
     /*  carga algunos valores de prueba */
     static Pet pet1 = new
-            Pet( 0 , "",
+            Pet(0, "",
             "Juan", "Rambo",
             "bulldog", "", "7", "", "");
 
     static Pet pet2 = new
-            Pet( 0 , "",
+            Pet(0, "",
             "Juan", "Rambo",
             "bulldog", "", "7", "", "");
 
     static Pet pet3 = new
-            Pet( 0 , "",
+            Pet(0, "",
             "Juan", "Rambo",
             "bulldog", "", "7", "", "");
 
@@ -79,21 +91,16 @@ public class a20PetAddListActivity
     private View v;
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a20_pet_add_list_activity);
 
-        etNameCreatePet = (EditText)findViewById(R.id.etNameCreatePet);
-        etRaceCreatePet = (EditText)findViewById(R.id.etRaceCreatePet);
+        etNameCreatePet = (EditText) findViewById(R.id.etNameCreatePet);
+        etRaceCreatePet = (EditText) findViewById(R.id.etRaceCreatePet);
 
-        btnCreatePet=(Button) findViewById(R.id.btnCreatePet);
+        btnCreatePet = (Button) findViewById(R.id.btnCreatePet);
 
-        petPresenter= new PetPresenter();
+        petPresenter = new PetPresenter();
         petPresenter.addView(this);
 
         // lista
@@ -108,19 +115,20 @@ public class a20PetAddListActivity
                 )
         );
 
-        petPresenter.loadPets(Constants.CLOUD);        // cuando se ejecuta, carga adapterPet new
+//        petPresenter.loadPets(Constants.CLOUD);        // cuando se ejecuta, carga adapterPet new
+        petPresenter.loadPets(Constants.DB);        // 2020-02-10 Prueba con DB
 
         /**
          * En el retorno de *.load...() creamos el adaptador
          * incluyendo la acción setAdapter
 
-        adapterPet = new ListAdapterPet(
-                mlistenerPet,
-                getApplicationContext(),
-                listaPet);
+         adapterPet = new ListAdapterPet(
+         mlistenerPet,
+         getApplicationContext(),
+         listaPet);
 
 
-        rvlistadoPet.setAdapter(adapterPet);
+         rvlistadoPet.setAdapter(adapterPet);
          */
 
         /**
@@ -130,26 +138,26 @@ public class a20PetAddListActivity
             @Override
             public void onClick(View view) {
 
-                nombre= etNameCreatePet.getText().toString();
+                nombre = etNameCreatePet.getText().toString();
                 race = etRaceCreatePet.getText().toString();
-
                 //<editor-fold desc="new item code">
                 Pet pet = new
-                        Pet( 0 , "",
+                        Pet(0, "",
                         "", nombre,
                         race, "", "", "", "");
                 //</editor-fold>
 
-                ctrlCloud=false; ctrlDb=false;
-                petPresenter.createPet(pet, Constants.CLOUD);
+                ctrlCloud = false;
+                ctrlDb = false;
+//                petPresenter.createPet(pet, Constants.CLOUD);
+                petPresenter.createPet(pet, Constants.DB);   // 2020-02-10 prueba con DB
 
 //                adapterPet.notifyDataSetChanged();    // <-- no muestra los cambios??
 
                 //<editor-fold desc="Toast show">
                 Context context = getApplicationContext();
                 CharSequence text =
-                        "Click Botón crear mascota"
-                        ;
+                        "Click Botón crear mascota";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -180,6 +188,11 @@ public class a20PetAddListActivity
     }
 
     @Override
+    public void petCreatedList(List<Pet> petList) {
+
+    }
+
+    @Override
     public void petUpdated(Pet pet) {
 
 //        adapterPet.notifyDataSetChanged();    // <-- no muestra los cambios??
@@ -187,7 +200,21 @@ public class a20PetAddListActivity
         etNameCreatePet.setText("");
         etRaceCreatePet.setText("");
 
-        etNameCreatePet.setSelection(0, 0);
+//        etNameCreatePet.setSelection(0, 0);   // nop?
+
+        // adapterPet.notifyDataSetChanged();      // 2020-02-11 ecv
+        // adapterPet.notifyItemInserted(listaPet.size()-1);
+
+        listaPet.add(pet);
+
+        //        this.petsListLoaded(listaPet);
+
+        adapterPet = new ListAdapterPet(
+                mlistenerPet,
+                getApplicationContext(),
+                listaPet);
+
+        rvlistadoPet.setAdapter(adapterPet);
 
     }
 
@@ -201,9 +228,8 @@ public class a20PetAddListActivity
 
         listaPet = pets;
 
-
 //        if (adapterPet==null) {     // 2020-02-05 Crear si no existe solamente
-        if ( adapterPet==null || (ctrlCloud && ctrlDb) ) { // Si hizo todo lo esperado, refresca
+        if (adapterPet == null || (ctrlCloud && ctrlDb)) { // Si hizo _todo lo esperado, refresca
             adapterPet = new ListAdapterPet(
                     mlistenerPet,
                     getApplicationContext(),

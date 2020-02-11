@@ -3,6 +3,7 @@ package pe.com.patadeperro.data.repository;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pe.com.patadeperro.data.datasource.datastore.PetDataStore;
 import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
@@ -10,9 +11,10 @@ import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.repository.RepositoryCallback;
 import pe.com.patadeperro.domain.repository.PetRepository;
 import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
+import pe.com.patadeperro.interactor.pet.PetListCallback;
+import pe.com.patadeperro.interactor.pet.PetListCreatedCallback;
 import pe.com.patadeperro.interactor.pet.PetUpdatedCallback;
 import pe.com.patadeperro.interactor.pet.PetDeletedCallback;
-import pe.com.patadeperro.interactor.pet.PetListCallback;
 
 public class PetDataRepository implements PetRepository {
 
@@ -49,6 +51,36 @@ public class PetDataRepository implements PetRepository {
 
                 Pet newUser = (Pet) object;
                 petCreatedCallback.onPetCreatedSuccess(newUser);
+            }
+        });
+    }
+
+    @Override
+    public void createPetList(
+            List<Pet> petList,
+            int petDataLocation,
+            PetListCreatedCallback petListCreateCallback) {
+
+        final PetDataStore petDataStore = petDataStoreFactory.create(
+//                petDataStoreFactory.CLOUD,
+                petDataLocation,
+                FirebaseFirestore.getInstance());
+
+        petDataStore.createPetList(petList, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                petListCreateCallback.onPetListCreateError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+
+                List<Pet> newPetList = (List<Pet>) object;
+                petListCreateCallback.onPetListCreateSuccess(newPetList);
             }
         });
     }

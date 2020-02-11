@@ -15,12 +15,8 @@ import java.util.List;
 
 import pe.com.patadeperro.domain.model.Pet;
 
-/**
- * Clase ** ListAdapterPet ***************************
- */
 public class ListAdapterPet
-        extends 
-        RecyclerView.Adapter<ListAdapterPet.PetViewHolder> {
+        extends RecyclerView.Adapter<ListAdapterPet.PetViewHolder> {
 
     public ListAdapterPet.OnItemClickListener mlistener;
     private Context mContext;
@@ -44,10 +40,12 @@ public class ListAdapterPet
     public interface OnItemClickListener {
         void onItemClicked(View v, Pet pet);
     }
+
     public void add(Pet item) {
         items.add(item);
         notifyItemInserted(items.size() - 1);
     }
+
     @Override
     public ListAdapterPet.PetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -78,6 +76,7 @@ public class ListAdapterPet
         holder.gender.setText(Pet.getGender());
 
     }
+
     @Override
     public int getItemCount() {
 
@@ -92,7 +91,6 @@ public class ListAdapterPet
         TextView name;
         TextView race;
         TextView gender;
-
 
         /**
          * método PetViewHolder
@@ -109,7 +107,6 @@ public class ListAdapterPet
             v.setOnClickListener(this);
 
         }
-
 
         /**
          * método onClick

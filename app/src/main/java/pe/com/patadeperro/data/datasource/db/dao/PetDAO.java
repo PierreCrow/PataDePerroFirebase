@@ -21,6 +21,10 @@ public interface PetDAO {
     Long InsertOnlyOne(DbPet dbPet);
     // 2020-02-05 ECV: Usamos "long" para obtener id
 
+    @Insert
+    void InsertMultiple(List<DbPet> petList);
+    // 2020-02-10 ECV: insertar una lista
+
     @Update
     void Update(DbPet dbPet);
 
@@ -28,6 +32,7 @@ public interface PetDAO {
     @Query(
             "UPDATE DbPet " +
             "SET " +
+                "idCloud = :idCloud, "+     // 2020-02-11 ecv
                 "idUser = :idUser, "+
                 "name = :name, "+
                 "race = :race, "+
@@ -35,8 +40,7 @@ public interface PetDAO {
                 "age = :age, "+
                 "color = :color, "+
                 "qrCode = :qrCode "+
-            "WHERE idCloud = :idCloud " +
-                "and id = :id"
+            "WHERE id = :id "
     )
     void updateById(
             //<editor-fold desc="fields">
@@ -64,13 +68,18 @@ public interface PetDAO {
             String idCloud
     );
 
+    // Method *ALL, DELETE all rows
+    @Query("DELETE from DbPet")
+    public void deleteAll();
+
     @Insert
     void InsertMultiple(ArrayList<Pet> pets);
 
     // Method 2: List *all
     //    public List<User> getAllUser(); <-- https://www.vogella.com/tutorials/AndroidSQLite/article.html
-    @Query("SELECT * FROM DbPet WHERE :sWhere")
-    List<DbPet> listAllQ(String sWhere);
+    //    @Query("SELECT * FROM DbPet WHERE :sWhere") <-- No funcionó con "true" en sWhere
+    @Query("SELECT * FROM DbPet")
+    List<DbPet> listAllQ();
 
 
 }

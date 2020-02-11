@@ -45,6 +45,33 @@ public class DbPetDataStore implements PetDataStore {
     }
 
     @Override
+    public void createPetList(
+            List<Pet> petList,
+            RepositoryCallback repositoryCallback) {
+
+        PetDataMapper petDataMapper= new PetDataMapper();
+//        DbPet dbPet=petDataMapper.transformToDb(pet);
+
+        List<DbPet> dbPetList = new ArrayList<>();
+        for (int i=0; i<petList.size(); i++) {
+            Pet wrkPet = petList.get(i);
+            DbPet wrkDbPet = petDataMapper.transformToDb(wrkPet);
+            dbPetList.add( wrkDbPet );
+        }
+
+//        dbPet.setId( 0 ); // o null?
+
+        try {
+            petDAO.InsertMultiple(dbPetList);     // tipos... ver domain/model/pet
+            repositoryCallback.onSuccess(petList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            repositoryCallback.onError(e);
+        }
+
+    }
+
+    @Override
     public void updatePet(Pet pet, RepositoryCallback repositoryCallback) {
 
         PetDataMapper petDataMapper= new PetDataMapper();
@@ -80,7 +107,11 @@ public class DbPetDataStore implements PetDataStore {
         DbPet dbPet = petDataMapper.transformToDb(pet);
 
         try {
-            petDAO.deleteById(dbPet.getIdCloud());
+            if (dbPet.getIdCloud()=="*ALL") {       // 2020-02-10 ecv
+                petDAO.deleteAll();
+            } else {
+                petDAO.deleteById(dbPet.getIdCloud());
+            }
             pet.dbIntCount += 1;
             repositoryCallback.onSuccess(pet);
         } catch (Exception e) {
@@ -100,7 +131,7 @@ public class DbPetDataStore implements PetDataStore {
         DbPet dbPet;
 
         try {
-            List<DbPet> dbPets = petDAO.listAllQ("true");
+            List<DbPet> dbPets = petDAO.listAllQ();
 
             for (int i = 0; i < dbPets.size(); i++) {
 //                System.out.println(crunchifyList.get(i));

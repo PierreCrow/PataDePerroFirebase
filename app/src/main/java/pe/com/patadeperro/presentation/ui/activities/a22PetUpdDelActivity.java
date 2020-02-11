@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.com.patadeperro.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +31,16 @@ public class a22PetUpdDelActivity
         extends BaseActivity
         implements PetView
 {
+
+    /**
+     * PETS - Actividad para Upd o Delete
+     *
+     * ECV = Enrique Contreras V.
+     *
+     * 2020-01-07 ecv: Desarrollado bajo la dirección de Pierre
+     * 2020-02-10 ecv: Probando trabajar con base local - Db.
+     *
+     */
 
     /*****************************************
     Variables, definición de objetos
@@ -61,14 +72,6 @@ public class a22PetUpdDelActivity
 
     }
 
-    /*********************************************************************************** 
-    método onPause
-    */
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -87,9 +90,6 @@ public class a22PetUpdDelActivity
 
     }
 
-    /************************************************************************
-    método onCreate
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,7 +193,8 @@ public class a22PetUpdDelActivity
         toast.show();       // toast
 
 
-         petPresenter.updatePet(pet22, Constants.CLOUD);  // <-- probar
+//         petPresenter.updatePet(pet22, Constants.CLOUD);  // <-- probar
+         petPresenter.updatePet(pet22, Constants.DB);  // prueba con Db
 
 
 /**
@@ -256,7 +257,8 @@ public class a22PetUpdDelActivity
         if (netwrk.isConnected(getContext())) {
             text = "RED, Delete12 pos.: " + tv_position.getText().toString();
 
-            petPresenter.deletePet(pet22, Constants.CLOUD);  // <-- ejecuta DELETE
+//            petPresenter.deletePet(pet22, Constants.CLOUD);  // <-- ejecuta DELETE
+            petPresenter.deletePet(pet22, Constants.DB);  // prueba con DB
 
         } else  {
             text = "RED, no hay... No actualizará.";
@@ -285,9 +287,6 @@ public class a22PetUpdDelActivity
 
     } // clic en botón
 
-    /*************************************************************************************-
-    método pet22Created
-    */
     @Override
     public void petCreated(Pet pet) {
         pet22 = pet;
@@ -295,9 +294,11 @@ public class a22PetUpdDelActivity
 
     }
 
-    /*************************************************************************************-
-    * método petUpdated
-    */
+    @Override
+    public void petCreatedList(List<Pet> petList) {
+
+    }
+
     @Override
     public void petUpdated(Pet pet22) {
 
@@ -320,25 +321,16 @@ public class a22PetUpdDelActivity
         }
     }
 
-    /*************************************************************************************-
-    método petListLoaded
-    */
     @Override
     public void petsListLoaded(ArrayList<Pet> pet22s) {
 
     }
 
-    /*************************************************************************************-
-    método showErrorMessage
-    */
     @Override
     public void showErrorMessage(String message) {
 
     }
 
-    /*************************************************************************************-
-    método getContext
-    */
     @Override
     public Context getContext() {
         return this;

@@ -64,6 +64,23 @@ public class Pet implements Serializable {
 
     }
 
+    public Pet() {
+
+        this.id = 0;
+        this.idCloud = "";
+        this.idUser = "";
+        this.name = "";
+        this.race = "";
+        this.gender = "";
+        this.age = "";
+        this.color = "";
+        this.qrCode = "";
+
+        this.dbIntCount = 0;
+        this.cloudIntCount = 0;
+
+    }
+
     public Integer getId() {
         return id;
     }
