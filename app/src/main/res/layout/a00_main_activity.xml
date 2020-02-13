@@ -58,5 +58,24 @@
         app:layout_constraintStart_toStartOf="@+id/btn_lost"
         app:layout_constraintTop_toBottomOf="@+id/btn_lost" />
 
+    <Button
+        android:id="@+id/btn_mapbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:onClick="onBtnMapboxClicked"
+        android:text="8. Mapbox"
+        app:layout_constraintStart_toStartOf="@+id/btn_abuse"
+        app:layout_constraintTop_toBottomOf="@+id/btn_abuse" />
+
+    <Button
+        android:id="@+id/btn_map_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onBtnMapLocClicked"
+        android:text="9. MapLoc"
+        app:layout_constraintStart_toStartOf="@+id/btn_mapbox"
+        app:layout_constraintTop_toBottomOf="@+id/btn_mapbox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -200,6 +200,8 @@ public class a20PetAddListActivity
         etNameCreatePet.setText("");
         etRaceCreatePet.setText("");
 
+        etNameCreatePet.requestFocus();
+
 //        etNameCreatePet.setSelection(0, 0);   // nop?
 
         // adapterPet.notifyDataSetChanged();      // 2020-02-11 ecv

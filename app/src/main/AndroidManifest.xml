@@ -20,9 +20,22 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="pe.com.patadeperro.presentation.ui.activities.a28PetSplashActivity"></activity>
+
+        <service
+            android:name="pe.com.patadeperro.presentation.utils.MyFirebaseMsgService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.a00MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -35,10 +48,14 @@
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a12UserUpdDelActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a20PetAddListActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a22PetUpdDelActivity" />
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.a28PetSplashActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a30LostAddListActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a32LostUpdDelActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a40AbuseAddListActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a42AbuseUpdDelActivity" />
+
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.MapboxActivity"></activity>
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.MapLocActivity"></activity>
 
         <service android:name="pe.com.patadeperro.presentation.utils.HelloIntentService" />
 
