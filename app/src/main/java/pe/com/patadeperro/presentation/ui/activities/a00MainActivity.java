@@ -93,7 +93,7 @@ public class a00MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        Intent intent = new Intent(this, a30LostAddListActivity.class);
+        Intent intent = new Intent(this, a38LostSplashActivity.class);
         String message = "algún dato de la mascota perdida";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

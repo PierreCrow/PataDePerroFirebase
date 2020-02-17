@@ -183,6 +183,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.15.1'
     implementation 'com.google.android.material:material:1.0.0'
 
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.2'
 //    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:8.5.0') {
 //        exclude group: 'group_name', module: 'module_name'
@@ -201,6 +202,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v13'
     }
     implementation 'com.jakewharton:butterknife:10.2.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

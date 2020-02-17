@@ -51,6 +51,7 @@
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a28PetSplashActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a30LostAddListActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a32LostUpdDelActivity" />
+        <activity android:name="pe.com.patadeperro.presentation.ui.activities.a38LostSplashActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a40AbuseAddListActivity" />
         <activity android:name="pe.com.patadeperro.presentation.ui.activities.a42AbuseUpdDelActivity" />
 
