@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.com.patadeperro.R;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -92,7 +93,7 @@ public class MapLocActivity
     private final int SPLASH_DISPLAY_LENGTH = 1500;
     private Long t0Long = System.currentTimeMillis();
     private Long t1Long = System.currentTimeMillis();
-
+    private ArrayList<CharSequence> listaToastMsg = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,6 +268,19 @@ public class MapLocActivity
                         } // array not null
 
 
+                                                // onClic anywhere...
+                        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
+                            @Override
+                            public boolean onMapClick(@NonNull LatLng point) {
+
+                                WaitAMomentPls(0, String.format(
+                                        "User clicked at: %s", point.toString() )  );
+
+                                return true;   // 2020-02-17 ecv: TRUE o FALSE igual llega a MARKER
+                            } // onMapClick
+                        }); // addOnMapClickListener
+
+
                         // Add click listener and toast on click
                         symbolManager.addClickListener(
                                 new OnSymbolClickListener() {
@@ -284,35 +298,21 @@ public class MapLocActivity
                                             } // found
                                         } // loop
 
-                                        WaitAMomentPls();
-                                        Toast.makeText(
-                                                MapLocActivity.this,
-                                                "clic en symbol de: " + petName,
-                                                Toast.LENGTH_SHORT)
-                                                .show();
-                                        symbol.setIconImage(ICON_WORK);
+                                        if(symbol.getIconImage()==ICON_WORK){
+                                            symbol.setIconImage(ICON_HOME);
+                                        } else {
+                                            symbol.setIconImage(ICON_WORK);
+                                        }
                                         symbolManager.update(symbol);
+
+                                        WaitAMomentPls(1, "clic en symbol de: " + petName);
 
                                     } // onAnnotationClick
                                 } // add click listener, onSymbolClickListener
                         ); // add clickListener
 
 
-//                        // onClic anywhere...
-//                        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
-//                            @Override
-//                            public boolean onMapClick(@NonNull LatLng point) {
-//
-//                                WaitAMomentPls();
-//                                Toast.makeText(
-//                                        MapLocActivity.this,
-//                                        String.format("User clicked at: %s", point.toString()),
-//                                        Toast.LENGTH_LONG)
-//                                        .show();
-//
-//                                return true;
-//                            } // onMapClick
-//                        }); // addOnMapClickListener
+
 
 
                     } // onStyleLoaded
@@ -431,12 +431,13 @@ public class MapLocActivity
 
     } // on clic
 
-    protected void WaitAMomentPls() {
+    protected void WaitAMomentPls(double nTimes, CharSequence sMsg) {
 
         t1Long = System.currentTimeMillis();    // toma tiempo actual
 
         Long txLong = t1Long - t0Long;            // tiempo transcurrido
-        Long tzLong = SPLASH_DISPLAY_LENGTH - txLong;   // lo que falta para SPLASH time
+        Long tzLong = Double.doubleToLongBits(
+                SPLASH_DISPLAY_LENGTH * nTimes - txLong);   // lo que falta para SPLASH time
 
         int intTimeToWaitSplash = tzLong.intValue();
         if (intTimeToWaitSplash > 0) {
@@ -448,7 +449,25 @@ public class MapLocActivity
             }
         }
 
+        listaToastMsg.add(sMsg);
+        for(int i=0; i<listaToastMsg.size()-2;i++) listaToastMsg.remove(i);
+
+        CharSequence variosToastMsg = "";
+        for(int i=0; i<listaToastMsg.size();i++) {
+
+            if(variosToastMsg.length()>0) {
+                variosToastMsg = variosToastMsg.toString() + "\n" + listaToastMsg.get(i).toString();
+            } else {
+                variosToastMsg = listaToastMsg.get(i).toString();
+            }
+        }
+
+        Toast.makeText(MapLocActivity.this, variosToastMsg, Toast.LENGTH_LONG)
+                .show();
+
         t0Long = System.currentTimeMillis();    // toma tiempo actual para sgte Wait...
+
+//        BottomSheetDialogFragment
 
     }
 
