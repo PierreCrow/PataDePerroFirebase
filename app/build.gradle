@@ -204,5 +204,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    // 2020-02-17 ecv: Probando BottomSheet...
+    // https://medium.com/@droidbyme/android-bottom-sheet-7e9cfcec6427
+//    implementation 'com.android.support:design:28.0.0'
+//    implementation 'com.android.support:appcompat-v7:28'
+
 }
 apply plugin: 'com.google.gms.google-services'
