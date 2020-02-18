@@ -1,34 +1,24 @@
 package pe.com.patadeperro.presentation.ui.activities;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.com.patadeperro.R;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEngineCallback;
-import com.mapbox.android.core.location.LocationEngineProvider;
-import com.mapbox.android.core.location.LocationEngineRequest;
-import com.mapbox.android.core.location.LocationEngineResult;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.geojson.Feature;
@@ -53,14 +43,12 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.light.Position;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pe.com.patadeperro.domain.model.Lost;
-import pe.com.patadeperro.domain.model.Pet;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
@@ -105,6 +93,13 @@ public class MapLocActivity
 
     private CoordinatorLayout mCoordinatorLayout;
 
+    // bottom sheet (bs) data
+    private TextView bsPoint;
+    private TextView bsAddress;
+    private TextView bsPetName;
+
+    private boolean symbolClickedFlag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,32 +109,49 @@ public class MapLocActivity
 
         Mapbox.getInstance(this,
                 "pk.eyJ1IjoiZWNvbnRyZXJhczU3IiwiYSI6ImNrNmpwc2JqeTAwM3UzZHAxbW5peDQ3Z2wifQ.DfmZtFCXhX7lEWhx6ZVEpg");
-        setContentView(R.layout.activity_map_loc);
+        setContentView(R.layout.activity_map_loc);  // conexión al layout
 
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("listaLost");
         if (bundle != null) {
             this.listaLost = (ArrayList<Lost>) bundle.getSerializable("listaLost");
-        }
+        }   // Recibe la lista de Lost
 
         // test bs
-
+        bsPoint = findViewById(R.id.point);
+        bsAddress = findViewById(R.id.address);
+        bsPetName = findViewById(R.id.petName);
 
         bottom_sheet = findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
         Button btn_bottom_sheet = findViewById(R.id.btn_bottom_sheet);
-        
+
+        bottom_sheet.setVisibility(View.GONE);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
 // click event for show-dismiss bottom sheet
         btn_bottom_sheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    btn_bottom_sheet.setText("Close sheet");
-                } else {
+
+                if (bottom_sheet.getVisibility() != View.VISIBLE) {
+                    bottom_sheet.setVisibility(View.VISIBLE);
                     sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    btn_bottom_sheet.setText("Expand sheet");
+                    btn_bottom_sheet.setText("Expand Sheet");
+                    return;
+                }
+
+                switch (sheetBehavior.getState()) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED); break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED); break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        bottom_sheet.setVisibility(View.GONE);
+                        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED); break;
+                    default:
+                        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED); break;
                 }
             }
         });
@@ -147,17 +159,19 @@ public class MapLocActivity
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int newState) {
+
+                if (bottom_sheet.getVisibility() != View.VISIBLE) {
+                    btn_bottom_sheet.setText("Open Sheet");
+                    return;
+                }
+
                 switch (newState) {
                     case BottomSheetBehavior.STATE_HIDDEN:
-                        break;
-                    case BottomSheetBehavior.STATE_EXPANDED: {
-                        btn_bottom_sheet.setText("Close Sheet");
-                    }
-                    break;
-                    case BottomSheetBehavior.STATE_COLLAPSED: {
-                        btn_bottom_sheet.setText("Expand Sheet");
-                    }
-                    break;
+                        btn_bottom_sheet.setText("Open Sheet"); break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        btn_bottom_sheet.setText("Expand Sheet"); break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        btn_bottom_sheet.setText("Close Sheet"); break;
                     case BottomSheetBehavior.STATE_DRAGGING:
                         break;
                     case BottomSheetBehavior.STATE_SETTLING:
@@ -332,13 +346,22 @@ public class MapLocActivity
                         } // array not null
 
 
-                                                // onClic anywhere...
+                        // onClic anywhere...
                         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
 
                                 WaitAMomentPls(0, String.format(
                                         "User clicked at: %s", point.toString() )  );
+
+                                if (symbolClickedFlag) {
+                                    symbolClickedFlag = false;
+                                    return true;
+                                }
+
+                                bottom_sheet.setVisibility(View.GONE);
+                                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
 
                                 return true;   // 2020-02-17 ecv: TRUE o FALSE igual llega a MARKER
                             } // onMapClick
@@ -354,10 +377,16 @@ public class MapLocActivity
                                         // busca item lost
 
                                         String petName = "nop";
+                                        String address = "no address yet";
+                                        String point = "nowhere";
+                                        Lost lost;
 
                                         for (int i = 0; i < listaSymbol.size(); i++) {
                                             if (symbol == listaSymbol.get(i)) {
-                                                petName = listaLost.get(i).getPetName();
+                                                lost = listaLost.get(i);
+                                                petName = lost.getPetName();
+                                                address = lost.getLostAddress();
+                                                point = lost.getLat() + "; " + lost.getLng();
                                                 break;
                                             } // found
                                         } // loop
@@ -370,6 +399,14 @@ public class MapLocActivity
                                         symbolManager.update(symbol);
 
                                         WaitAMomentPls(1, "clic en symbol de: " + petName);
+
+                                        bsPoint.setText("Mascota: [" + petName + "]");
+                                        bsAddress.setText(address);
+                                        bsPetName.setText(point);
+                                        bottom_sheet.setVisibility(View.VISIBLE);
+                                        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                                        symbolClickedFlag = true;
 
                                     } // onAnnotationClick
                                 } // add click listener, onSymbolClickListener
@@ -525,6 +562,12 @@ public class MapLocActivity
                 variosToastMsg = listaToastMsg.get(i).toString();
             }
         }
+
+//        Toast toast = new Toast(MapLocActivity.this);
+//        toast.setGravity(Gravity.TOP, 0, 0);
+//        toast.setDuration(Toast.LENGTH_LONG);
+//        toast.setText(variosToastMsg);
+//        toast.show();
 
         Toast.makeText(MapLocActivity.this, variosToastMsg, Toast.LENGTH_LONG)
                 .show();

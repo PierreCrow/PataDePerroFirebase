@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +10,8 @@
     android:padding="16dp"
     app:behavior_hideable="false"
     app:behavior_peekHeight="90dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:visibility="invisible">
     <!--    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"-->
 
     <LinearLayout
@@ -30,6 +31,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dandelion Chocolate"
@@ -89,6 +91,7 @@
 
     <!--        android:drawableLeft="@drawable/ic_action_location_on"-->
     <TextView
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -97,6 +100,7 @@
 
     <!--        android:drawableLeft="@drawable/ic_action_local_phone"-->
     <TextView
+        android:id="@+id/Phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -105,6 +109,7 @@
 
     <!--        android:drawableLeft="@drawable/ic_action_access_time"-->
     <TextView
+        android:id="@+id/petName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

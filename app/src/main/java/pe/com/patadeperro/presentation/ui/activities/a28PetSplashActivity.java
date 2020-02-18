@@ -25,7 +25,7 @@ public class a28PetSplashActivity
         implements PetView {
 
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    private final int SPLASH_DISPLAY_LENGTH = 1000; // 2020-02-18 ECV: Antes 3 seg, mucho
     PetPresenter petPresenterS;
     public static ArrayList listaPet = new ArrayList<> ();
     public static Boolean flagPetsListLoaded = false;
