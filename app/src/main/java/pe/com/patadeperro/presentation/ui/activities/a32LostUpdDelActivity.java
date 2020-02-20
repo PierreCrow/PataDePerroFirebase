@@ -3,6 +3,7 @@ package pe.com.patadeperro.presentation.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,9 +11,11 @@ import android.widget.Toast;
 import com.com.patadeperro.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pe.com.patadeperro.domain.model.Lost;
 import pe.com.patadeperro.presentation.presenter.LostPresenter;
+import pe.com.patadeperro.presentation.utils.Constants;
 import pe.com.patadeperro.presentation.view.LostView;
 
 import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
@@ -30,29 +33,28 @@ public class a32LostUpdDelActivity
     Variables, definición de objetos
          */
     LostPresenter lostPresenter;
+    Lost lost = new Lost();
 
-    /*********************************************************************************** 
-    método onPause
-    */
     @Override
     public void onPause() {
         super.onPause();
     }
 
-    /************************************************************************
-    método onCreate
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a32_los_upd_del_activity);
 
+        lostPresenter= new LostPresenter();
+        lostPresenter.addView(this);
+        
+        
         // Get the Intent that started this activity and extract the string
         // ... antes obtenía así: lost = (Lost) listaLost.get(position);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("objetoLost");
-        Lost lost = (Lost) bundle.getSerializable("objetoLost");
+        this.lost = (Lost) bundle.getSerializable("objetoLost");
 
         String message = intent.getStringExtra( EXTRA_MESSAGE );
         int position = Integer.parseInt(message);   // posición del arreglo
@@ -172,11 +174,11 @@ public class a32LostUpdDelActivity
         toast.show();       // toast
 
 
-        // lostPresenter.updateLost(lost);  // <-- todavía no probar
+         lostPresenter.updateLost(lost, Constants.CLOUD);  // <-- probando
 
 
 /**
- * prueba Intent con return... no funcinó finishActivity ¿?
+ * prueba Intent con return... no funcionó finishActivity ¿?
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",lost);
@@ -197,43 +199,38 @@ public class a32LostUpdDelActivity
 
     } // retornar
 
-    /*************************************************************************************-
-    método lostCreated
-    */
     @Override
     public void lostCreated(Lost lost) {
 
     }
 
-    /*************************************************************************************-
-    método lostUpdated
-    */
     @Override
-    public void lostUpdated(Lost lost) {
-
-
+    public void lostCreatedList(List<Lost> lostList) {
 
     }
 
-    /*************************************************************************************-
-    método lostListLoaded
-    */
+    @Override
+    public void lostUpdated(Lost lost) {
+
+        Log.e("a32", lost.toString());
+
+    }
+
+    @Override
+    public void lostDeleted(Lost lost) {
+
+    }
+
     @Override
     public void lostsListLoaded(ArrayList<Lost> losts) {
 
     }
 
-    /*************************************************************************************-
-    método showErrorMessage
-    */
     @Override
     public void showErrorMessage(String message) {
 
     }
 
-    /*************************************************************************************-
-    método getContext
-    */
     @Override
     public Context getContext() {
         return this;

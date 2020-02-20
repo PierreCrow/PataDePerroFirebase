@@ -12,6 +12,7 @@ import pe.com.patadeperro.data.datasource.db.dao.AbuseDAO;
 import pe.com.patadeperro.data.datasource.db.dao.LostDAO;
 import pe.com.patadeperro.data.datasource.db.dao.PetDAO;
 import pe.com.patadeperro.data.datasource.db.dao.UsuarioDAO;
+import pe.com.patadeperro.data.datasource.db.model.DbLost;
 import pe.com.patadeperro.data.datasource.db.model.DbUsuario;
 import pe.com.patadeperro.domain.model.Abuse;
 import pe.com.patadeperro.data.datasource.db.model.DbPet;
@@ -22,6 +23,7 @@ import pe.com.patadeperro.domain.model.Usuario;
 @Database(entities = {
         DbUsuario.class,
         DbPet.class,
+        DbLost.class,
         Usuario.class,
         Pet.class,
         Lost.class,

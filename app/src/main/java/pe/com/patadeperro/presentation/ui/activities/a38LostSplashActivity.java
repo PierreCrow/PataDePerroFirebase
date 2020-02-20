@@ -28,9 +28,11 @@ public class a38LostSplashActivity
     /**
      * Duration of wait
      **/
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    private final int SPLASH_DISPLAY_LENGTH = 1500;
     private Long t0Long = System.currentTimeMillis();
     private Long t1Long = System.currentTimeMillis();
+
+    public static Boolean flagLostsListLoaded = false;
 
     LostPresenter lostPresenterS;
 //    public static ArrayList listaLost = new ArrayList<>();
@@ -60,7 +62,7 @@ public class a38LostSplashActivity
         lostPresenterS = new LostPresenter();
         lostPresenterS.addView(this);
 
-        lostPresenterS.loadLosts();    // carga
+        lostPresenterS.loadLosts(Constants.CLOUD);    // carga, sigue en lostListLoaded()
 
     }
 
@@ -70,12 +72,24 @@ public class a38LostSplashActivity
     }
 
     @Override
+    public void lostCreatedList(List<Lost> lostList) {
+
+    }
+
+    @Override
     public void lostUpdated(Lost lost) {
 
     }
 
     @Override
+    public void lostDeleted(Lost lost) {
+
+    }
+
+    @Override
     public void lostsListLoaded(ArrayList<Lost> losts) {
+
+        flagLostsListLoaded = true;     // 2020-02-20 ecv: Bloquea agente CloudLostDataStore lostsList
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("listaLost", (Serializable) losts);
@@ -114,4 +128,13 @@ public class a38LostSplashActivity
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        finish();       // 2020-02-19 ECV: Datos cargados? Ya no regresa.
+
+    }
+
 }

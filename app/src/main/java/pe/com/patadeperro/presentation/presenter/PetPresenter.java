@@ -1,20 +1,20 @@
 package pe.com.patadeperro.presentation.presenter;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
-import pe.com.patadeperro.data.repository.PetDataRepository;
+        import pe.com.patadeperro.data.datasource.datastore.PetDataStoreFactory;
+        import pe.com.patadeperro.data.repository.PetDataRepository;
 
-import pe.com.patadeperro.domain.model.Pet;
-import pe.com.patadeperro.domain.repository.PetRepository;
-import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
-import pe.com.patadeperro.interactor.pet.PetDeletedCallback;
-import pe.com.patadeperro.interactor.pet.PetInteractor;
-import pe.com.patadeperro.interactor.pet.PetListCallback;
-import pe.com.patadeperro.interactor.pet.PetListCreatedCallback;
-import pe.com.patadeperro.interactor.pet.PetUpdatedCallback;
-import pe.com.patadeperro.presentation.view.PetView;
+        import pe.com.patadeperro.domain.model.Pet;
+        import pe.com.patadeperro.domain.repository.PetRepository;
+        import pe.com.patadeperro.interactor.pet.PetCreatedCallback;
+        import pe.com.patadeperro.interactor.pet.PetDeletedCallback;
+        import pe.com.patadeperro.interactor.pet.PetInteractor;
+        import pe.com.patadeperro.interactor.pet.PetListCallback;
+        import pe.com.patadeperro.interactor.pet.PetListCreatedCallback;
+        import pe.com.patadeperro.interactor.pet.PetUpdatedCallback;
+        import pe.com.patadeperro.presentation.view.PetView;
 
 public class PetPresenter implements
         Presenter<PetView>,

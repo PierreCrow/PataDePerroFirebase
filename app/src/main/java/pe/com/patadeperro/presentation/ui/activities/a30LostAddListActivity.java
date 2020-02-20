@@ -16,15 +16,18 @@ import com.com.patadeperro.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import pe.com.patadeperro.domain.model.Lost;
 import pe.com.patadeperro.presentation.presenter.LostPresenter;
+import pe.com.patadeperro.presentation.utils.Constants;
 import pe.com.patadeperro.presentation.view.LostView;
 
 import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
+import static pe.com.patadeperro.presentation.ui.activities.a38LostSplashActivity.flagLostsListLoaded;
 
 /**
- * Clase a10UserAddListActivity *****************************************************************
+ * Clase a10UserAddListActivity ************************************************
  */
 public class a30LostAddListActivity
         extends BaseActivity
@@ -41,53 +44,13 @@ public class a30LostAddListActivity
     LostPresenter lostPresenter;
     RecyclerView rvlistadoLost;
 
-    public static Lost lost = new
-            Lost(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    );
+    public static Lost lost = new Lost();
     // sin datos
 
     /**
      *  solamente 1 por ahora ...
      */
-    static Lost lost1 = new
-            Lost("",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "");
+    static Lost lost1 = new Lost();
 
     /**
      * otros, 2, 3, ya no
@@ -113,21 +76,21 @@ public class a30LostAddListActivity
 
     // <-- definición de objetos y var. // definición de objetos y var.
 
-    /**
-     * método onPause **
-     */
     @Override
     public void onPause() {
         super.onPause();
     }
 
-    /** ************************************************************************************-
-    método onCreate
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a30_lost_add_list_activity);
+
+        Intent intent = getIntent();
+        Bundle intentBundleExtra = intent.getBundleExtra("listaLost");
+        if (intentBundleExtra!= null) {
+            this.listaLost = (ArrayList<Lost>) intentBundleExtra.getSerializable("listaLost");
+        }   // Recibe la lista de Lost
 
         etNameLostPet = (EditText) findViewById(R.id.etNameLostPet);
         etAddressLostPet = (EditText) findViewById(R.id.etAddressLostPet);
@@ -149,15 +112,23 @@ public class a30LostAddListActivity
                 )
         );
 
-        lostPresenter.loadLosts();        // cuando se ejecuta, carga adapterLost new
-        /*
-        adapterLost = new ListAdapterLost(
-                mlistenerLost,
-                getApplicationContext(),
-                listaLost);
-        */
+        if (intentBundleExtra!=null) {
+            adapterLost = new ListAdapterLost(
+                    mlistenerLost,
+                    getApplicationContext(),
+                    listaLost);
 
-        rvlistadoLost.setAdapter(adapterLost);
+            rvlistadoLost.setAdapter(adapterLost);
+        } else {
+
+            flagLostsListLoaded=false;
+            lostPresenter.loadLosts(Constants.CLOUD);        // cuando se ejecuta, carga adapterLost new
+
+        }
+
+        /**
+         * botón para crear ítem
+         */
 
         btnLostPet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,31 +137,13 @@ public class a30LostAddListActivity
                 nombre = etNameLostPet.getText().toString();
                 address = etAddressLostPet.getText().toString();
 
-                idCloudGen = String.valueOf(listaLost.size());
+//                idCloudGen = String.valueOf(listaLost.size());
 
+                Lost lost = new Lost();
+                lost.setPetName(nombre);
+                lost.setLostAddress(address);
 
-                Lost lost = new
-                        Lost(idCloudGen,
-                        nombre,
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        address,
-                        "");
-
-                lostPresenter.createLost(lost);
+                lostPresenter.createLost(lost, Constants.CLOUD);
 
                 // toast
                 Context context = getApplicationContext();
@@ -207,27 +160,42 @@ public class a30LostAddListActivity
 
     }
 
-    /** ************************************************************************************-
-    método lostCreated
-    */
     @Override
     public void lostCreated(Lost lost) {
 
     }
 
-    /** ************************************************************************************-
-    método lostUpdated
-    */
     @Override
-    public void lostUpdated(Lost lost) {
-
-        this.lost = lost;   // chk
+    public void lostCreatedList(List<Lost> lostList) {
 
     }
 
-    /** ************************************************************************************-
-    método lostsListLoaded
-    */
+    @Override
+    public void lostUpdated(Lost lost) {
+
+        etNameLostPet.setText("");
+        etAddressLostPet.setText("");
+
+        etNameLostPet.requestFocus();
+
+        listaLost.add(lost);
+
+        //        this.lostsListLoaded(listaLost);
+
+        adapterLost = new ListAdapterLost(
+                mlistenerLost,
+                getApplicationContext(),
+                listaLost);
+
+        rvlistadoLost.setAdapter(adapterLost);
+
+    }
+
+    @Override
+    public void lostDeleted(Lost lost) {
+
+    }
+
     @Override
     public void lostsListLoaded(ArrayList<Lost> losts) {
 
@@ -242,25 +210,16 @@ public class a30LostAddListActivity
 
     }
 
-    /** ************************************************************************************-
-    método showErrorMessage
-    */
     @Override
     public void showErrorMessage(String message) {
 
     }
 
-    /** ************************************************************************************-
-    método showErrorMessage
-    */
     @Override
     public Context getContext() {
         return this;
     }
 
-    /** ************************************************************************************-
-    método onItemClicked
-    */
     @Override
     public void onItemClicked(View v, Lost lost) {
 

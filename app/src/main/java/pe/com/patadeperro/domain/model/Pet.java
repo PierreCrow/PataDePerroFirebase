@@ -2,12 +2,12 @@ package pe.com.patadeperro.domain.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-
 
 @Entity(tableName = "Pet")
 public class Pet implements Serializable {
@@ -64,6 +64,7 @@ public class Pet implements Serializable {
 
     }
 
+    @Ignore
     public Pet() {
 
         this.id = 0;

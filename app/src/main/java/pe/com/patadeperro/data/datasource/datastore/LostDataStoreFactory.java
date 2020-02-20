@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import pe.com.patadeperro.data.datasource.cloud.store.CloudLostDataStore;
-//import pe.com.patadeperro.data.datasource.db.store.DbLostDataStore;
+import pe.com.patadeperro.data.datasource.db.store.DbLostDataStore;
 
 public class LostDataStoreFactory {
 
@@ -23,6 +23,7 @@ public class LostDataStoreFactory {
 
     public LostDataStore create(
             int dataSource, FirebaseFirestore db) {
+
         LostDataStore lostDataStore = null;
 
         switch (dataSource) {
@@ -30,22 +31,7 @@ public class LostDataStoreFactory {
                 lostDataStore = createCloudDataStore(db);
                 break;
             case DB:
-                //lostDataStore = new DbLostDataStore(context);
-                break;
-        }
-        return lostDataStore;
-    }
-
-    public LostDataStore update(
-            int dataSource, FirebaseFirestore db) {
-        LostDataStore lostDataStore = null;
-
-        switch (dataSource) {
-            case CLOUD:
-                lostDataStore = createCloudDataStore(db);
-                break;
-            case DB:
-                //lostDataStore = new DbLostDataStore(context);
+                lostDataStore = new DbLostDataStore(context);
                 break;
         }
         return lostDataStore;

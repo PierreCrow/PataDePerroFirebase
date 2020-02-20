@@ -1,4 +1,4 @@
-package pe.com.patadeperro.domain.model;
+package pe.com.patadeperro.data.datasource.cloud.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -9,58 +9,35 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-@Entity(tableName = "Lost")
-public class Lost implements Serializable {
+@Entity(tableName = "CloudLost")
+public class CloudLost {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @SerializedName("id")
-    private Integer id;
-    @SerializedName("idCloud")
+    private String id;
     private String idCloud;
-    @SerializedName("petName")
     private String petName;
-    @SerializedName("race")
     private String race;
-    @SerializedName("gender")
     private String gender;
-    @SerializedName("color")
     private String color;
-    @SerializedName("age")
     private String age;
-    @SerializedName("contactPhoneNumber")
     private String contactPhoneNumber;
-    @SerializedName("contactName")
     private String contactName;
-    @SerializedName("description")
     private String description;
-    @SerializedName("reward")
     private String reward;
-    @SerializedName("rewardAmount")
     private String rewardAmount;
-    @SerializedName("country")
     private String country;
-    @SerializedName("state")
     private String state;
-    @SerializedName("city")
     private String city;
-    @SerializedName("urlImage")
     private String urlImage;
-    @SerializedName("lat")
     private String lat;
-    @SerializedName("lng")
     private String lng;
-    @SerializedName("lostAddress")
     private String lostAddress;
-    @SerializedName("found")
     private String found;
 
-    public int cloudIntCount;
-    public int dbIntCount;
-
-
     @Ignore
-    public Lost(
+    public CloudLost(
             String petName,
             String contactPhoneNumber,
             String contactName) {
@@ -69,11 +46,9 @@ public class Lost implements Serializable {
         this.contactName = contactName;
     }
 
-    // 2020-01-21 ECV: Constructor sin id, por ahora
-
     @Ignore
-    public Lost() {
-        this.id = 0;
+    public CloudLost() {
+        this.id = "0";
         this.idCloud = "";
         this.petName = "";
         this.race = "";
@@ -93,14 +68,10 @@ public class Lost implements Serializable {
         this.lng = "";
         this.lostAddress = "";
         this.found = "";
+    }
 
-        this.dbIntCount = 0;
-        this.cloudIntCount = 0;    }
-
-    // 2020-01-21 ECV: Constructor sin id, por ahora
-
-    public Lost(
-            Integer id,
+    public CloudLost(
+            String id,
             String idCloud,
             String petName,
             String race,
@@ -141,17 +112,13 @@ public class Lost implements Serializable {
         this.lng = lng;
         this.lostAddress = lostAddress;
         this.found = found;
-
-        this.dbIntCount = 0;
-        this.cloudIntCount = 0;
-
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -307,19 +274,4 @@ public class Lost implements Serializable {
         this.found = found;
     }
 
-    public int getCloudIntCount() {
-        return cloudIntCount;
-    }
-
-    public void setCloudIntCount(int cloudIntCount) {
-        this.cloudIntCount = cloudIntCount;
-    }
-
-    public int getDbIntCount() {
-        return dbIntCount;
-    }
-
-    public void setDbIntCount(int dbIntCount) {
-        this.dbIntCount = dbIntCount;
-    }
 }

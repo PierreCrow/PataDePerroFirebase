@@ -7,14 +7,18 @@ import pe.com.patadeperro.domain.repository.RepositoryCallback;
 
 public interface PetDataStore {
 
-    void createPet(Pet pet, RepositoryCallback repositoryCallback);
+    void createPet(Pet pet,
+                   RepositoryCallback repositoryCallback);
 
-    void createPetList(List<Pet> petList, RepositoryCallback repositoryCallback);
+    void createPetList(List<Pet> petList,
+                       RepositoryCallback repositoryCallback);
 
-    void updatePet(Pet pet, RepositoryCallback repositoryCallback);
+    void updatePet(Pet pet,
+                   RepositoryCallback repositoryCallback);
 
-    void deletePet(Pet pet, RepositoryCallback repositoryCallback);
+    void deletePet(Pet pet,
+                   RepositoryCallback repositoryCallback);
 
-    void petsList(RepositoryCallback repositoryCallback);
+    void petsList( RepositoryCallback repositoryCallback);
 
 }

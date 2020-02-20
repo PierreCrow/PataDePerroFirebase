@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.com.patadeperro.data.datasource.db.model.DbPet;
-import pe.com.patadeperro.data.datasource.db.model.DbPet;
 import pe.com.patadeperro.domain.model.Pet;
-
 
 @Dao
 public interface PetDAO {

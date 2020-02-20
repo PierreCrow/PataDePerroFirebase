@@ -1,17 +1,26 @@
 package pe.com.patadeperro.presentation.ui.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +54,7 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,8 +107,12 @@ public class MapLocActivity
     private TextView bsPoint;
     private TextView bsAddress;
     private TextView bsPetName;
+    private ImageView bsImageView;
 
     private boolean symbolClickedFlag;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;     // 2020-02-19 ecv: para la foto
+    static final int MY_PERMISSIONS_REQUEST_CAMERA = 64;    // 2020-02-19 ecv: permiso...
 
 
     @Override
@@ -122,6 +136,7 @@ public class MapLocActivity
         bsPoint = findViewById(R.id.point);
         bsAddress = findViewById(R.id.address);
         bsPetName = findViewById(R.id.petName);
+        bsImageView = findViewById(R.id.bsImageView);
 
         bottom_sheet = findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
@@ -299,18 +314,13 @@ public class MapLocActivity
 // Add symbol at specified lat/lon
 
                         Symbol symbol = symbolManager.create(new SymbolOptions()
-//                                .withLatLng(new LatLng(60.169091, 24.939876))
-//                                .withLatLng(new LatLng(-12.1161, -77.0465))
                                         .withLatLng(homePoint)
                                         .withIconImage(ICON_HOME)
-//                                .withIconSize(2.0f));
                                         .withIconSize(0.1f)   // perfecto, aquí se controla el tamaño
                                         .withIconOffset(new Float[]{-0f, -100f})
                         );
 
                         Symbol symbol2 = symbolManager.create(new SymbolOptions()
-//                                .withLatLng(new LatLng(60.169091, 24.939876))
-//                                .withLatLng(new LatLng(-12.1161, -77.0465))
                                         .withLatLng(workPoint)
                                         .withIconImage(ICON_HOME)
                                         .withIconSize(0.1f)   // perfecto, aquí va el tamaño
@@ -413,9 +423,6 @@ public class MapLocActivity
                         ); // add clickListener
 
 
-
-
-
                     } // onStyleLoaded
                 });
 
@@ -462,13 +469,36 @@ public class MapLocActivity
             int requestCode,
             @NonNull String[] permissions,
             @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // CAMERA-related task you need to do.
+
+                    Context context = getApplicationContext();
+                    CharSequence text = "Listo! Vuelve a intentar la foto";
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+        }
+
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
         Toast.makeText(this,
-                "Para mostrar la ciudad donde estamos",
+                (CharSequence) permissionsToExplain,
                 Toast.LENGTH_LONG)
                 .show();
     }
@@ -501,8 +531,12 @@ public class MapLocActivity
         toast.show();
 
         Intent intent = new Intent(this, a30LostAddListActivity.class);
-        String message = "algún dato para la siguiente pantalla";
-        intent.putExtra(EXTRA_MESSAGE, message);
+
+        //        String message = "algún dato para la siguiente pantalla";
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("listaLost", (Serializable) listaLost);
+        intent.putExtra("listaLost", bundle);
+
         startActivity(intent);
 
     } // on clic
@@ -521,16 +555,105 @@ public class MapLocActivity
         Location lastLocation = this.locationComponent.getLastKnownLocation();
         LatLng lastPoint = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
 
+        Lost lost;
+        Double lat=0d;
+        Double lon=0d;
+        Double latProm=0d;
+        Double lonProm=0d;
+        int cantidad=0;
+        for (int i=0; i<listaLost.size();i++){
+            lost = listaLost.get(i);
+            if (lost.getLat()=="") { lat=0d; } else { lat = Double.parseDouble(lost.getLat());}
+            if (lost.getLng()=="") { lon=0d; } else { lon = Double.parseDouble(lost.getLng());}
+
+            if(lat!=0d || lon!=0d) {
+                latProm = latProm + lat;
+                lonProm = lonProm + lon;
+                cantidad++;
+            } // if lat
+        } // for listaLost
+        LatLng lastPointAvg = new LatLng(latProm/cantidad, lonProm/cantidad);
+
+
         CameraPosition position = new CameraPosition.Builder()
 //                .target(new LatLng(51.50550, -0.07520))
 //                .target(workPoint)
-                .target(lastPoint)
+                .target(lastPointAvg)   // 2020-02-19 ecv: probando promedio
                 .zoom(14)
                 .tilt(20)
                 .build();
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1500);
 
     } // on clic
+
+    public void onImgClicked(View v) {
+
+        CharSequence text = "Clic imagen... ";   // validar primero
+        Context thisActivity = MapLocActivity.this;
+
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            text = text + "cámara no disponible... ";
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                thisActivity, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            text = text + "cámara sin permiso";
+
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+                WaitAMomentPls(0, "Necesitamos la cámara por favor");
+
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+
+
+        }
+
+        if (text != "Clic imagen... ") {
+            // toast no camera
+            Context context = getApplicationContext();
+//            CharSequence text = "Click Imagen, cámara no disponible";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            return;
+        }
+
+        // todo_ ok, acción
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+
+    } // on clic
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            bsImageView.setImageBitmap(imageBitmap);
+        }
+    }
 
     protected void WaitAMomentPls(double nTimes, CharSequence sMsg) {
 
@@ -563,14 +686,16 @@ public class MapLocActivity
             }
         }
 
-//        Toast toast = new Toast(MapLocActivity.this);
-//        toast.setGravity(Gravity.TOP, 0, 0);
-//        toast.setDuration(Toast.LENGTH_LONG);
-//        toast.setText(variosToastMsg);
-//        toast.show();
 
-        Toast.makeText(MapLocActivity.this, variosToastMsg, Toast.LENGTH_LONG)
-                .show();
+        //        Toast.makeText(MapLocActivity.this, variosToastMsg, Toast.LENGTH_LONG)
+//                .show();
+
+        Toast toast= Toast.makeText(
+                getApplicationContext(),
+                variosToastMsg,
+                Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
 
         t0Long = System.currentTimeMillis();    // toma tiempo actual para sgte Wait...
 
