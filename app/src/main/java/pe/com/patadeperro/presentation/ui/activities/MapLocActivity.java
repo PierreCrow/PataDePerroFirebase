@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.com.patadeperro.domain.model.Lost;
+import pe.com.patadeperro.presentation.utils.ImageUtil;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
@@ -389,6 +390,7 @@ public class MapLocActivity
                                         String petName = "nop";
                                         String address = "no address yet";
                                         String point = "nowhere";
+                                        String strImage = "";
                                         Lost lost;
 
                                         for (int i = 0; i < listaSymbol.size(); i++) {
@@ -397,6 +399,7 @@ public class MapLocActivity
                                                 petName = lost.getPetName();
                                                 address = lost.getLostAddress();
                                                 point = lost.getLat() + "; " + lost.getLng();
+                                                strImage = lost.getDescription();
                                                 break;
                                             } // found
                                         } // loop
@@ -413,6 +416,7 @@ public class MapLocActivity
                                         bsPoint.setText("Mascota: [" + petName + "]");
                                         bsAddress.setText(address);
                                         bsPetName.setText(point);
+                                        bsImageView.setImageBitmap( ImageUtil.convert(strImage) );
                                         bottom_sheet.setVisibility(View.VISIBLE);
                                         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 

@@ -26,9 +26,6 @@ import pe.com.patadeperro.presentation.view.LostView;
 import static pe.com.patadeperro.presentation.ui.activities.a00MainActivity.EXTRA_MESSAGE;
 import static pe.com.patadeperro.presentation.ui.activities.a38LostSplashActivity.flagLostsListLoaded;
 
-/**
- * Clase a10UserAddListActivity ************************************************
- */
 public class a30LostAddListActivity
         extends BaseActivity
         implements LostView,
@@ -74,12 +71,6 @@ public class a30LostAddListActivity
     private ListAdapterLost.OnItemClickListener mlistenerLost;
     private View v;
 
-    // <-- definición de objetos y var. // definición de objetos y var.
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +103,7 @@ public class a30LostAddListActivity
                 )
         );
 
+
         if (intentBundleExtra!=null) {
             adapterLost = new ListAdapterLost(
                     mlistenerLost,
@@ -122,7 +114,7 @@ public class a30LostAddListActivity
         } else {
 
             flagLostsListLoaded=false;
-            lostPresenter.loadLosts(Constants.CLOUD);        // cuando se ejecuta, carga adapterLost new
+            lostPresenter.loadLosts(Constants.CLOUD);    // cuando se ejecuta, carga adapterLost new
 
         }
 
@@ -145,15 +137,6 @@ public class a30LostAddListActivity
 
                 lostPresenter.createLost(lost, Constants.CLOUD);
 
-                // toast
-                Context context = getApplicationContext();
-                CharSequence text =
-                        "Click Botón crear perdida";
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
-                adapterLost.notifyDataSetChanged();
 
             }
         });
@@ -162,6 +145,26 @@ public class a30LostAddListActivity
 
     @Override
     public void lostCreated(Lost lost) {
+
+        // toast
+        Context context = getApplicationContext();
+        CharSequence text =
+                "Click Botón crear perdida";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+//        adapterLost.notifyDataSetChanged();
+
+        etNameLostPet.setText("");
+        etAddressLostPet.setText("");
+
+        etNameLostPet.requestFocus();
+
+
+        listaLost.add(lost);
+        adapterLost.notifyDataSetChanged();
+
 
     }
 
@@ -180,14 +183,7 @@ public class a30LostAddListActivity
 
         listaLost.add(lost);
 
-        //        this.lostsListLoaded(listaLost);
-
-        adapterLost = new ListAdapterLost(
-                mlistenerLost,
-                getApplicationContext(),
-                listaLost);
-
-        rvlistadoLost.setAdapter(adapterLost);
+        adapterLost.notifyDataSetChanged();
 
     }
 
@@ -253,36 +249,5 @@ public class a30LostAddListActivity
         startActivity(intent);      // intent
 
     }
-
-/**
- * método onActivityResult,,, no usado por ahora
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                //String result=data.getStringExtra("result");
-
-                lostPresenter.updateLost(lost);
-
-                // toast
-                Context context = getApplicationContext();
-                CharSequence text =
-                        "Actualizando "
-                        ;
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
-                adapterLost.notifyDataSetChanged();
-
-            }
-            if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }//onActivityResult
-
- */
 
 }

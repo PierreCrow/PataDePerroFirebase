@@ -94,6 +94,9 @@ public class a00MainActivity extends AppCompatActivity {
         toast.show();
 
         Intent intent = new Intent(this, a38LostSplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+
         String message = "algún dato de la mascota perdida";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

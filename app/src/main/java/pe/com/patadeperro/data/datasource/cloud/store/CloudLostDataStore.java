@@ -9,6 +9,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -30,6 +32,10 @@ public class CloudLostDataStore implements LostDataStore {
     private static final String TAG = "CloudLostDataStore";
     private FirebaseFirestore db;
 
+    ListenerRegistration lostsList_listenerRegistration;
+    RepositoryCallback lostList_repositoryCallback;
+    ;
+
     public CloudLostDataStore(FirebaseFirestore db) {
         //    this.db = FirebaseFirestore.getInstance();
         this.db = db;
@@ -38,8 +44,8 @@ public class CloudLostDataStore implements LostDataStore {
     @Override
     public void createLost(Lost lost, RepositoryCallback repositoryCallback) {
 
-        LostDataMapper lostDataMapper= new LostDataMapper();
-        CloudLost cloudLost=lostDataMapper.transformToCloud(lost);
+        LostDataMapper lostDataMapper = new LostDataMapper();
+        CloudLost cloudLost = lostDataMapper.transformToCloud(lost);
 
         Map<String, Object> lostH = new HashMap<>();
         // no olvidar el idCloud
@@ -93,8 +99,8 @@ public class CloudLostDataStore implements LostDataStore {
     @Override
     public void updateLost(Lost lost, RepositoryCallback repositoryCallback) {
 
-        LostDataMapper lostDataMapper= new LostDataMapper();
-        CloudLost cloudLost=lostDataMapper.transformToCloud(lost);
+        LostDataMapper lostDataMapper = new LostDataMapper();
+        CloudLost cloudLost = lostDataMapper.transformToCloud(lost);
 
         Map<String, Object> data = new HashMap<>();
 
@@ -140,8 +146,8 @@ public class CloudLostDataStore implements LostDataStore {
     @Override
     public void deleteLost(Lost lost, RepositoryCallback repositoryCallback) {
 
-        LostDataMapper lostDataMapper= new LostDataMapper();
-        CloudLost cloudLost=lostDataMapper.transformToCloud(lost);
+        LostDataMapper lostDataMapper = new LostDataMapper();
+        CloudLost cloudLost = lostDataMapper.transformToCloud(lost);
 
         Map<String, Object> data = new HashMap<>();
         // no olvidar el idCloud
@@ -171,16 +177,14 @@ public class CloudLostDataStore implements LostDataStore {
         db.collection(Constants.FIREBASE_TABLES.LOST).document(cloudLost.getIdCloud())
                 .delete()
                 .addOnSuccessListener
-                        (new OnSuccessListener<Void>()
-                        {
+                        (new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 repositoryCallback.onSuccess(lost);
                             }
                         })
                 .addOnFailureListener
-                        (new OnFailureListener()
-                        {
+                        (new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 repositoryCallback.onError(e);
@@ -191,10 +195,22 @@ public class CloudLostDataStore implements LostDataStore {
     @Override
     public void lostsList(RepositoryCallback repositoryCallback) {
 
-        LostDataMapper lostDataMapper= new LostDataMapper();
+        // self destruction
+        if (a38LostSplashActivity.flagLostsListLoaded) {
 
-        db.collection(Constants.FIREBASE_TABLES.LOST)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            if (a38LostSplashActivity.lostsList_listenerRegistration != null)
+                a38LostSplashActivity.lostsList_listenerRegistration.remove();
+
+            return;
+        }
+
+        // [test for detach] start
+        Query query = db.collection(Constants.FIREBASE_TABLES.LOST);
+
+//        ListenerRegistration registration = query.addSnapshotListener(
+        lostsList_listenerRegistration = query.addSnapshotListener(
+                new EventListener<QuerySnapshot>() {
+                    // [START_EXCLUDE]
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
                                         @Nullable FirebaseFirestoreException e) {
@@ -202,9 +218,8 @@ public class CloudLostDataStore implements LostDataStore {
                             repositoryCallback.onError(e);
                             return;
                         }
-                        if (a38LostSplashActivity.flagLostsListLoaded){
-                            return;
-                        }
+
+                        LostDataMapper lostDataMapper = new LostDataMapper();
 
                         List<Lost> losts = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -234,26 +249,26 @@ public class CloudLostDataStore implements LostDataStore {
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.LOST_lostAddress),
                                     doc.getString(Constants.FIREBASE_TABLES_FIELDS.LOST_found)
 
-                                    );
+                            );
 
                             Lost lost = lostDataMapper.transformFromCloud(cloudLost);
                             losts.add(lost);
                         }
                         repositoryCallback.onSuccess(losts);
                     }
+                    // [END_EXCLUDE]
                 });
+
+        a38LostSplashActivity.lostsList_listenerRegistration = this.lostsList_listenerRegistration;
+
+        // Stop listening to changes
+//        lostsList_listenerRegistration.remove();
+        // [END detach_errors]
+
+
+        // [test for detach] end
+
     }
 
-    /**
-     * verifyLostExist ... no por ahora
-     *
-     @Override
-     public void verifyLostExist(String phone, RepositoryCallback repositoryCallback) {
-
-     // exigido por el IDE... ¿?
-     // Lo dejamos vacío
-
-     }
-     */
 
 }

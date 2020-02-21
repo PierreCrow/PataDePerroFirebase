@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.com.patadeperro.R;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,9 +34,10 @@ public class a38LostSplashActivity
     private Long t1Long = System.currentTimeMillis();
 
     public static Boolean flagLostsListLoaded = false;
+    public static ListenerRegistration lostsList_listenerRegistration;
 
-    LostPresenter lostPresenterS;
-//    public static ArrayList listaLost = new ArrayList<>();
+    public static LostPresenter lostPresenterS;
+    public static ArrayList listaLost = new ArrayList<>();
 
 
     @Override
@@ -62,6 +64,7 @@ public class a38LostSplashActivity
         lostPresenterS = new LostPresenter();
         lostPresenterS.addView(this);
 
+        flagLostsListLoaded = false;     // 2020-02-21 ecv: control para activar
         lostPresenterS.loadLosts(Constants.CLOUD);    // carga, sigue en lostListLoaded()
 
     }
@@ -89,10 +92,19 @@ public class a38LostSplashActivity
     @Override
     public void lostsListLoaded(ArrayList<Lost> losts) {
 
-        flagLostsListLoaded = true;     // 2020-02-20 ecv: Bloquea agente CloudLostDataStore lostsList
+
+        if (!flagLostsListLoaded) {
+
+            listaLost = losts;
+
+            flagLostsListLoaded = true;     // 2020-02-20 ecv: control para destruir y anular
+            lostPresenterS.loadLosts(Constants.CLOUD);    // 2020-02-21 ecv: self-destruction of agent
+//            return;
+        }
+
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("listaLost", (Serializable) losts);
+        bundle.putSerializable("listaLost", (Serializable) listaLost);
 
         //** Y envía el paquete a siguiente pantlla...
         Intent intent = new Intent(this, MapLocActivity.class);
@@ -107,6 +119,7 @@ public class a38LostSplashActivity
         }
 
         startActivity(intent);
+
 
     }
 
@@ -130,10 +143,27 @@ public class a38LostSplashActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        t1Long = System.currentTimeMillis();    // y aquí para, y calcula si debe esperar
+        Long txLong = t1Long-t0Long;            // tiempo transcurrido
+        Long tzLong = SPLASH_DISPLAY_LENGTH - txLong;   // lo que falta para SPLASH time
+        int intSecondsToWaitSplash = tzLong.intValue()/1000;
+        if(tzLong>0){
+            this.Sleep(intSecondsToWaitSplash);
+        }
+
+
+    }
+    @Override
     protected void onPause() {
         super.onPause();
 
-        finish();       // 2020-02-19 ECV: Datos cargados? Ya no regresa.
+//        finish();
+        // 2020-02-19 ECV: Datos cargados? Ya no regresa.
+        // 2020-02-21 ECV: Con finish(), si se vuelve a llamar, se queda congelado.
+
 
     }
 

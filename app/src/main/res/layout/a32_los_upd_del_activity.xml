@@ -3,139 +3,202 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.a32LostUpdDelActivity"
 
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
-
-<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView android:id="@+id/tv32position"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="000"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <EditText android:id="@+id/et32petName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="DbPet name"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32race"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Address"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="gender"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="color"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="age"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32contactPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="contact phone number"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32contactName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="contac name"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="description"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32reward"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="reward"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32rewardAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="reward amount"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32country"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="country"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="State"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="City"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32urlImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="URL image"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32lat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Lat"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32lng"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Lng"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32lostAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="lost address"
-        android:inputType="textPersonName" />
-    <EditText android:id="@+id/et32found"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="found"
-        android:inputType="textPersonName" />
+        <TextView
+            android:id="@+id/tv32position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="000" />
 
-    <Button
-        android:id="@+id/btnLostPet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="UpdateAndFinish"
-        android:text="Update Lost" />
+        <TextView
+            android:id="@+id/tv32petImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Pet photo (B64)"
+            android:inputType="textPersonName" />
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/iv32petImage"
+            android:layout_width="110dp"
+            android:layout_height="107dp"
+            android:adjustViewBounds="true"
+            android:background="#03A9F4"
+            android:clickable="true"
+            android:contentDescription="espacio para foto (clic-foto)"
+            android:hint="Pet photo (bmp)"
+            android:onClick="onImgClicked" />
+
+        <EditText
+            android:id="@+id/et32petName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="DbPet name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32race"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Address"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="gender"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="color"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="age"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32contactPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="contact phone number"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32contactName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="contac name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="description"
+            android:inputType="textPersonName"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/et32reward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="reward"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32rewardAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="reward amount"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="country"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="State"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32urlImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="URL image"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32lat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Lat"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32lng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Lng"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32lostAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="lost address"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et32found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="found"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnLostPet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="UpdateAndFinish"
+            android:text="Update Lost" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="DeleteAndFinish"
+            android:text="Delete" />
+
+    </LinearLayout>
 
 </ScrollView>
