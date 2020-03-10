@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.bumptech.glide:glide:4.6.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/86454a0124dbaf2f69a7e303fb7fe665/jetified-glide-4.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/86454a0124dbaf2f69a7e303fb7fe665/jetified-glide-4.6.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.6.0/2c21a2b20f4d53541502e49dcfd7f79362fccb22/glide-4.6.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.6.0/c91039db37a07095f725a912b08945c47f9b0dd9/glide-4.6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

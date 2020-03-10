@@ -41,7 +41,7 @@
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.a00MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,13 +76,13 @@
 
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.MapActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.ListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name="pe.com.patadeperro.presentation.ui.activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

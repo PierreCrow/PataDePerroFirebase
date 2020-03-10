@@ -335,7 +335,7 @@ public class a32LostUpdDelActivity
         CharSequence text = "Clic imagen... ";   // validar primero
         Context thisActivity = this;
 
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             text = text + "cámara no disponible... ";
         }
 
@@ -399,6 +399,8 @@ public class a32LostUpdDelActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
