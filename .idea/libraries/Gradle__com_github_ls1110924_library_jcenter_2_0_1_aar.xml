@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.ls1110924.library:jcenter:2.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d07330f37c2b47e002b943aa19459b3d/jetified-jcenter-2.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d07330f37c2b47e002b943aa19459b3d/jetified-jcenter-2.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4a7ead82dfe0528273e09673996d2153/jetified-jcenter-2.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4a7ead82dfe0528273e09673996d2153/jetified-jcenter-2.0.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ls1110924.library/jcenter/2.0.1/1875d6aa4c0dce6ae3fbbbae4bec31586ab8442f/jcenter-2.0.1-javadoc.jar!/" />

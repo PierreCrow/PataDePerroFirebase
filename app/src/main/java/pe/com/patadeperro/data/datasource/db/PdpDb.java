@@ -21,14 +21,17 @@ import pe.com.patadeperro.domain.model.Pet;
 import pe.com.patadeperro.domain.model.Usuario;
 
 @Database(entities = {
+
         DbUsuario.class,
         DbPet.class,
         DbLost.class,
+
         Usuario.class,
         Pet.class,
         Lost.class,
-        Abuse.class},
-        version = 3 , exportSchema = false) // <-- ** version **
+        Abuse.class
+},
+        version = 3, exportSchema = false) // <-- ** version **
 
 public abstract class PdpDb extends RoomDatabase {
 
@@ -40,7 +43,7 @@ public abstract class PdpDb extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (PdpDb.class) {
                 if (INSTANCE == null) {
-                    mContext=context.getApplicationContext();
+                    mContext = context.getApplicationContext();
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             PdpDb.class, DB_NAME)
                             .fallbackToDestructiveMigration()
@@ -49,7 +52,7 @@ public abstract class PdpDb extends RoomDatabase {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                     super.onCreate(db);
-                                   // Log.i(TAG, "populating with data...");
+                                    // Log.i(TAG, "populating with data...");
 //                                    new PopulateDbAsync(INSTANCE).execute();
                                 }
                             }).build();
@@ -60,8 +63,11 @@ public abstract class PdpDb extends RoomDatabase {
     }
 
     public abstract LostDAO lostDAO();
+
     public abstract AbuseDAO abuseDAO();
+
     public abstract PetDAO petDAO();
+
     public abstract UsuarioDAO usuarioDAO();
 
 }
